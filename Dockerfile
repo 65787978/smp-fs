@@ -54,7 +54,7 @@ FROM alpine:3.18 AS final
 COPY --from=build . .
 
 # Expose the port that the application listens on.
-EXPOSE 3053
+EXPOSE 8080
 
 # What the container should run when it is started.
 CMD ["./target/release/smp-fs"]
