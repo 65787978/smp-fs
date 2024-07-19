@@ -184,5 +184,5 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    launch(app);
+    launch_fullstack(app);
 }
