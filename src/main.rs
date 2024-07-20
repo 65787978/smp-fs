@@ -184,5 +184,9 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    launch_fullstack(app);
+    // launch_fullstack(app);
+    let your_addr = "127.0.0.1:8050";
+    LaunchBuilder::new()
+        .with_cfg(server_only! {Config::new().addr(your_addr)})
+        .launch(app)
 }
