@@ -18,7 +18,8 @@ asset_dir = "assets"
 # HTML title tag content
 title = "smp-fs"
 
-port = "8050"
+[[web.proxy]]
+backend = "http://localhost:8050"
 
 [web.watcher]
 
