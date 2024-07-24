@@ -2778,6 +2778,7 @@ name = "smp-fs"
 version = "0.1.0"
 dependencies = [
  "dioxus",
+ "dioxus-fullstack",
  "manganis",
  "reqwest 0.12.5",
  "serde",
