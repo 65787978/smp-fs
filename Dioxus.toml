@@ -18,6 +18,9 @@ asset_dir = "assets"
 # HTML title tag content
 title = "smp-fs"
 
+[[web.proxy]]
+backend = "http://localhost:8050"
+
 [web.watcher]
 
 # when watcher trigger, regenerate the `index.html`
