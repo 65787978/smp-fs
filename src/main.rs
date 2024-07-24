@@ -188,7 +188,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);
+    let serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192, 168, 0, 13)), 8060);
     // launch_fullstack(app);
     LaunchBuilder::new()
         .with_cfg(server_only! {Config::new().addr(serve_on_addr)})
