@@ -2777,11 +2777,13 @@ checksum = "3c5e1a9a646d36c3599cd173a41282daf47c44583ad367b8e6837255952e5c67"
 name = "smp-fs"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "dioxus",
  "dioxus-fullstack",
  "manganis",
  "reqwest 0.12.5",
  "serde",
+ "serde_json",
  "simple_logger",
  "tracing",
  "tracing-subscriber",

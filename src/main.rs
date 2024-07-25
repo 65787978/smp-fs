@@ -6,7 +6,10 @@
 
 #![allow(non_snake_case, unused)]
 
-mod api_data;
+mod data {
+    pub mod api_data;
+    pub mod structs;
+}
 mod block_page;
 mod landing_page;
 mod miner_page;
@@ -16,6 +19,7 @@ use crate::block_page::BlockPage;
 use crate::landing_page::LandingPage_slice;
 use crate::miner_page::MinerPage_slice;
 use crate::utils::*;
+use data::api_data;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
 use dioxus::prelude::LaunchBuilder;
@@ -25,7 +29,7 @@ use serde::{Deserialize, Serialize};
 
 const _TAILWIND_URL: &str = manganis::mg!(file("public/tailwind.css"));
 
-#[derive(Clone, Routable, Debug, PartialEq)]
+#[derive(Clone, Routable, Debug, PartialEq, Deserialize)]
 #[rustfmt::skip]
 enum Route {
     #[layout(NavBar)]
