@@ -11,7 +11,7 @@ pub fn InfoCardDouble(
     heading_2: &str,
 ) -> Element {
     rsx! {
-        div {class:"min-h-[{min_h}rem] rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg",
+        div {class:"min-h-[{min_h}rem] text-center rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg",
             div {class:"flex justify-around m-2",
                 div {
                     div {class:"text-2xl", "{value_1}", a {class:"text-sm", "{unit_1}"}}

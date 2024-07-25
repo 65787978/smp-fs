@@ -17,7 +17,7 @@ pub fn MinerPage_slice(address: String) -> Element {
                     div {class:"grid sm:grid-cols-3",
                         {InfoCardDouble("8", "m-2", stats.miner.pending_shares.to_string().as_str(), "", "Pending Shares", stats.miner.workers_number.to_string().as_str(), "", "Active Workers")}
                         {InfoCardDouble("8", "m-2", stats.miner.paid_24h.to_string().as_str(), "Σ", "24h Paid", stats.miner.total_paid.to_string().as_str(), "Σ", "Total Paid")}
-                        {InfoCardDouble("8", "m-2", stats.miner.hashrate_current.to_string().as_str(), "Mh/s", "Current Hashrate", stats.miner.hashrate_24h.to_string().as_str(), "Mh/s", "24h Average Hashrate")}
+                        {InfoCardDouble("8", "m-2", stats.miner.hashrate_current.to_string().as_str(), "Mh/s", "Current Hashrate", stats.miner.hashrate_24h.to_string().as_str(), "Mh/s", "24h Average")}
                     }
             }
         }
