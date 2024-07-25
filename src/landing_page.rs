@@ -25,10 +25,10 @@ pub fn LandingPage_slice() -> Element {
                 }
 
                 div {class:"grid sm:grid-cols-4",
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", "stats.network.hashrate", "Th/s", "Network Hashrate")}
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", "stats.network.height", "", "Network Height")}
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", "stats.pool.hashrate", "Gh/s", "Pool Hashrate")}
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", "stats.pool.connected_miners", "", "Pool Miners")}
+                    {InfoCard("8", "bg-gray-300 m-4 text-center", "{stats.network.hashrate}", "Th/s", "Network Hashrate")}
+                    {InfoCard("8", "bg-gray-300 m-4 text-center", "{stats.network.height}", "", "Network Height")}
+                    {InfoCard("8", "bg-gray-300 m-4 text-center", "{stats.pool.hashrate}", "Gh/s", "Pool Hashrate")}
+                    {InfoCard("8", "bg-gray-300 m-4 text-center", "{stats.pool.connected_miners}", "", "Pool Miners")}
                 }
 
                 div {class:"grid sm:grid-cols-2",
