@@ -26,7 +26,29 @@ pub fn InfoCardDouble(
     }
 }
 
-pub fn InfoCard(min_h: &str, classes: &str, value: &str, unit: &str, heading: &str) -> Element {
+pub fn InfoCard_u64(min_h: &str, classes: &str, value: u64, unit: &str, heading: &str) -> Element {
+    rsx! {
+        div {class:"min-h-[{min_h}rem] rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg",
+            div {class:"grid grid-col-1 m-10",
+                a {class:"text-2xl", "{value}", a {class:"text-sm", "{unit}"}}
+                p {class:"text-m", "{heading}"}
+            }
+        },
+    }
+}
+
+pub fn InfoCard_f64(min_h: &str, classes: &str, value: f64, unit: &str, heading: &str) -> Element {
+    rsx! {
+        div {class:"min-h-[{min_h}rem] rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg",
+            div {class:"grid grid-col-1 m-10",
+                a {class:"text-2xl", "{value}", a {class:"text-sm", "{unit}"}}
+                p {class:"text-m", "{heading}"}
+            }
+        },
+    }
+}
+
+pub fn InfoCard_str(min_h: &str, classes: &str, value: &str, unit: &str, heading: &str) -> Element {
     rsx! {
         div {class:"min-h-[{min_h}rem] rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg",
             div {class:"grid grid-col-1 m-10",
