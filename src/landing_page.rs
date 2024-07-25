@@ -25,15 +25,15 @@ pub fn LandingPage_slice() -> Element {
                 }
 
                 div {class:"grid sm:grid-cols-4",
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", stats.network.hashrate.to_string().as_str(), "Th/s", "Network Hashrate")}
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", stats.network.height.to_string().as_str(), "", "Network Height")}
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", stats.pool.hashrate.to_string().as_str(), "Gh/s", "Pool Hashrate")}
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", stats.pool.connected_miners.to_string().as_str(), "", "Pool Miners")}
+                    {InfoCard("8", "m-4", stats.network.hashrate.to_string().as_str(), "Th/s", "Network Hashrate")}
+                    {InfoCard("8", "m-4", stats.network.height.to_string().as_str(), "", "Network Height")}
+                    {InfoCard("8", "m-4", stats.pool.hashrate.to_string().as_str(), "Gh/s", "Pool Hashrate")}
+                    {InfoCard("8", "m-4", stats.pool.connected_miners.to_string().as_str(), "", "Pool Miners")}
                 }
 
                 div {class:"grid sm:grid-cols-2",
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", "URL: pool.ergo-sig-mining.net:3053", "", "Under 10 Gh/s")}
-                    {InfoCard("8", "bg-gray-300 m-4 text-center", "URL: pool.ergo-sig-mining.net:3055", "", "Over 10 Gh/s")}
+                    {InfoCard("8", "m-4", "URL: pool.ergo-sig-mining.net:3053", "", "Under 10 Gh/s")}
+                    {InfoCard("8", "m-4", "URL: pool.ergo-sig-mining.net:3055", "", "Over 10 Gh/s")}
                 }
 
                 br{}
