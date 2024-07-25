@@ -92,12 +92,12 @@ fn NavBar() -> Element {
     rsx! {
             nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-lg shadow-lg space-x-4 py-2",
                 div {class:"max-w-screen-xl flex flex-wrap mx-auto ps-2",
-                    button { "data-collapse-toggle":"navbar-default", "type":"button", "class":"transition duration-300 ease-in-out inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600", "aria-controls":"navbar-default", "aria-expanded":"false",
-                        svg {class:"h-6 w-6", fill:"none", stroke:"currentColor", "viewBox":"0 0 24 24", xmlns:"http://www.w3.org/2000/svg",
-                            path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
-                        }
-                    }
-                    div {class:"hidden w-full md:block md:flex md:flex-row md:justify-center space-x-4",
+                    // button { "data-collapse-toggle":"navbar-default", "type":"button", "class":"transition duration-300 ease-in-out inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600", "aria-controls":"navbar-default", "aria-expanded":"false",
+                    //     svg {class:"h-6 w-6", fill:"none", stroke:"currentColor", "viewBox":"0 0 24 24", xmlns:"http://www.w3.org/2000/svg",
+                    //         path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
+                    //     }
+                    // }'hidden' in the class below
+                    div {class:"w-full md:block md:flex md:flex-row md:justify-center space-x-4",
                         a {onclick: move |_| {navigator.push(Route::LandingPage {}); current_page_home.set("Home")}, class:"font-bold px-3 py-2 text-slate-700 {landing_page_ring} rounded-lg hover:bg-teal-200/50 hover:text-slate-900", "Home"}
                         a {onclick: move |_| {navigator.push(Route::BlockPage {}); current_page_home.set("Blocks")}, class:"font-bold px-3 py-2 text-slate-700 {block_page_ring} rounded-lg hover:bg-teal-200/50 hover:text-slate-900", "Blocks"}
                         a{href:"/", class:"font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-teal-200/50 hover:text-slate-900 text-center", "Support"}
@@ -130,7 +130,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);
