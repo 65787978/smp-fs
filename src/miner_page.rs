@@ -1,4 +1,4 @@
-use crate::{data::api_data::get_data, utils::*};
+use crate::{data::api_data::*, utils::*};
 use dioxus::prelude::*;
 
 pub fn MinerPage_slice(address: String) -> Element {
@@ -8,10 +8,11 @@ pub fn MinerPage_slice(address: String) -> Element {
     match &*data.read_unchecked() {
         Some(Ok(stats)) => {
             rsx! {
+                {InfoCard("8", "", shorten_string(address().as_str(), 30).as_str(), "", "Miner Address")}
                     div {class:"grid sm:grid-cols-3 gap-2 m-2",
-                        {Card("9", "bg-blue-300", address())}
-                        {InfoCardDouble("8", "bg-gray-300 m-4 text-center", stats.pool.effort.to_string().as_str(), "%", "Pool Effort", stats.miner.paid_24h.to_string().as_str(), " ERG", "24h Paid")}
-                        {InfoCardDouble("8", "bg-gray-300 m-4 text-center", stats.miner.hashrate_current.to_string().as_str(), "Mh/s", "Miner Hashrate", stats.miner.workers_number.to_string().as_str(), "", "Active Workers")}
+                        {InfoCardDouble("24", "m-2", stats.network.hashrate.to_string().as_str(), "Th/s", "Network Hashrate", stats.pool.hashrate.to_string().as_str(), "Gh/s", "Pool Hashrate")}
+                        {InfoCardDouble("24", "m-2", stats.network.reward.to_string().as_str(), "Σ", "Block Reward", stats.network.price.to_string().as_str(), "", "Σ / SigUSD")}
+                        {InfoCardDouble("24", "m-2", stats.pool.effort.to_string().as_str(), "%", "Current Pool Effort", stats.miner.round_contribution.to_string().as_str(), "%", "Participation")}
                     }
             }
         }

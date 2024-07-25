@@ -12,14 +12,14 @@ pub fn InfoCardDouble(
 ) -> Element {
     rsx! {
         div {class:"min-h-[{min_h}rem] rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg",
-            div {class:"grid grid-col-2 m-1",
+            div {class:"flex justify-evenly my-2",
                 div {
-                    a {class:"text-2xl", "{value_1}", a {class:"text-sm", "{unit_1}"}}
-                    p {class:"text-m", "{heading_1}"}
+                    div {class:"text-2xl", "{value_1}", a {class:"text-sm", "{unit_1}"}}
+                    a {class:"text-m", "{heading_1}"}
                 }
                 div {
-                    a {class:"text-2xl", "{value_2}", a {class:"text-sm", "{unit_2}"}}
-                    p {class:"text-m", "{heading_2}"}
+                    div {class:"text-2xl", "{value_2}", a {class:"text-sm", "{unit_2}"}}
+                    a {class:"text-m", "{heading_2}"}
                 }
             }
         },
