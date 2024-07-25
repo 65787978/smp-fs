@@ -6,15 +6,18 @@
 
 #![allow(non_snake_case, unused)]
 
+mod api_data;
 mod block_page;
+mod landing_page;
 mod miner_page;
 mod utils;
 
-use std::net::{IpAddr, Ipv4Addr, SocketAddr};
-
 use crate::block_page::BlockPage;
+use crate::landing_page::LandingPage_slice;
 use crate::miner_page::MinerPage_slice;
 use crate::utils::*;
+use std::net::{IpAddr, Ipv4Addr, SocketAddr};
+
 use dioxus::prelude::LaunchBuilder;
 use dioxus::prelude::*;
 use dioxus_fullstack::Config;
@@ -74,39 +77,7 @@ fn app() -> Element {
 
 #[component]
 fn LandingPage() -> Element {
-    // let mut data = use_server_future(move || get_data());
-    rsx! {
-        div {class:"grid sm:grid-cols-1 justify-items-center",
-            div { class:"m-3",
-                img {max_width:"10rem", max_height:"10rem",src: "sig-logo.png"}
-            }
-
-            div {class:"font-mono text-2xl font-bold", "SIGMANAUTS"}
-
-            div {class:"text-lg text-center underline decoration-orange-500", "A community to empower users of the Ergo blockchain"}
-
-
-            {Card("11", "bg-inherit m-4 text-center text-xl", "Welcome to the Sigmanauts pool, a DAO-driven, community-run mining pool dedicated to supporting the Ergo ecosystem. Joining us not only contributes to the Ergo community (fees go to Sigmanauts treasury) but also offers hourly bonus token payments.".to_string())},
-
-        }
-
-        div {class:"grid sm:grid-cols-4",
-            {InfoCard("8", "bg-gray-300 m-4 text-center", "19.04", "Th/s", "Network Hashrate")}
-            {InfoCard("8", "bg-gray-300 m-4 text-center", "1308632", "", "Network Height")}
-            {InfoCard("8", "bg-gray-300 m-4 text-center", "65", "Gh/s", "Pool Hashrate")}
-            {InfoCard("8", "bg-gray-300 m-4 text-center", "394", "", "Pool Miners")}
-        }
-
-        div {class:"grid sm:grid-cols-2",
-            {InfoCard("8", "bg-gray-300 m-4 text-center", "URL: pool.ergo-sig-mining.net:3053", "", "Under 10 Gh/s")}
-            {InfoCard("8", "bg-gray-300 m-4 text-center", "URL: pool.ergo-sig-mining.net:3055", "", "Over 10 Gh/s")}
-        }
-
-        br{}
-        br{}
-        br{}
-
-    }
+    rsx!({ LandingPage_slice() })
 }
 
 #[component]
@@ -169,18 +140,6 @@ fn PageNotFound(route: String) -> Element {
     }
 }
 
-#[server]
-async fn post_server_data(data: String) -> Result<(), ServerFnError> {
-    println!("Server received: {}", data);
-
-    Ok(())
-}
-
-#[server]
-async fn get_server_data() -> Result<String, ServerFnError> {
-    Ok(reqwest::get("https://httpbin.org/ip").await?.text().await?)
-}
-
 fn main() {
     #[cfg(feature = "web")]
     tracing_wasm::set_as_global_default();
@@ -188,7 +147,14 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192, 168, 0, 13)), 8060);
+    let debug_flag = 1;
+    let serve_on_addr: SocketAddr;
+    if debug_flag == 0 {
+        serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192, 168, 0, 13)), 8060);
+    } else {
+        serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);
+    }
+
     // launch_fullstack(app);
     LaunchBuilder::new()
         .with_cfg(server_only! {Config::new().addr(serve_on_addr)})

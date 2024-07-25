@@ -4,11 +4,11 @@ use dioxus::prelude::*;
 pub fn MinerPage_slice(address: String) -> Element {
     rsx! {
 
-            div {class:"grid sm:grid-cols-4 gap-4 m-4",
+            div {class:"grid sm:grid-cols-3 gap-2 m-2",
                 {Card("9", "bg-blue-300", address)}
-                {Card("9", "bg-gray-300", "02".to_string())}
-                {Card("9", "bg-gray-300", "03".to_string())}
-                {Card("9", "bg-gray-300", "04".to_string())}
+                {InfoCardDouble("8", "bg-gray-300 m-4 text-center", "19.04", "Th/s", "Network Hashrate", "86.55", "Gh/s", "Pool Hashrate")}
+                {InfoCardDouble("8", "bg-gray-300 m-4 text-center", "19.04", "Th/s", "Network Hashrate", "86.55", "Gh/s", "Pool Hashrate")}
+                // {Card("9", "bg-gray-300", "04".to_string())}
             }
     }
 }
