@@ -81,8 +81,6 @@ fn NavBar() -> Element {
     let navigator = use_navigator();
     let mut current_page_home = use_signal(|| "");
 
-    let (mut landing_page_ring, mut block_page_ring) = ("", "");
-
     rsx! {
             nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-lg shadow-lg space-x-4 py-2",
                 div {class:"max-w-screen-xl flex flex-wrap mx-auto ps-2",
