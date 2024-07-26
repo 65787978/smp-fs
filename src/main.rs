@@ -10,16 +10,19 @@ mod data {
     pub mod api_data;
     pub mod structs;
 }
-mod block_page;
-mod landing_page;
-mod miner_page;
+mod pages {
+    pub mod block_page;
+    pub mod landing_page;
+    pub mod miner_page;
+}
+
 mod utils;
 
-use crate::block_page::BlockPage;
-use crate::landing_page::LandingPage_slice;
-use crate::miner_page::MinerPage_slice;
 use crate::utils::*;
 use data::api_data;
+use pages::block_page::BlockPage;
+use pages::landing_page::LandingPage_slice;
+use pages::miner_page::MinerPage_slice;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
 use dioxus::prelude::LaunchBuilder;
@@ -130,7 +133,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);
