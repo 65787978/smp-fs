@@ -83,15 +83,6 @@ fn NavBar() -> Element {
 
     let (mut landing_page_ring, mut block_page_ring) = ("", "");
 
-    match current_page_home() {
-        "Home" => landing_page_ring = "border border-gray-500 ring-1 ring-gray-500",
-        "Blocks" => block_page_ring = "border border-gray-500 ring-1 ring-gray-500",
-        _ => {
-            landing_page_ring = "";
-            block_page_ring = "";
-        }
-    };
-
     rsx! {
             nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-lg shadow-lg space-x-4 py-2",
                 div {class:"max-w-screen-xl flex flex-wrap mx-auto ps-2",
@@ -101,8 +92,8 @@ fn NavBar() -> Element {
                     //     }
                     // }'hidden' in the class below
                     div {class:"w-full md:block md:flex md:flex-row md:justify-center space-x-4",
-                        a {onclick: move |_| {navigator.push(Route::LandingPage {}); current_page_home.set("Home")}, class:"font-bold px-3 py-2 text-slate-700 {landing_page_ring} rounded-lg hover:bg-teal-200/50 hover:text-slate-900", "Home"}
-                        a {onclick: move |_| {navigator.push(Route::BlockPage {}); current_page_home.set("Blocks")}, class:"font-bold px-3 py-2 text-slate-700 {block_page_ring} rounded-lg hover:bg-teal-200/50 hover:text-slate-900", "Blocks"}
+                        a {onclick: move |_| {navigator.push(Route::LandingPage {}); current_page_home.set("Home")}, class:"font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-teal-200/50 hover:text-slate-900", "Home"}
+                        a {onclick: move |_| {navigator.push(Route::BlockPage {}); current_page_home.set("Blocks")}, class:"font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-teal-200/50 hover:text-slate-900", "Blocks"}
                         a{href:"/", class:"font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-teal-200/50 hover:text-slate-900 text-center", "Support"}
                         a{href:"/", class:"font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-teal-200/50 hover:text-slate-900 text-center underline decoration-red-500", "Donate"}
                         form {role:"search",  action:"/wallet/{address()}",
