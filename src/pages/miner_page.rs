@@ -25,7 +25,19 @@ pub fn MinerPage_slice(address: String) -> Element {
             rsx!()
         }
         None => {
-            rsx!()
+            rsx! {
+                {InfoCard("8", "mx-2 mb-4 mt-4", shorten_string(address().as_str(), 25).as_str(), "", "Miner Address")}
+                    div {class:"grid sm:grid-cols-3",
+                        {InfoCardDouble("8", "", "", "Th/s", "Network Hashrate", "", "Gh/s", "Pool Hashrate")}
+                        {InfoCardDouble("8", "", "", "Σ", "Block Reward", "", "", "Σ / SigUSD")}
+                        {InfoCardDouble("8", "","", "%", "Current Pool Effort", "", "%", "Participation")}
+                    }
+                    div {class:"grid sm:grid-cols-3",
+                        {InfoCardDouble("8", "", "", "", "Pending Shares", "", "", "Active Workers")}
+                        {InfoCardDouble("8", "", "", "Σ", "24h Paid", "", "Σ", "Total Paid")}
+                        {InfoCardDouble("8", "", "", "Mh/s", "Current Hashrate", "", "Mh/s", "24h Average")}
+                    }
+            }
         }
     }
 }

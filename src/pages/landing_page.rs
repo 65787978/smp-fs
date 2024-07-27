@@ -62,7 +62,7 @@ pub fn LandingPage_slice() -> Element {
                 }
 
                 div {class:"grid sm:grid-cols-4",
-                    {InfoCardPlaceholder("8", "")}
+                    {InfoCardPlaceholder("8", " ")}
                     {InfoCardPlaceholder("8", "")}
                     {InfoCardPlaceholder("8", "")}
                     {InfoCardPlaceholder("8", "")}
