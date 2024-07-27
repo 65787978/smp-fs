@@ -144,7 +144,7 @@ impl NetworkStats {
             .clone()
             .as_f64()
             .expect("network diff not avialable")
-            / 10_0000_000_000_000.0)
+            / 10_000_000_000_000.0)
             .round()
             / 100.0;
 
