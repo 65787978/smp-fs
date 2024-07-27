@@ -25,8 +25,8 @@ pub fn BlockPage() -> Element {
         match &*block_data.read_unchecked() {
             Some(Ok(block_stats)) => {
                 rsx!(
-                    div {class:"text-center rounded-lg bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2 mt-4",
-                        div {class:"relative overflow-x-auto shadow-md sm:rounded-lg",
+                    div {class:"text-center rounded-lg bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2 m-2",
+                        div {class:"overflow-x-scroll shadow-md sm:rounded-lg",
                             table {class: "w-full text-sm text-center",
                                     thead { class:"uppercase bg-slate-50/60",
                                         tr{

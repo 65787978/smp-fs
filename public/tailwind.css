@@ -554,6 +554,18 @@ video {
   --tw-contain-style:  ;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .fixed {
   position: fixed;
 }
@@ -627,6 +639,10 @@ video {
 
 .mt-2 {
   margin-top: 0.5rem;
+}
+
+.me-2 {
+  margin-inline-end: 0.5rem;
 }
 
 .block {
@@ -719,6 +735,14 @@ video {
   animation: spin 1s linear infinite;
 }
 
+.grid-rows-5 {
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -767,6 +791,10 @@ video {
 
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
 }
 
 .rounded-full {
@@ -1150,6 +1178,10 @@ video {
 }
 
 @media (min-width: 640px) {
+  .sm\:grid {
+    display: grid;
+  }
+
   .sm\:grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -1164,6 +1196,14 @@ video {
 
   .sm\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .sm\:grid-rows-5 {
+    grid-template-rows: repeat(5, minmax(0, 1fr));
   }
 
   .sm\:rounded-lg {
