@@ -11,8 +11,8 @@ pub fn InfoCardDouble(
     heading_2: &str,
 ) -> Element {
     rsx! {
-        div {class:"min-h-[{min_h}rem] text-center rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg",
-            div {class:"flex justify-around m-2",
+        div {class:"min-h-[{min_h}rem] text-center rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+            div {class:"flex justify-around m-6",
                 div {
                     div {class:"text-2xl", "{value_1}", a {class:"text-sm", "{unit_1}"}}
                     a {class:"text-m", "{heading_1}"}
@@ -28,12 +28,24 @@ pub fn InfoCardDouble(
 
 pub fn InfoCard(min_h: &str, classes: &str, value: &str, unit: &str, heading: &str) -> Element {
     rsx! {
-        div {class:"min-h-[{min_h}rem] text-center rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg",
-            div {class:"grid grid-col-1 truncate m-2",
-                a {class:"text-2xl", "{value}", a {class:"text-sm", "{unit}"}}
-                p {class:"text-m", "{heading}"}
+        div {class:"min-h-[{min_h}rem] text-center rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+            div {class:"flex justify-around m-6",
+                div {
+                    div {class:"text-2xl", "{value}", a {class:"text-sm", "{unit}"}}
+                    a {class:"text-m", "{heading}"}
+                }
             }
-        },
+        }
+    }
+}
+
+pub fn InfoCardPlaceholder(min_h: &str, classes: &str) -> Element {
+    rsx! {
+        div {class:"min-h-[{min_h}rem] text-center rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+            div {class:"flex justify-around m-6",
+                svg {class:"animate-spin h-5 w-5 mr-3", "viewBox":"0 0 24 24"}
+            }
+        }
     }
 }
 
