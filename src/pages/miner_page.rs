@@ -19,6 +19,7 @@ pub fn MinerPage_slice(address: String) -> Element {
                         {InfoCardDouble("8", "", stats.miner.paid_24h.to_string().as_str(), "Σ", "24h Paid", stats.miner.total_paid.to_string().as_str(), "Σ", "Total Paid")}
                         {InfoCardDouble("8", "", stats.miner.hashrate_current.to_string().as_str(), "Mh/s", "Current Hashrate", stats.miner.hashrate_24h.to_string().as_str(), "Mh/s", "24h Average")}
                     }
+
             }
         }
         Some(Err(error)) => {

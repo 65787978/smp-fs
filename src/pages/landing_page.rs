@@ -36,9 +36,6 @@ pub fn LandingPage_slice() -> Element {
                     {InfoCard("8", "", "pool.ergo-sig-mining.net:3055", "", "URL over 10 Gh/s")}
                 }
 
-                br{}
-                br{}
-                br{}
 
             }
         }
@@ -73,10 +70,6 @@ pub fn LandingPage_slice() -> Element {
                     {InfoCardPlaceholder("8", "")}
                     {InfoCardPlaceholder("8", "")}
                 }
-
-                br{}
-                br{}
-                br{}
 
             }
         }

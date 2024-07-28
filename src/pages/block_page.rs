@@ -27,7 +27,7 @@ pub fn BlockPage() -> Element {
                 rsx!(
                     div {class:"text-center rounded-lg bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2 m-2",
                         div {class:"overflow-x-scroll shadow-md sm:rounded-lg",
-                            table {class: "w-full text-sm text-center",
+                            table {class: "w-full text-sm text-center flex-nowrap",
                                     thead { class:"uppercase bg-slate-50/60",
                                         tr{
                                             th{ scope: "col", "CREATED"}

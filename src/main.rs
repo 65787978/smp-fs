@@ -55,6 +55,8 @@ fn app() -> Element {
             div {class:"xl:container mx-auto h-full",
                 Router::<Route> {},
 
+                br {}
+                br {}
                 {Footer()}
             }
         }
@@ -79,24 +81,44 @@ fn MinerPage(address: String) -> Element {
 fn NavBar() -> Element {
     let mut address = use_signal(|| "".to_string());
     let navigator = use_navigator();
-    let mut current_page_home = use_signal(|| "");
+    let mut small_nav = use_signal(|| "");
 
     rsx! {
+
             nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-lg shadow-lg space-x-4 py-2", id:"navbar-default",
                 div {class:"max-w-screen-xl flex flex-wrap mx-auto ps-2",
-                    button { "data-collapse-toggle":"navbar-default", "type":"button", "class":"transition duration-300 ease-in-out inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600", "aria-controls":"navbar-default", "aria-expanded":"true",
+                    button { onclick: move |_| {
+                        if small_nav() != "hidden"{
+                            small_nav.set("hidden");
+                        }
+                        else {
+                            small_nav.set("");
+                        }
+                    },"type":"button", "class":"inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200",
                         svg {class:"h-6 w-6", fill:"none", stroke:"currentColor", "viewBox":"0 0 24 24", xmlns:"http://www.w3.org/2000/svg",
                             path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
                         }
                     }
-                    div {class:"hidden w-full md:block md:flex md:flex-row md:justify-center space-x-4",
-                        a {onclick: move |_| {navigator.push(Route::LandingPage {}); current_page_home.set("Home")}, class:"font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-teal-200/50 hover:text-slate-900", "Home"}
-                        a {onclick: move |_| {navigator.push(Route::BlockPage {}); current_page_home.set("Blocks")}, class:"font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-teal-200/50 hover:text-slate-900", "Blocks"}
-                        a{href:"/", class:"font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-teal-200/50 hover:text-slate-900 text-center", "Support"}
-                        a{href:"/", class:"font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-teal-200/50 hover:text-slate-900 text-center underline decoration-red-500", "Donate"}
-                        form {role:"search",  action:"/wallet/{address()}",
-                            div { class:"",
-                                input { name:"miningaddress", class:"px-2 py-3 bg-white/50 border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-gray-500 focus:ring-gray-500 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
+
+                    div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
+                    text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",
+                        div {
+                            a {onclick: move |_| {navigator.push(Route::LandingPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
+                        }
+
+                        div { a {onclick: move |_| {navigator.push(Route::BlockPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
+                        }
+
+                        div { a{href:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Support"}
+                        }
+
+                        div { a{href:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-600 rounded-lg hover:text-black underline decoration-red-500 m-2 ", "Donate"}
+                        }
+
+                        div { form {role:"search",  action:"/wallet/{address()}",
+                                div { class:"",
+                                    input { name:"miningaddress", class:"bg-white/50 border py-2 px-2 border-slate-300 placeholder-slate-400 focus:outline-none focus:border-gray-500 focus:ring-gray-500 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
+                                }
                             }
                         }
                     }
@@ -122,7 +144,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);
