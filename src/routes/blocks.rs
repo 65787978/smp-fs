@@ -4,7 +4,7 @@ use dioxus::prelude::*;
 pub fn BlockPage() -> Element {
     let mut block_data = use_server_future(move || async move { get_block_data().await })?;
     let mut global_data =
-        use_server_future(move || async move { get_landing_page_data("".to_string()).await })?;
+        use_server_future(move || async move { get_home_page_data("".to_string()).await })?;
 
     rsx! {
         match &*global_data.read_unchecked() {

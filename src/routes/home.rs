@@ -1,11 +1,11 @@
-use crate::data::api_data::get_landing_page_data;
+use crate::data::api_data::get_home_page_data;
 use crate::utils::*;
 use dioxus::prelude::*;
 
 #[component]
-pub fn LandingPage() -> Element {
+pub fn HomePage() -> Element {
     let mut data =
-        use_server_future(move || async move { get_landing_page_data("".to_string()).await })?;
+        use_server_future(move || async move { get_home_page_data("".to_string()).await })?;
 
     match &*data.read_unchecked() {
         Some(Ok(stats)) => {

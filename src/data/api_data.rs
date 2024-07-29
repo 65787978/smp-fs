@@ -71,7 +71,7 @@ pub async fn get_data(address: String) -> Result<Stats, ServerFnError> {
 
 /// Get data from Mining Core API
 #[server]
-pub async fn get_landing_page_data(address: String) -> Result<Stats, ServerFnError> {
+pub async fn get_home_page_data(address: String) -> Result<Stats, ServerFnError> {
     let mut network_stats = NetworkStats::default().await;
     let mut pool_stats = PoolStats::default().await;
     let mut miner_stats = MinerStats::default(address).await;

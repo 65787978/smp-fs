@@ -10,19 +10,19 @@ mod data {
     pub mod api_data;
     pub mod structs;
 }
-mod pages {
-    pub mod block_page;
-    pub mod landing_page;
-    pub mod miner_page;
+mod routes {
+    pub mod blocks;
+    pub mod home;
+    pub mod miner;
 }
 
 mod utils;
 
 use crate::utils::*;
 use data::api_data;
-use pages::block_page::BlockPage;
-use pages::landing_page::LandingPage;
-use pages::miner_page::MinerPage;
+use routes::blocks::BlockPage;
+use routes::home::HomePage;
+use routes::miner::MinerPage;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
 use dioxus::prelude::LaunchBuilder;
@@ -37,7 +37,7 @@ const _TAILWIND_URL: &str = manganis::mg!(file("public/tailwind.css"));
 enum Route {
     #[layout(NavBar)]
         #[route("/")]
-        LandingPage {},
+        HomePage {},
         #[route("/blocks")]
         BlockPage {},
         #[route("/wallet/:address")]
@@ -88,7 +88,7 @@ fn NavBar() -> Element {
 
                     div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
                     text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",
-                        div { Link {to: Route::LandingPage{}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-50 m-2 ", "Home"}
+                        div { Link {to: Route::HomePage{}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-50 m-2 ", "Home"}
                         }
 
                         div { Link {to: Route::BlockPage{}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-50 m-2 ", "Blocks"}
