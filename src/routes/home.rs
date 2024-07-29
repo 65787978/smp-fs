@@ -13,15 +13,15 @@ pub fn HomePage() -> Element {
             rsx! {
                 div {class:"grid sm:grid-cols-1 justify-items-center",
                     div { class:"m-3",
-                        img {max_width:"10rem", max_height:"10rem",src: "sig-logo.png"}
+                        img {max_width:"15rem", max_height:"15rem",src: "sig-logo.png"}
                     }
 
-                    div {class:"font-mono text-2xl font-bold", "SIGMANAUTS"}
+                    div {class:"font-mono text-2xl text-slate-200 font-bold", "SIGMANAUTS"}
 
-                    div {class:"text-lg text-center underline decoration-orange-500", "A community to empower users of the Ergo blockchain"}
+                    div {class:"text-lg text-center text-slate-200 underline decoration-orange-500", "A community to empower users of the Ergo blockchain"}
 
 
-                    {Card("11", "bg-inherit m-4 text-center text-xl", "Welcome to the Sigmanauts pool, a DAO-driven, community-run mining pool dedicated to supporting the Ergo ecosystem. Joining us not only contributes to the Ergo community (fees go to Sigmanauts treasury) but also offers hourly bonus token payments.".to_string())},
+                    {Card("11", "bg-inherit m-4 text-center text-slate-300 text-xl", "Welcome to the Sigmanauts pool, a DAO-driven, community-run mining pool dedicated to supporting the Ergo ecosystem. Joining us not only contributes to the Ergo community (fees go to Sigmanauts treasury) but also offers hourly bonus token payments.".to_string())},
 
                 }
 

@@ -26,7 +26,7 @@ pub fn BlockPage() -> Element {
         match &*block_data.read_unchecked() {
             Some(Ok(block_stats)) => {
                 rsx!(
-                    div {class:"text-center rounded-lg bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2 m-2",
+                    div {class:"text-center rounded-lg bg-opacity-10 bg-white/10 backdrop-filter backdrop-blur-md shadow-lg m-2 m-2",
                         div {class:"overflow-x-scroll shadow-md sm:rounded-lg",
                             table {class: "w-full text-sm text-center flex-nowrap",
                                     thead { class:"uppercase bg-slate-50/60",
@@ -41,7 +41,7 @@ pub fn BlockPage() -> Element {
                                     }
                                 tbody {
                                         for block in block_stats.blocks.iter(){
-                                            tr{ class:"hover:bg-slate-50/40",
+                                            tr{ class:"hover:bg-slate-50/40 text-slate-100",
                                                 if block.created != "" {
                                                     td{"{block.created}"}
                                                     td{"{block.block_height}"}
@@ -69,25 +69,18 @@ pub fn BlockPage() -> Element {
 
                                                     td{"{block.block_reward} Σ"}
 
-                                                    if block.confirmation_progress == 0.0 && block.block_reward == 0.0
-                                                    {
-                                                        td{
-                                                            div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
+                                                    td{
+                                                        div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
+
+                                                            if block.confirmation_progress == 0.0 && block.block_reward == 0.0
+                                                            {
                                                                 div {class:"h-full bg-red-400/50 rounded-full", style:"width: 100%", b{class:"align-middle","ORPHAN"}}
                                                             }
-                                                        }
-                                                    }
-                                                    else if block.confirmation_progress == 100.0
-                                                    {
-                                                        td{
-                                                            div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
+                                                            else if block.confirmation_progress == 100.0
+                                                            {
                                                                 div {class:"h-full bg-cyan-600/50 rounded-full", style:"width: 100%", b{class:"align-middle","Confirmed"}}
                                                             }
-                                                        }
-                                                    }
-                                                    else {
-                                                        td{
-                                                            div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
+                                                            else {
                                                                 div {class:"h-full bg-cyan-300/50 rounded-full", style:"width: {block.confirmation_progress}%", b{class:"align-middle","{block.confirmation_progress}%"}}
                                                             }
                                                         }

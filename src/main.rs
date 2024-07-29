@@ -51,7 +51,7 @@ enum Route {
 
 fn app() -> Element {
     rsx! {
-        div {class:"bg-gradient-to-b from-teal-100 to-blue-950 fixed top-0 left-0 right-0 bottom-0 overflow-y-auto",
+        div {class:"bg-gradient-to-b from-teal-700 to-blue-950 fixed top-0 left-0 right-0 bottom-0 overflow-y-auto",
             div {class:"xl:container mx-auto h-full",
                 Router::<Route> {},
 
@@ -94,21 +94,21 @@ fn NavBar() -> Element {
 
                     div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
                     text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",
-                        div { Link {to: Route::HomePage {}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
+                        div { Link {to: Route::HomePage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Home"}
                         }
 
-                        div { Link {to: Route::BlockPage {}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
+                        div { Link {to: Route::BlockPage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100m-2 ", "Blocks"}
                         }
 
-                        div { Link {to:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Support"}
+                        div { Link {to:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Support"}
                         }
 
-                        div { Link {to:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-600 rounded-lg hover:text-black underline decoration-red-500 m-2 ", "Donate"}
+                        div { Link {to:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 underline decoration-red-500 m-2 ", "Donate"}
                         }
 
                         div { form {role:"search",  action:"/wallet/{address()}",
                                 div { class:"",
-                                    input { name:"miningaddress", class:"bg-white/50 border py-2 px-2 border-slate-300 placeholder-slate-400 focus:outline-none focus:border-gray-500 focus:ring-gray-500 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
+                                    input { name:"miningaddress", class:"bg-white/30 border py-2 px-2 border-slate-300 placeholder-slate-100 focus:outline-none focus:border-slate-500 focus:ring-slate-300 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
                                 }
                             }
                         }
