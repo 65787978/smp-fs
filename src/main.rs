@@ -80,7 +80,6 @@ fn MinerPage(address: String) -> Element {
 #[component]
 fn NavBar() -> Element {
     let mut address = use_signal(|| "".to_string());
-    let navigator = use_navigator();
     let mut small_nav = use_signal(|| "");
 
     rsx! {
