@@ -3,7 +3,6 @@ use crate::utils::*;
 use dioxus::prelude::*;
 #[component]
 pub fn LandingPage_slice() -> Element {
-    // let mut data = use_server_future(move || get_data());
     let mut data =
         use_server_future(move || async move { get_landing_page_data("".to_string()).await })?;
 
@@ -15,7 +14,7 @@ pub fn LandingPage_slice() -> Element {
                         img {max_width:"10rem", max_height:"10rem",src: "sig-logo.png"}
                     }
 
-                    div {class:"font-mono text-2xl font-bold text-slate-100 ", "SIGMANAUTS"}
+                    div {class:"font-mono text-2xl font-bold text-slate-50 ", "SIGMANAUTS"}
 
                     div {class:"text-lg text-center text-slate-200 underline decoration-orange-500", "A community to empower users of the Ergo blockchain"}
 

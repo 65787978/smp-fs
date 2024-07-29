@@ -48,21 +48,21 @@ pub fn BlockPage() -> Element {
                                                     if block.effort < 100.0 {
                                                         td{
                                                             div {class:"rounded-lg", style:"height: 1.75rem; width:100%",
-                                                                div {class:"h-full bg-green-500/50 rounded-lg", style:"width: 100%", b{class:"align-middle","{block.effort}%"}}
+                                                                div {class:"h-full bg-green-500/50 rounded-lg", style:"width: 100%", b{class:"align-middle text-slate-600","{block.effort}%"}}
                                                             }
                                                         }
                                                     }
                                                     else if block.effort > 100.0 && block.effort < 200.0 {
                                                         td{
                                                             div {class:"rounded-lg", style:"height: 1.75rem; width:100%",
-                                                                div {class:"h-full bg-yellow-400/50 rounded-lg", style:"width: 100%", b{class:"align-middle","{block.effort}%"}}
+                                                                div {class:"h-full bg-yellow-400/50 rounded-lg", style:"width: 100%", b{class:"align-middle text-slate-600","{block.effort}%"}}
                                                             }
                                                         }
                                                     }
                                                     else {
                                                         td{
                                                             div {class:"rounded-lg", style:"height: 1.75rem; width:100%",
-                                                                div {class:"h-full bg-red-500/50 rounded-lg", style:"width: 100%", b{class:"align-middle","{block.effort}%"}}
+                                                                div {class:"h-full bg-red-500/50 rounded-lg", style:"width: 100%", b{class:"align-middle text-slate-600","{block.effort}%"}}
                                                             }
                                                         }
                                                     }
@@ -73,7 +73,7 @@ pub fn BlockPage() -> Element {
                                                     {
                                                         td{
                                                             div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
-                                                                div {class:"h-full bg-red-400/50 rounded-full", style:"width: 100%", b{class:"align-middle","ORPHAN"}}
+                                                                div {class:"h-full bg-red-400/50 rounded-full", style:"width: 100%", b{class:"align-middle text-slate-600","ORPHAN"}}
                                                             }
                                                         }
                                                     }
@@ -81,14 +81,14 @@ pub fn BlockPage() -> Element {
                                                     {
                                                         td{
                                                             div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
-                                                                div {class:"h-full bg-cyan-600/50 rounded-full", style:"width: 100%", b{class:"align-middle","Confirmed"}}
+                                                                div {class:"h-full bg-cyan-600/50 rounded-full", style:"width: 100%", b{class:"align-middle  text-slate-600","Confirmed"}}
                                                             }
                                                         }
                                                     }
                                                     else {
                                                         td{
                                                             div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
-                                                                div {class:"h-full bg-cyan-300/50 rounded-full", style:"width: {block.confirmation_progress}%", b{class:"align-middle","{block.confirmation_progress}%"}}
+                                                                div {class:"h-full bg-cyan-300/50 rounded-full", style:"width: {block.confirmation_progress}%", b{class:"align-middle  text-slate-600","{block.confirmation_progress}%"}}
                                                             }
                                                         }
                                                     }
