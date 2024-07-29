@@ -1051,6 +1051,23 @@ video {
   background-color: rgb(248 250 252 / 0.4);
 }
 
+.hover\:bg-slate-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-slate-100\/20:hover {
+  background-color: rgb(241 245 249 / 0.2);
+}
+
+.hover\:bg-slate-100\/30:hover {
+  background-color: rgb(241 245 249 / 0.3);
+}
+
+.hover\:bg-slate-100\/50:hover {
+  background-color: rgb(241 245 249 / 0.5);
+}
+
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -1105,6 +1122,11 @@ video {
 .focus\:ring-slate-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(203 213 225 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-slate-200:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(226 232 240 / var(--tw-ring-opacity));
 }
 
 @media (min-width: 640px) {
