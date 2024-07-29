@@ -10,19 +10,19 @@ mod data {
     pub mod api_data;
     pub mod structs;
 }
-mod pages {
-    pub mod block_page;
-    pub mod landing_page;
-    pub mod miner_page;
+mod routes {
+    pub mod blocks;
+    pub mod home;
+    pub mod miner;
 }
 
 mod utils;
 
 use crate::utils::*;
 use data::api_data;
-use pages::block_page::BlockPage;
-use pages::landing_page::LandingPage_slice;
-use pages::miner_page::MinerPage_slice;
+use routes::blocks::BlockPage;
+use routes::home::HomePage;
+use routes::miner::MinerPage_slice;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
 use dioxus::prelude::LaunchBuilder;
@@ -37,7 +37,7 @@ const _TAILWIND_URL: &str = manganis::mg!(file("public/tailwind.css"));
 enum Route {
     #[layout(NavBar)]
         #[route("/")]
-        LandingPage {},
+        HomePage {},
         #[route("/blocks")]
         BlockPage {},
         #[route("/wallet/:address")]
@@ -64,19 +64,11 @@ fn app() -> Element {
 }
 
 #[component]
-fn LandingPage() -> Element {
-    rsx!({ LandingPage_slice() })
-}
-
-#[component]
 fn MinerPage(address: String) -> Element {
-    let address = use_signal(|| address);
-
     rsx! {
-        {MinerPage_slice(address())},
+        {MinerPage_slice(address.clone())}
     }
 }
-
 #[component]
 fn NavBar() -> Element {
     let mut address = use_signal(|| "".to_string());
@@ -102,16 +94,16 @@ fn NavBar() -> Element {
 
                     div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
                     text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",
-                        div { a {onclick: move |_| {navigator.push(Route::LandingPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
+                        div { Link {to: Route::HomePage {}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
                         }
 
-                        div { a {onclick: move |_| {navigator.push(Route::BlockPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
+                        div { Link {to: Route::BlockPage {}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
                         }
 
-                        div { a{href:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Support"}
+                        div { Link {to:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Support"}
                         }
 
-                        div { a{href:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-600 rounded-lg hover:text-black underline decoration-red-500 m-2 ", "Donate"}
+                        div { Link {to:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-600 rounded-lg hover:text-black underline decoration-red-500 m-2 ", "Donate"}
                         }
 
                         div { form {role:"search",  action:"/wallet/{address()}",

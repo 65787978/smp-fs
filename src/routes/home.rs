@@ -1,11 +1,12 @@
-use crate::data::api_data::get_home_page_data;
+use crate::data::api_data::get_landing_page_data;
 use crate::utils::*;
 use dioxus::prelude::*;
 
 #[component]
 pub fn HomePage() -> Element {
+    // let mut data = use_server_future(move || get_data());
     let mut data =
-        use_server_future(move || async move { get_home_page_data("".to_string()).await })?;
+        use_server_future(move || async move { get_landing_page_data("".to_string()).await })?;
 
     match &*data.read_unchecked() {
         Some(Ok(stats)) => {
@@ -15,12 +16,12 @@ pub fn HomePage() -> Element {
                         img {max_width:"10rem", max_height:"10rem",src: "sig-logo.png"}
                     }
 
-                    div {class:"font-mono text-2xl font-bold text-slate-50 ", "SIGMANAUTS"}
+                    div {class:"font-mono text-2xl font-bold", "SIGMANAUTS"}
 
-                    div {class:"text-lg text-center text-slate-200 underline decoration-orange-500", "A community to empower users of the Ergo blockchain"}
+                    div {class:"text-lg text-center underline decoration-orange-500", "A community to empower users of the Ergo blockchain"}
 
 
-                    {Card("11", "bg-inherit m-4 text-center text-slate-200 text-xl", "Welcome to the Sigmanauts pool, a DAO-driven, community-run mining pool dedicated to supporting the Ergo ecosystem. Joining us not only contributes to the Ergo community (fees go to Sigmanauts treasury) but also offers hourly bonus token payments.".to_string())},
+                    {Card("11", "bg-inherit m-4 text-center text-xl", "Welcome to the Sigmanauts pool, a DAO-driven, community-run mining pool dedicated to supporting the Ergo ecosystem. Joining us not only contributes to the Ergo community (fees go to Sigmanauts treasury) but also offers hourly bonus token payments.".to_string())},
 
                 }
 

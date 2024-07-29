@@ -1,10 +1,11 @@
 use crate::{data::api_data::*, utils::*};
 use dioxus::prelude::*;
 
+#[component]
 pub fn BlockPage() -> Element {
     let mut block_data = use_server_future(move || async move { get_block_data().await })?;
     let mut global_data =
-        use_server_future(move || async move { get_home_page_data("".to_string()).await })?;
+        use_server_future(move || async move { get_landing_page_data("".to_string()).await })?;
 
     rsx! {
         match &*global_data.read_unchecked() {
@@ -42,38 +43,37 @@ pub fn BlockPage() -> Element {
                                         for block in block_stats.blocks.iter(){
                                             tr{ class:"hover:bg-slate-50/40",
                                                 if block.created != "" {
-                                                    td{class:"text-slate-200", "{block.created}"}
-                                                    td{class:"text-slate-200", "{block.block_height}"}
+                                                    td{"{block.created}"}
+                                                    td{"{block.block_height}"}
 
-                                                    if block.effort < 100.0 {
-                                                        td{
-                                                            div {class:"rounded-lg", style:"height: 1.75rem; width:100%",
-                                                                div {class:"h-full bg-green-500/50 rounded-lg", style:"width: 100%", b{class:"align-middle text-slate-600","{block.effort}%"}}
+                                                    td{
+                                                        div {class:"rounded-lg", style:"height: 1.75rem; width:100%",
+
+                                                            if block.effort == 0.0 {
+
+                                                                div {class:"h-full bg-red-400/50 rounded-lg", style:"width: 100%", b { class:"align-middle", "ORPHAN"}}
                                                             }
-                                                        }
-                                                    }
-                                                    else if block.effort > 100.0 && block.effort < 200.0 {
-                                                        td{
-                                                            div {class:"rounded-lg", style:"height: 1.75rem; width:100%",
-                                                                div {class:"h-full bg-yellow-400/50 rounded-lg", style:"width: 100%", b{class:"align-middle text-slate-600","{block.effort}%"}}
+                                                            else if block.effort < 100.0 {
+
+                                                                div {class:"h-full bg-green-500/50 rounded-lg", style:"width: 100%", b{class:"align-middle","{block.effort}%"}}
                                                             }
-                                                        }
-                                                    }
-                                                    else {
-                                                        td{
-                                                            div {class:"rounded-lg", style:"height: 1.75rem; width:100%",
-                                                                div {class:"h-full bg-red-500/50 rounded-lg", style:"width: 100%", b{class:"align-middle text-slate-600","{block.effort}%"}}
+                                                            else if block.effort > 100.0 && block.effort < 200.0 {
+
+                                                                div {class:"h-full bg-yellow-400/50 rounded-lg", style:"width: 100%", b{class:"align-middle","{block.effort}%"}}
+                                                            }
+                                                            else {
+                                                                div {class:"h-full bg-red-500/50 rounded-lg", style:"width: 100%", b{class:"align-middle","{block.effort}%"}}
                                                             }
                                                         }
                                                     }
 
-                                                    td{class:"text-slate-200", "{block.block_reward} Σ"}
+                                                    td{"{block.block_reward} Σ"}
 
                                                     if block.confirmation_progress == 0.0 && block.block_reward == 0.0
                                                     {
                                                         td{
                                                             div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
-                                                                div {class:"h-full bg-red-400/50 rounded-full", style:"width: 100%", b{class:"align-middle text-slate-600","ORPHAN"}}
+                                                                div {class:"h-full bg-red-400/50 rounded-full", style:"width: 100%", b{class:"align-middle","ORPHAN"}}
                                                             }
                                                         }
                                                     }
@@ -81,19 +81,19 @@ pub fn BlockPage() -> Element {
                                                     {
                                                         td{
                                                             div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
-                                                                div {class:"h-full bg-cyan-600/50 rounded-full", style:"width: 100%", b{class:"align-middle  text-slate-600","Confirmed"}}
+                                                                div {class:"h-full bg-cyan-600/50 rounded-full", style:"width: 100%", b{class:"align-middle","Confirmed"}}
                                                             }
                                                         }
                                                     }
                                                     else {
                                                         td{
                                                             div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
-                                                                div {class:"h-full bg-cyan-300/50 rounded-full", style:"width: {block.confirmation_progress}%", b{class:"align-middle  text-slate-600","{block.confirmation_progress}%"}}
+                                                                div {class:"h-full bg-cyan-300/50 rounded-full", style:"width: {block.confirmation_progress}%", b{class:"align-middle","{block.confirmation_progress}%"}}
                                                             }
                                                         }
                                                     }
 
-                                                    td{class:"text-slate-200", "{block.miner}"}
+                                                    td{"{block.miner}"}
                                                 }
 
                                             }
