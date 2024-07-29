@@ -10,19 +10,19 @@ mod data {
     pub mod api_data;
     pub mod structs;
 }
-mod routes {
-    pub mod blocks;
-    pub mod home;
-    pub mod miner;
+mod pages {
+    pub mod block_page;
+    pub mod landing_page;
+    pub mod miner_page;
 }
 
 mod utils;
 
 use crate::utils::*;
 use data::api_data;
-use routes::blocks::BlockPage;
-use routes::home::HomePage;
-use routes::miner::MinerPage;
+use pages::block_page::BlockPage;
+use pages::landing_page::LandingPage_slice;
+use pages::miner_page::MinerPage_slice;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
 use dioxus::prelude::LaunchBuilder;
@@ -37,7 +37,7 @@ const _TAILWIND_URL: &str = manganis::mg!(file("public/tailwind.css"));
 enum Route {
     #[layout(NavBar)]
         #[route("/")]
-        HomePage {},
+        LandingPage {},
         #[route("/blocks")]
         BlockPage {},
         #[route("/wallet/:address")]
@@ -51,7 +51,7 @@ enum Route {
 
 fn app() -> Element {
     rsx! {
-        div {class:"bg-gradient-to-b from-green-900 to-indigo-900 fixed top-0 left-0 right-0 bottom-0 overflow-y-auto",
+        div {class:"bg-gradient-to-b from-teal-100 to-blue-950 fixed top-0 left-0 right-0 bottom-0 overflow-y-auto",
             div {class:"xl:container mx-auto h-full",
                 Router::<Route> {},
 
@@ -60,6 +60,20 @@ fn app() -> Element {
                 {Footer()}
             }
         }
+    }
+}
+
+#[component]
+fn LandingPage() -> Element {
+    rsx!({ LandingPage_slice() })
+}
+
+#[component]
+fn MinerPage(address: String) -> Element {
+    let address = use_signal(|| address);
+
+    rsx! {
+        {MinerPage_slice(address())},
     }
 }
 
@@ -88,23 +102,21 @@ fn NavBar() -> Element {
 
                     div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
                     text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",
-                        div {
-                            a {onclick: move |_| {navigator.push(Route::LandingPage {}); small_nav.set("hidden");}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
+                        div { a {onclick: move |_| {navigator.push(Route::LandingPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
                         }
 
-                        div { a {onclick: move |_| {navigator.push(Route::BlockPage {}); small_nav.set("hidden");}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
+                        div { a {onclick: move |_| {navigator.push(Route::BlockPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
                         }
 
-                        div { Link {to:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-200 rounded-lg hover:text-slate-50 m-2 ", "Support",}
+                        div { a{href:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Support"}
                         }
 
-                        div { Link {to:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-200 rounded-lg hover:text-slate-50 underline decoration-red-500 m-2 ", "Donate",}
+                        div { a{href:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-600 rounded-lg hover:text-black underline decoration-red-500 m-2 ", "Donate"}
                         }
 
-                        div { form {role:"search",
-                                div { class:"flex flex-row",
-                                    input { name:"miningaddress", class:"bg-white/50 border py-2 px-2 border-slate-300 placeholder-slate-50 focus:outline-none focus:border-gray-500 focus:ring-gray-500 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
-                                    button {onclick: move |_| {navigator.push(Route::MinerPage { address: address() });}, class:"rounded-full bg-slate-100/50 text-slate-200 mx-2 px-4", "Search"}
+                        div { form {role:"search",  action:"/wallet/{address()}",
+                                div { class:"",
+                                    input { name:"miningaddress", class:"bg-white/50 border py-2 px-2 border-slate-300 placeholder-slate-400 focus:outline-none focus:border-gray-500 focus:ring-gray-500 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
                                 }
                             }
                         }
