@@ -1,7 +1,8 @@
 use crate::{data::api_data::*, utils::*};
 use dioxus::prelude::*;
 
-pub fn MinerPage_slice(address: String) -> Element {
+#[component]
+pub fn MinerPage(address: String) -> Element {
     let address = use_signal(|| String::from(address));
     let data = use_server_future(move || async move { get_data(address()).await })?;
 

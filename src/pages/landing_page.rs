@@ -1,8 +1,9 @@
 use crate::data::api_data::get_landing_page_data;
 use crate::utils::*;
 use dioxus::prelude::*;
+
 #[component]
-pub fn LandingPage_slice() -> Element {
+pub fn LandingPage() -> Element {
     let mut data =
         use_server_future(move || async move { get_landing_page_data("".to_string()).await })?;
 

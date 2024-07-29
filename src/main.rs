@@ -21,8 +21,8 @@ mod utils;
 use crate::utils::*;
 use data::api_data;
 use pages::block_page::BlockPage;
-use pages::landing_page::LandingPage_slice;
-use pages::miner_page::MinerPage_slice;
+use pages::landing_page::LandingPage;
+use pages::miner_page::MinerPage;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
 use dioxus::prelude::LaunchBuilder;
@@ -60,20 +60,6 @@ fn app() -> Element {
                 {Footer()}
             }
         }
-    }
-}
-
-#[component]
-fn LandingPage() -> Element {
-    rsx!({ LandingPage_slice() })
-}
-
-#[component]
-fn MinerPage(address: String) -> Element {
-    let address = use_signal(|| address);
-
-    rsx! {
-        {MinerPage_slice(address())},
     }
 }
 
