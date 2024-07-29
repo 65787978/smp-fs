@@ -42,8 +42,8 @@ pub fn BlockPage() -> Element {
                                         for block in block_stats.blocks.iter(){
                                             tr{ class:"hover:bg-slate-50/40",
                                                 if block.created != "" {
-                                                    td{"{block.created}"}
-                                                    td{"{block.block_height}"}
+                                                    td{class:"text-slate-200", "{block.created}"}
+                                                    td{class:"text-slate-200", "{block.block_height}"}
 
                                                     if block.effort < 100.0 {
                                                         td{
@@ -67,7 +67,7 @@ pub fn BlockPage() -> Element {
                                                         }
                                                     }
 
-                                                    td{"{block.block_reward} Σ"}
+                                                    td{class:"text-slate-200", "{block.block_reward} Σ"}
 
                                                     if block.confirmation_progress == 0.0 && block.block_reward == 0.0
                                                     {
@@ -93,7 +93,7 @@ pub fn BlockPage() -> Element {
                                                         }
                                                     }
 
-                                                    td{"{block.miner}"}
+                                                    td{class:"text-slate-200", "{block.miner}"}
                                                 }
 
                                             }
