@@ -66,6 +66,7 @@ fn app() -> Element {
 #[component]
 fn NavBar() -> Element {
     let mut address = use_signal(|| "".to_string());
+    let navigator = use_navigator();
     let mut small_nav = use_signal(|| "");
 
     rsx! {
@@ -99,9 +100,10 @@ fn NavBar() -> Element {
                         div { Link {to:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-200 rounded-lg hover:text-slate-50 underline decoration-red-500 m-2 ", "Donate",}
                         }
 
-                        div { form {role:"search",  action:"/wallet/{address()}",
+                        div { form {role:"search",
                                 div { class:"",
                                     input { name:"miningaddress", class:"bg-white/50 border py-2 px-2 border-slate-300 placeholder-slate-50 focus:outline-none focus:border-gray-500 focus:ring-gray-500 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
+                                    button {onclick: move |_| {navigator.push(Route::MinerPage { address: address() });}}
                                 }
                             }
                         }
