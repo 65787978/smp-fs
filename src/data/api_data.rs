@@ -375,7 +375,7 @@ impl MinerStats {
         for (key, value) in self.data["performance"]["workers"]
             .clone()
             .as_object()
-            .unwrap()
+            .expect("Error receiving workers data")
         {
             self.workers.push(Worker {
                 name: key.to_string(),
