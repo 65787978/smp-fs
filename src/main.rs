@@ -102,17 +102,16 @@ fn NavBar() -> Element {
 
                     div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
                     text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",
-                        div {
-                            a {onclick: move |_| {navigator.push(Route::LandingPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
+                        div { Link {to: Route::LandingPage{}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
                         }
 
-                        div { a {onclick: move |_| {navigator.push(Route::BlockPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
+                        div { Link {to: Route::BlockPage{}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
                         }
 
-                        div { a{href:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Support"}
+                        div { Link {to:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Support",}
                         }
 
-                        div { a{href:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-600 rounded-lg hover:text-black underline decoration-red-500 m-2 ", "Donate"}
+                        div { Link {to:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-600 rounded-lg hover:text-black underline decoration-red-500 m-2 ", "Donate",}
                         }
 
                         div { form {role:"search",  action:"/wallet/{address()}",
@@ -144,7 +143,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);
