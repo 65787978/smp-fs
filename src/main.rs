@@ -103,10 +103,10 @@ fn NavBar() -> Element {
                     div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
                     text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",
                         div {
-                            a {onclick: move |_| {navigator.push(Route::LandingPage {}); small_nav.set("hidden");}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
+                            a {onclick: move |_| {navigator.push(Route::LandingPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
                         }
 
-                        div { a {onclick: move |_| {navigator.push(Route::BlockPage {}); small_nav.set("hidden");}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
+                        div { a {onclick: move |_| {navigator.push(Route::BlockPage {});}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
                         }
 
                         div { a{href:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Support"}
