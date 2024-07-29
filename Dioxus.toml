@@ -1,7 +1,7 @@
 [application]
 
 # App (Project) Name
-name = "smp-fs"
+name = "Sigmanauts Mining Pool"
 
 # Dioxus App Default Platform
 # desktop, web

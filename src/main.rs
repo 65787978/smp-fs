@@ -88,10 +88,11 @@ fn NavBar() -> Element {
 
                     div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
                     text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",
-                        div { Link {to: Route::HomePage{}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-50 m-2 ", "Home"}
+                        div {
+                            a {onclick: move |_| {navigator.push(Route::LandingPage {}); small_nav.set("hidden");}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Home"}
                         }
 
-                        div { Link {to: Route::BlockPage{}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-50 m-2 ", "Blocks"}
+                        div { a {onclick: move |_| {navigator.push(Route::BlockPage {}); small_nav.set("hidden");}, class:"font-bold text-slate-600 rounded-lg hover:text-black m-2 ", "Blocks"}
                         }
 
                         div { Link {to:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-200 rounded-lg hover:text-slate-50 m-2 ", "Support",}
@@ -130,7 +131,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);

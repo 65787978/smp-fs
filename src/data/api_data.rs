@@ -478,7 +478,7 @@ impl VecBlock {
                             format!("{}", date_time.format("%H:%M  %d/%m/%Y"))
                         },
                         block_height: block["blockHeight"].as_u64().unwrap(),
-                        effort: (block["effort"].as_f64().unwrap() * 10000.0).round() / 100.0,
+                        effort: 0.0,
                         block_reward: 0.0,
                         confirmation_progress: 0.0,
                         miner: shorten_string(block["miner"].as_str().unwrap(), 15),
