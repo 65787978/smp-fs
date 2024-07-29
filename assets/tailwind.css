@@ -880,6 +880,11 @@ video {
   padding-bottom: 0.5rem;
 }
 
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .ps-2 {
   padding-inline-start: 0.5rem;
 }
