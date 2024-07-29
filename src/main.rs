@@ -103,7 +103,7 @@ fn NavBar() -> Element {
                         div { form {role:"search",
                                 div { class:"",
                                     input { name:"miningaddress", class:"bg-white/50 border py-2 px-2 border-slate-300 placeholder-slate-50 focus:outline-none focus:border-gray-500 focus:ring-gray-500 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
-                                    button {onclick: move |_| {navigator.push(Route::MinerPage { address: address() });}}
+                                    button {onclick: move |_| {navigator.push(Route::MinerPage { address: address() });}, class:"rounded-full bg-slate-100/50", "Go"}
                                 }
                             }
                         }
