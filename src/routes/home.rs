@@ -9,7 +9,7 @@ pub fn HomePage_slice() -> Element {
     rsx! {
             div {class:"grid sm:grid-cols-1 justify-items-center",
                 div { class:"m-3",
-                    img {max_width:"15rem", max_height:"15rem",src: "sig-logo.png"}
+                    img {max_width:"15rem", max_height:"15rem", src: "sig-logo.svg"}
                 }
 
                 div {class:"font-mono text-2xl text-slate-200 font-bold", "SIGMANAUTS"}
@@ -27,23 +27,6 @@ pub fn HomePage_slice() -> Element {
         match &*data.read_unchecked() {
             Some(Ok(stats)) => {
                 rsx! {
-                    div {class:"grid sm:grid-cols-1 justify-items-center",
-                        div { class:"m-3",
-                            img {max_width:"15rem", max_height:"15rem",src: "sig-logo.png"}
-                        }
-
-                        div {class:"font-mono text-2xl text-slate-200 font-bold", "SIGMANAUTS"}
-
-                        div {class:"text-lg text-center text-slate-200 underline decoration-orange-500", "A community to empower users of the Ergo blockchain"}
-
-                        {ParagraphCard(utils::ParagraphCardProps { vars: ParagraphCard {
-
-                            classes: "bg-inherit m-4 text-center text-slate-300 text-xl".to_string(),
-                            text: "Welcome to the Sigmanauts pool, a DAO-driven, community-run mining pool dedicated to supporting the Ergo ecosystem. Joining us not only contributes to the Ergo community (fees go to Sigmanauts treasury) but also offers hourly bonus token payments".to_string(),
-                        }})}
-
-                    }
-
                     div {class:"grid sm:grid-cols-4",
 
                         {InfoCard(utils::InfoCardProps { vars: InfoCard {

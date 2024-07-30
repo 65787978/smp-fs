@@ -761,10 +761,6 @@ video {
   background-color: rgb(8 145 178 / 0.5);
 }
 
-.bg-gray-300\/30 {
-  background-color: rgb(209 213 219 / 0.3);
-}
-
 .bg-green-500\/50 {
   background-color: rgb(34 197 94 / 0.5);
 }
@@ -822,6 +818,10 @@ video {
 
 .to-blue-950 {
   --tw-gradient-to: #172554 var(--tw-gradient-to-position);
+}
+
+.fill-slate-200 {
+  fill: #e2e8f0;
 }
 
 .p-2 {
@@ -1024,45 +1024,8 @@ video {
 }
 
 @media (min-width: 640px) {
-  .sm\:mt-4 {
-    margin-top: 1rem;
-  }
-
-  .sm\:block {
-    display: block;
-  }
-
-  .sm\:inline {
-    display: inline;
-  }
-
-  .sm\:grid {
-    display: grid;
-  }
-
-  .sm\:inline-grid {
-    display: inline-grid;
-  }
-
-  .sm\:list-item {
-    display: list-item;
-  }
-
-  .sm\:hidden {
-    display: none;
-  }
-
   .sm\:h-5 {
     height: 1.25rem;
-  }
-
-  .sm\:h-fit {
-    height: -moz-fit-content;
-    height: fit-content;
-  }
-
-  .sm\:h-6 {
-    height: 1.5rem;
   }
 
   .sm\:w-full {
@@ -1089,24 +1052,8 @@ video {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .sm\:content-center {
-    align-content: center;
-  }
-
-  .sm\:items-center {
-    align-items: center;
-  }
-
-  .sm\:justify-center {
-    justify-content: center;
-  }
-
   .sm\:rounded-lg {
     border-radius: 0.5rem;
-  }
-
-  .sm\:text-center {
-    text-align: center;
   }
 
   .sm\:text-sm {
@@ -1117,12 +1064,6 @@ video {
 
 @media (min-width: 768px) {
   .md\:hidden {
-    display: none;
-  }
-}
-
-@media (min-width: 1024px) {
-  .lg\:hidden {
     display: none;
   }
 }
