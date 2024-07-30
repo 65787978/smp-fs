@@ -1,10 +1,19 @@
 use crate::{data::api_data::*, utils, InfoCard};
 use dioxus::prelude::*;
+use gloo::timers::future::TimeoutFuture;
 use utils::*;
 
 pub fn MinerPage_slice(address: String) -> Element {
     let address = use_signal(|| String::from(address));
-    let data = use_server_future(move || async move { get_data(address()).await })?;
+    let mut data = use_server_future(move || async move { get_data(address()).await })?;
+
+    /* Auto update data in background */
+    use_future(move || async move {
+        loop {
+            TimeoutFuture::new(60000).await;
+            data.restart();
+        }
+    });
 
     match &*data.read_unchecked() {
         Some(Ok(stats)) => {
