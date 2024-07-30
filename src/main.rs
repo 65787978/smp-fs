@@ -139,7 +139,7 @@ fn main() {
     #[cfg(feature = "web")]
     tracing_wasm::set_as_global_default();
 
-    #[cfg(feature = "server")]
+    #[cfg(feature = "ssr")]
     tracing_subscriber::fmt::init();
 
     let debug_flag = false;

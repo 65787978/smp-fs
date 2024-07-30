@@ -76,7 +76,7 @@ pub fn BlockPage() -> Element {
                                                     td{"{block.block_height}"}
 
                                                     td{
-                                                        div {class:"rounded-lg", style:"height: 1.75rem; width:100%",
+                                                        div {class:"w-full", style:"height: 1.75rem;",
 
                                                             if block.effort == 0.0 {
 
@@ -99,18 +99,18 @@ pub fn BlockPage() -> Element {
                                                     td{"{block.block_reward} Σ"}
 
                                                     td{
-                                                        div {class:"w-full bg-gray-300/30 rounded-full", style:"height: 1.75rem;",
+                                                        div {class:"w-full", style:"height: 1.75rem;",
 
                                                             if block.confirmation_progress == 0.0 && block.block_reward == 0.0
                                                             {
-                                                                div {class:"h-full bg-red-400/50 rounded-full", style:"width: 100%", b{class:"align-middle","ORPHAN"}}
+                                                                div {class:"h-full bg-red-400/50 rounded-lg", style:"width: 100%", b{class:"align-middle","ORPHAN"}}
                                                             }
                                                             else if block.confirmation_progress == 100.0
                                                             {
-                                                                div {class:"h-full bg-cyan-600/50 rounded-full", style:"width: 100%", b{class:"align-middle","Confirmed"}}
+                                                                div {class:"h-full bg-cyan-600/50 rounded-lg", style:"width: 100%", b{class:"align-middle","Confirmed"}}
                                                             }
                                                             else {
-                                                                div {class:"h-full bg-cyan-300/50 rounded-full", style:"width: {block.confirmation_progress}%", b{class:"align-middle","{block.confirmation_progress}%"}}
+                                                                div {class:"h-full bg-cyan-300/50 rounded-lg", style:"width: {block.confirmation_progress}%", b{class:"align-middle","{block.confirmation_progress}%"}}
                                                             }
                                                         }
                                                     }
