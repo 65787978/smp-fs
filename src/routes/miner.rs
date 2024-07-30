@@ -1,5 +1,6 @@
-use crate::{data::api_data::*, utils::*};
+use crate::{data::api_data::*, utils, InfoCard};
 use dioxus::prelude::*;
+use utils::*;
 
 pub fn MinerPage_slice(address: String) -> Element {
     let address = use_signal(|| String::from(address));
@@ -8,36 +9,87 @@ pub fn MinerPage_slice(address: String) -> Element {
     match &*data.read_unchecked() {
         Some(Ok(stats)) => {
             rsx! {
-                {InfoCard("8", "mx-2 mb-4 mt-4", shorten_string(address().as_str(), 25).as_str(), "", "Miner Address")}
-                    div {class:"grid sm:grid-cols-3",
-                        {InfoCardDouble("8", "", stats.network.hashrate.to_string().as_str(), "Th/s", "Network Hashrate", stats.pool.hashrate.to_string().as_str(), "Gh/s", "Pool Hashrate")}
-                        {InfoCardDouble("8", "", stats.network.reward.to_string().as_str(), "Σ", "Block Reward", stats.network.price.to_string().as_str(), "", "Σ / SigUSD")}
-                        {InfoCardDouble("8", "", stats.pool.effort.to_string().as_str(), "%", "Current Pool Effort", stats.miner.round_contribution.to_string().as_str(), "%", "Participation")}
-                    }
-                    div {class:"grid sm:grid-cols-3",
-                        {InfoCardDouble("8", "", stats.miner.pending_shares.to_string().as_str(), "", "Pending Shares", stats.miner.workers_number.to_string().as_str(), "", "Active Workers")}
-                        {InfoCardDouble("8", "", stats.miner.paid_24h.to_string().as_str(), "Σ", "24h Paid", stats.miner.total_paid.to_string().as_str(), "Σ", "Total Paid")}
-                        {InfoCardDouble("8", "", stats.miner.hashrate_current.to_string().as_str(), "Mh/s", "Current Hashrate", stats.miner.hashrate_24h.to_string().as_str(), "Mh/s", "24h Average")}
-                    }
+                {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                    classes: "mx-2 mb-4 mt-4".to_string(),
+                    value: shorten_string(address().as_str(), 25),
+                    unit: "".to_string(),
+                    heading: "Miner Address".to_string()
 
+                } })}
+
+                    div {class:"grid sm:grid-cols-3",
+
+                        {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                            classes: "".to_string(),
+                            value_1: stats.network.hashrate.to_string(),
+                            unit_1: "Th/s".to_string(),
+                            heading_1: "Network Hashrate".to_string(),
+                            value_2: stats.pool.hashrate.to_string(),
+                            unit_2: "Gh/s".to_string(),
+                            heading_2: "Pool Hashrate".to_string(),
+                        }})}
+
+                        {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                            classes: "".to_string(),
+                            value_1: stats.network.reward.to_string(),
+                            unit_1: "Σ".to_string(),
+                            heading_1: "Block Reward".to_string(),
+                            value_2: stats.network.price.to_string(),
+                            unit_2: "".to_string(),
+                            heading_2: "Σ / SigUSD".to_string(),
+                        }})}
+
+                        {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                            classes: "".to_string(),
+                            value_1: stats.pool.effort.to_string(),
+                            unit_1: "%".to_string(),
+                            heading_1: "Current Pool Effort".to_string(),
+                            value_2: stats.miner.round_contribution.to_string(),
+                            unit_2: "%".to_string(),
+                            heading_2: "Participation".to_string(),
+                        }})}
+                    }
+                    div {class:"grid sm:grid-cols-3",
+
+                    {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                        classes: "".to_string(),
+                        value_1: stats.miner.pending_shares.to_string(),
+                        unit_1: "".to_string(),
+                        heading_1: "Pending Shares".to_string(),
+                        value_2: stats.miner.workers_number.to_string(),
+                        unit_2: "".to_string(),
+                        heading_2: "Active Workers".to_string(),
+                    }})}
+
+                    {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                        classes: "".to_string(),
+                        value_1: stats.miner.paid_24h.to_string(),
+                        unit_1: "Σ".to_string(),
+                        heading_1: "24h Paid".to_string(),
+                        value_2: stats.miner.total_paid.to_string(),
+                        unit_2: "Σ".to_string(),
+                        heading_2: "Total Paid".to_string(),
+                    }})}
+
+
+                    {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                        classes: "".to_string(),
+                        value_1: stats.miner.hashrate_current.to_string(),
+                        unit_1: "Mh/s".to_string(),
+                        heading_1: "Current Hashrate".to_string(),
+                        value_2: stats.miner.hashrate_24h.to_string(),
+                        unit_2: "Mh/s".to_string(),
+                        heading_2: "24h Average".to_string(),
+                    }})}
+
+                    }
             }
         }
         Some(Err(error)) => {
             rsx!()
         }
         None => {
-            rsx! {
-                {InfoCard("8", "mx-2 mb-4 mt-4", shorten_string(address().as_str(), 25).as_str(), "", "Miner Address")}
-                    div {class:"grid sm:grid-cols-3",
-                        {InfoCardDouble("8", "", "", "Th/s", "Network Hashrate", "", "Gh/s", "Pool Hashrate")}
-                        {InfoCardDouble("8", "", "", "Σ", "Block Reward", "", "", "Σ / SigUSD")}
-                        {InfoCardDouble("8", "","", "%", "Current Pool Effort", "", "%", "Participation")}
-                    }
-                    div {class:"grid sm:grid-cols-3",
-                        {InfoCardDouble("8", "", "", "", "Pending Shares", "", "", "Active Workers")}
-                        {InfoCardDouble("8", "", "", "Σ", "24h Paid", "", "Σ", "Total Paid")}
-                        {InfoCardDouble("8", "", "", "Mh/s", "Current Hashrate", "", "Mh/s", "24h Average")}
-                    }
+            rsx! {h1 {"Loading..."}
             }
         }
     }

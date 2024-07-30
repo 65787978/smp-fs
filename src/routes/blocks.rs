@@ -1,21 +1,50 @@
+use crate::utils::{self, *};
 use crate::{data::api_data::*, utils::*};
 use dioxus::prelude::*;
-
 #[component]
 pub fn BlockPage() -> Element {
     let mut block_data = use_server_future(move || async move { get_block_data().await })?;
     let mut global_data =
-        use_server_future(move || async move { get_landing_page_data("".to_string()).await })?;
+        use_server_future(move || async move { get_home_page_data("".to_string()).await })?;
 
     rsx! {
         match &*global_data.read_unchecked() {
             Some(Ok(stats)) => {
                 rsx!{
                     div {class:"grid sm:grid-cols-4 mt-2",
-                        {InfoCard("8", "", stats.network.hashrate.to_string().as_str(), "Th/s", "Network Hashrate")}
-                        {InfoCard("8", "", stats.network.difficulty.to_string().as_str(), "P", "Network Difficulty")}
-                        {InfoCard("8", "", stats.pool.effort.to_string().as_str(), "%", "Current Pool Effort")}
-                        {InfoCard("8", "", stats.pool.connected_miners.to_string().as_str(), "", "Connected Miners")}
+
+                    {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                        classes: "".to_string(),
+                        value: stats.network.hashrate.to_string(),
+                        unit: "Th/s".to_string(),
+                        heading: "Network Hashrate".to_string()
+
+                    } })}
+
+                    {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                        classes: "".to_string(),
+                        value: stats.network.difficulty.to_string(),
+                        unit: "P".to_string(),
+                        heading: "Network Difficulty".to_string()
+
+                    } })}
+
+                    {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                        classes: "".to_string(),
+                        value: stats.pool.effort.to_string(),
+                        unit: "%".to_string(),
+                        heading: "Current Pool Effort".to_string()
+
+                    } })}
+
+                    {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                        classes: "".to_string(),
+                        value: stats.pool.connected_miners.to_string(),
+                        unit: "".to_string(),
+                        heading: "Connected Miners".to_string()
+
+                    } })}
+
                     }
                 }
             }

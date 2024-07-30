@@ -15,15 +15,14 @@ mod routes {
     pub mod home;
     pub mod miner;
 }
-
 mod utils;
 
-use crate::utils::*;
 use data::api_data;
 use routes::blocks::BlockPage;
-use routes::home::HomePage;
+use routes::home::HomePage_slice;
 use routes::miner::MinerPage_slice;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
+use utils::*;
 
 use dioxus::prelude::LaunchBuilder;
 use dioxus::prelude::*;
@@ -64,11 +63,19 @@ fn app() -> Element {
 }
 
 #[component]
+fn HomePage() -> Element {
+    rsx! {
+        {HomePage_slice()}
+    }
+}
+
+#[component]
 fn MinerPage(address: String) -> Element {
     rsx! {
         {MinerPage_slice(address.clone())}
     }
 }
+
 #[component]
 fn NavBar() -> Element {
     let mut address = use_signal(|| "".to_string());
@@ -79,18 +86,18 @@ fn NavBar() -> Element {
 
             nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-lg shadow-lg space-x-4 py-2", id:"navbar-default",
                 div {class:"max-w-screen-xl flex flex-wrap mx-auto ps-2",
-                    button { onclick: move |_| {
-                        if small_nav() != "hidden"{
-                            small_nav.set("hidden");
-                        }
-                        else {
-                            small_nav.set("");
-                        }
+                        button { onclick: move |_| {
+                            if small_nav() != "hidden"{
+                                small_nav.set("hidden");
+                            }
+                            else {
+                                small_nav.set("");
+                            }
                     },"type":"button", "class":"inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-slate-200 rounded-lg md:hidden hover:bg-slate-100/50 focus:outline-none focus:ring-2 focus:ring-slate-200",
-                        svg {class:"h-6 w-6", fill:"none", stroke:"currentColor", "viewBox":"0 0 24 24", xmlns:"http://www.w3.org/2000/svg",
-                            path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
+                            svg {class:"h-6 w-6", fill:"none", stroke:"currentColor", "viewBox":"0 0 24 24", xmlns:"http://www.w3.org/2000/svg",
+                                path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
+                            }
                         }
-                    }
 
                     div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
                     text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",

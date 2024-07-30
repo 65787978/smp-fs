@@ -1,17 +1,44 @@
 use dioxus::prelude::*;
 
-pub fn InfoCardDouble(
-    min_h: &str,
-    classes: &str,
-    value_1: &str,
-    unit_1: &str,
-    heading_1: &str,
-    value_2: &str,
-    unit_2: &str,
-    heading_2: &str,
-) -> Element {
+#[derive(PartialEq, Eq, Clone)]
+pub struct ParagraphCard {
+    pub classes: String,
+    pub text: String,
+}
+
+#[derive(PartialEq, Eq, Clone)]
+pub struct InfoCard {
+    pub classes: String,
+    pub value: String,
+    pub unit: String,
+    pub heading: String,
+}
+
+#[derive(PartialEq, Eq, Clone)]
+pub struct InfoCardDouble {
+    pub classes: String,
+    pub value_1: String,
+    pub unit_1: String,
+    pub heading_1: String,
+    pub value_2: String,
+    pub unit_2: String,
+    pub heading_2: String,
+}
+
+#[component]
+pub fn InfoCardDouble(vars: InfoCardDouble) -> Element {
+    let InfoCardDouble {
+        classes,
+        value_1,
+        unit_1,
+        heading_1,
+        value_2,
+        unit_2,
+        heading_2,
+    } = vars;
+
     rsx! {
-        div {class:"min-h-[{min_h}rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+        div {class:"min-h-[8rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
             div {class:"flex justify-around m-6",
                 div {
                     div {class:"text-2xl", "{value_1}", a {class:"text-sm", "{unit_1}"}}
@@ -26,9 +53,17 @@ pub fn InfoCardDouble(
     }
 }
 
-pub fn InfoCard(min_h: &str, classes: &str, value: &str, unit: &str, heading: &str) -> Element {
+#[component]
+pub fn InfoCard(vars: InfoCard) -> Element {
+    let InfoCard {
+        classes,
+        value,
+        unit,
+        heading,
+    } = vars;
+
     rsx! {
-        div {class:"min-h-[{min_h}rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+        div {class:"min-h-[8rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
             div {class:"flex justify-around m-6",
                 div {
                     div {class:"text-2xl", "{value}", a {class:"text-sm", "{unit}"}}
@@ -39,24 +74,17 @@ pub fn InfoCard(min_h: &str, classes: &str, value: &str, unit: &str, heading: &s
     }
 }
 
-pub fn InfoCardPlaceholder(min_h: &str, classes: &str) -> Element {
+#[component]
+pub fn ParagraphCard(vars: ParagraphCard) -> Element {
+    let ParagraphCard { classes, text } = vars;
     rsx! {
-        div {class:"min-h-[{min_h}rem] text-center rounded-lg {classes} bg-opacity-30 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
-            div {class:"flex justify-around m-6",
-                svg {class:"animate-spin h-5 w-5 mr-3", "viewBox":"0 0 24 24"}
-            }
-        }
-    }
-}
-
-pub fn Card(min_h: &str, classes: &str, text: String) -> Element {
-    rsx! {
-        div {class:"min-h-[{min_h}rem] max-w-2xl rounded-lg {classes} ",
+        div {class:"min-h-[8rem] max-w-2xl rounded-lg {classes} ",
             p {"{text}"}
         },
     }
 }
 
+#[component]
 pub fn Footer() -> Element {
     rsx! {
         div {class:"min-h-[2rem] inset-x-0 bottom-0 bg-opacity-10 bg-white backdrop-filter backdrop-blur-md fixed",
