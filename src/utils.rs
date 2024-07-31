@@ -113,3 +113,39 @@ pub fn Footer() -> Element {
         }
     }
 }
+
+// fn ExplanationBubble() -> Element {
+//     rsx! {
+//         div {
+//             class: "relative",
+//             div {
+//                 class: "absolute -top-[10px] right-0",
+//                 div {
+//                     class: "bg-gray-700 text-white rounded-lg p-2",
+//                     style: "visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.2s linear",
+//                     id: "explanation-bubble",
+//                     "Explanation text goes here"
+//                 }
+//             }
+//             details {
+//                 summary {
+//                     class: "cursor-pointer",
+//                     onclick: move |_| {
+//                         let explanation_bubble = web_sys::window().unwrap().document().unwrap().get_element_by_id("explanation-bubble").unwrap();
+//                         let explanation_bubble:web_sys::HtmlElement = explanation_bubble.dyn_into().unwrap();
+//                         let explanation_bubble_style = explanation_bubble.style();
+//                         let explanation_bubble_style_visibility = explanation_bubble_style.get_property_value("visibility");
+//                         if explanation_bubble_style_visibility == "visible" {
+//                             explanation_bubble_style.set_property("visibility", "hidden").unwrap();
+//                             explanation_bubble_style.set_property("opacity", "0").unwrap();
+//                         } else {
+//                             explanation_bubble_style.set_property("visibility", "visible").unwrap();
+//                             explanation_bubble_style.set_property("opacity", "1").unwrap();
+//                         }
+//                     },
+//                     "❔"
+//                 }
+//             }
+//         }
+//     }
+// }

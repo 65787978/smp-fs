@@ -78,10 +78,6 @@ pub async fn get_home_page_data() -> Result<Stats, ServerFnError> {
     network_stats.provide_data().await.unwrap();
     pool_stats.provide_data().await.unwrap();
 
-    miner_stats.round_contribution =
-        ((miner_stats.hashrate_current / (pool_stats.hashrate * 1_000.0)) * 10000.0).round()
-            / 100.0;
-
     Ok(Stats {
         network: network_stats,
         pool: pool_stats,
