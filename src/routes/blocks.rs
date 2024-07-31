@@ -74,7 +74,7 @@ pub fn BlockPage() -> Element {
                                 unit_2: "%".to_string(),
                                 heading_2: "Current Pool Effort".to_string(),
                                 explanation_bubble: true,
-                                bubble_text: "Calculated for the last 15 blocks".to_string(),
+                                bubble_text: "Average Pool Effort calculated for the last 15 blocks".to_string(),
 
                             }})}
 
