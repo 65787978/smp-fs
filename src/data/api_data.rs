@@ -85,7 +85,7 @@ pub async fn get_home_page_data() -> Result<Stats, ServerFnError> {
     Ok(Stats {
         network: network_stats,
         pool: pool_stats,
-        miner: miner_stats,
+        miner: MinerStats::default("".to_string()).await,
     })
 }
 

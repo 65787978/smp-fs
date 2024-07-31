@@ -17,56 +17,6 @@ pub fn BlockPage() -> Element {
         }
     });
 
-    // rsx! {
-    // match &*global_data.read_unchecked() {
-    //     Some(Ok(stats)) => {
-    //         rsx!{
-    //             div {class:"grid sm:grid-cols-4 mt-2",
-
-    //             {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
-    //                 classes: "".to_string(),
-    //                 value_1: stats.network.hashrate.to_string(),
-    //                 unit_1: "Th/s".to_string(),
-    //                 heading_1: "Network Hashrate".to_string(),
-    //                 value_2: stats.network.difficulty.to_string(),
-    //                 unit_2: "P".to_string(),
-    //                 heading_2: "Network Difficulty".to_string(),
-    //             }})}
-
-    //             {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
-    //                 classes: "".to_string(),
-    //                 value_1: stats..effort_avg.to_string(),
-    //                 unit_1: "%".to_string(),
-    //                 heading_1: "Average Pool Effort".to_string(),
-    //                 value_2: stats.pool.effort.to_string(),
-    //                 unit_2: "%".to_string(),
-    //                 heading_2: "Current Pool Effort".to_string(),
-
-    //             }})}
-
-    //             {InfoCard(utils::InfoCardProps { vars: InfoCard {
-    //                 classes: "".to_string(),
-    //                 value: stats.pool.effort.to_string(),
-    //                 unit: "%".to_string(),
-    //                 heading: "Current Pool Effort".to_string()
-
-    //             } })}
-
-    //             {InfoCard(utils::InfoCardProps { vars: InfoCard {
-    //                 classes: "".to_string(),
-    //                 value: stats.pool.connected_miners.to_string(),
-    //                 unit: "".to_string(),
-    //                 heading: "Connected Miners".to_string()
-
-    //             } })}
-
-    //             }
-    //         }
-    //     }
-    //     Some(Err(error)) => rsx!("{error}"),
-    //     None => rsx!("Loading...")
-    // }
-
     match &*block_data.read_unchecked() {
         Some(Ok(block_stats)) => {
             rsx!(
