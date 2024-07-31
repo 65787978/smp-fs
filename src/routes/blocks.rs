@@ -34,6 +34,8 @@ pub fn BlockPage() -> Element {
                                 value_2: stats.network.difficulty.to_string(),
                                 unit_2: "P".to_string(),
                                 heading_2: "Network Difficulty".to_string(),
+                                explanation_bubble: false,
+                                bubble_text: "".to_string(),
                             }})}
 
                             {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
@@ -44,6 +46,8 @@ pub fn BlockPage() -> Element {
                                 value_2: stats.network.reward.to_string(),
                                 unit_2: "Σ".to_string(),
                                 heading_2: "Block Reward".to_string(),
+                                explanation_bubble: false,
+                                bubble_text: "".to_string(),
 
                             }})}
 
@@ -56,6 +60,8 @@ pub fn BlockPage() -> Element {
                                 value_2: stats.pool.connected_miners.to_string(),
                                 unit_2: "".to_string(),
                                 heading_2: "Connected Miners".to_string(),
+                                explanation_bubble: false,
+                                bubble_text: "".to_string(),
 
                             }})}
 
@@ -67,6 +73,8 @@ pub fn BlockPage() -> Element {
                                 value_2: stats.pool.effort.to_string(),
                                 unit_2: "%".to_string(),
                                 heading_2: "Current Pool Effort".to_string(),
+                                explanation_bubble: true,
+                                bubble_text: "Calculated for the last 15 blocks".to_string(),
 
                             }})}
 

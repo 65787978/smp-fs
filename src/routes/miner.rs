@@ -36,6 +36,8 @@ pub fn MinerPage_slice(address: String) -> Element {
                             value_2: stats.pool.hashrate.to_string(),
                             unit_2: "Gh/s".to_string(),
                             heading_2: "Pool Hashrate".to_string(),
+                            explanation_bubble: false,
+                            bubble_text: "".to_string(),
                         }})}
 
                         {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
@@ -46,6 +48,8 @@ pub fn MinerPage_slice(address: String) -> Element {
                             value_2: stats.network.price.to_string(),
                             unit_2: "".to_string(),
                             heading_2: "Σ / SigUSD".to_string(),
+                            explanation_bubble: false,
+                            bubble_text: "".to_string(),
                         }})}
 
                         {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
@@ -56,6 +60,8 @@ pub fn MinerPage_slice(address: String) -> Element {
                             value_2: stats.miner.round_contribution.to_string(),
                             unit_2: "%".to_string(),
                             heading_2: "Participation".to_string(),
+                            explanation_bubble: false,
+                            bubble_text: "".to_string(),
                         }})}
                     }
                     div {class:"grid sm:grid-cols-3",
@@ -68,6 +74,8 @@ pub fn MinerPage_slice(address: String) -> Element {
                         value_2: stats.miner.workers_number.to_string(),
                         unit_2: "".to_string(),
                         heading_2: "Active Workers".to_string(),
+                        explanation_bubble: false,
+                        bubble_text: "".to_string(),
                     }})}
 
                     {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
@@ -78,6 +86,8 @@ pub fn MinerPage_slice(address: String) -> Element {
                         value_2: stats.miner.total_paid.to_string(),
                         unit_2: "Σ".to_string(),
                         heading_2: "Total Paid".to_string(),
+                        explanation_bubble: false,
+                        bubble_text: "".to_string(),
                     }})}
 
 
@@ -89,6 +99,8 @@ pub fn MinerPage_slice(address: String) -> Element {
                         value_2: stats.miner.hashrate_24h.to_string(),
                         unit_2: "Mh/s".to_string(),
                         heading_2: "24h Average".to_string(),
+                        explanation_bubble: false,
+                        bubble_text: "".to_string(),
                     }})}
 
                     }

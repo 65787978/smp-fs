@@ -1,4 +1,5 @@
 use dioxus::prelude::*;
+use gloo::utils::document;
 
 #[derive(PartialEq, Eq, Clone)]
 pub struct ParagraphCard {
@@ -23,6 +24,8 @@ pub struct InfoCardDouble {
     pub value_2: String,
     pub unit_2: String,
     pub heading_2: String,
+    pub explanation_bubble: bool,
+    pub bubble_text: String,
 }
 
 #[component]
@@ -35,21 +38,28 @@ pub fn InfoCardDouble(vars: InfoCardDouble) -> Element {
         value_2,
         unit_2,
         heading_2,
+        explanation_bubble,
+        bubble_text,
     } = vars;
 
     rsx! {
-        div {class:"min-h-[8rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
-            div {class:"flex justify-around m-6",
-                div {
-                    div {class:"text-2xl", "{value_1}", a {class:"text-sm", "{unit_1}"}}
-                    a {class:"text-m", "{heading_1}"}
+            div {class:"min-h-[8rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+                div {class:"flex justify-around m-6",
+                    div {
+                        div {class:"text-2xl", "{value_1}", a {class:"text-sm", "{unit_1}"},
+
+                        {if explanation_bubble { ExplanationBubble(bubble_text)}
+                        else {rsx!()}}
+
+                        a {class:"text-m", "{heading_1}"}
+                    }
+                    div {
+                        div {class:"text-2xl", "{value_2}", a {class:"text-sm", "{unit_2}"}}
+                        a {class:"text-m", "{heading_2}"}
+                    }
                 }
-                div {
-                    div {class:"text-2xl", "{value_2}", a {class:"text-sm", "{unit_2}"}}
-                    a {class:"text-m", "{heading_2}"}
-                }
-            }
-        },
+            },
+        }
     }
 }
 
@@ -114,38 +124,32 @@ pub fn Footer() -> Element {
     }
 }
 
-// fn ExplanationBubble() -> Element {
-//     rsx! {
-//         div {
-//             class: "relative",
-//             div {
-//                 class: "absolute -top-[10px] right-0",
-//                 div {
-//                     class: "bg-gray-700 text-white rounded-lg p-2",
-//                     style: "visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.2s linear",
-//                     id: "explanation-bubble",
-//                     "Explanation text goes here"
-//                 }
-//             }
-//             details {
-//                 summary {
-//                     class: "cursor-pointer",
-//                     onclick: move |_| {
-//                         let explanation_bubble = web_sys::window().unwrap().document().unwrap().get_element_by_id("explanation-bubble").unwrap();
-//                         let explanation_bubble:web_sys::HtmlElement = explanation_bubble.dyn_into().unwrap();
-//                         let explanation_bubble_style = explanation_bubble.style();
-//                         let explanation_bubble_style_visibility = explanation_bubble_style.get_property_value("visibility");
-//                         if explanation_bubble_style_visibility == "visible" {
-//                             explanation_bubble_style.set_property("visibility", "hidden").unwrap();
-//                             explanation_bubble_style.set_property("opacity", "0").unwrap();
-//                         } else {
-//                             explanation_bubble_style.set_property("visibility", "visible").unwrap();
-//                             explanation_bubble_style.set_property("opacity", "1").unwrap();
-//                         }
-//                     },
-//                     "❔"
-//                 }
-//             }
-//         }
-//     }
-// }
+fn ExplanationBubble(text: String) -> Element {
+    rsx! {
+    div {
+        class: "relative",
+        div {
+            onclick: move |_| {
+                let explanation_bubble = document().get_element_by_id("explanation-bubble");
+                if let Some(explanation_bubble) = explanation_bubble {
+                    explanation_bubble.set_attribute("style", "visibility: visible; opacity: 1");
+                }
+            },
+            class: "",
+            div {
+                class: "text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg p-2",
+                style: "visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.2s linear",
+                id: "explanation-bubble",
+                "{text}"
+            },
+                div {
+                    class: "inline-block",
+                    svg {
+                        xmlns: "http://www.w3.org/2000/svg", width: "16", height: "16", fill: "currentColor", class: "bi bi-question-circle-fill", "viewBox": "0 0 16 16",
+                        path {d: "M8 16A8 8 0 1 0 8 0a8 8 0 1 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.68-.246l-.088.416c-.287.346-.92.598-1.465.598-.707 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287z"}
+                    }
+                }
+            }
+        }
+    }
+}
