@@ -447,15 +447,15 @@ impl VecBlock {
             .await?;
 
         let mut effort_sum: f64 = 0.0;
-        let mut effort_sum_count: f64 = 0.0;
+        let mut effort_sum_count: f64 = 1.0;
 
         if let serde_json::Value::Array(block_array) = data.clone() {
             for block in block_array {
                 if block["reward"].as_f64().unwrap() != 0.0 {
+                    effort_sum += (block["effort"].as_f64().unwrap() * 10000.0).round() / 100.0;
+                    let effort_avg = effort_sum / effort_sum_count;
                     effort_sum_count += 1.0;
 
-                    effort_sum += (block["effort"].as_f64().unwrap() * 10000.0);
-                    let effort_avg = effort_sum / effort_sum_count;
                     self.blocks.push(Blocks {
                         created: {
                             let date_time: DateTime<Utc> =

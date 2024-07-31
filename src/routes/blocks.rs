@@ -89,17 +89,6 @@ pub fn BlockPage() -> Element {
 
                             {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                                 classes: "".to_string(),
-                                value_1: block_stats.blocks.last().expect("can't access last block").effort_avg.to_string(),
-                                unit_1: "%".to_string(),
-                                heading_1: "Average Pool Effort".to_string(),
-                                value_2: stats.pool.effort.to_string(),
-                                unit_2: "%".to_string(),
-                                heading_2: "Current Pool Effort".to_string(),
-
-                            }})}
-
-                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
-                                classes: "".to_string(),
                                 value_1: stats.network.height.to_string(),
                                 unit_1: "".to_string(),
                                 heading_1: "Network Height".to_string(),
@@ -109,6 +98,7 @@ pub fn BlockPage() -> Element {
 
                             }})}
 
+
                             {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                                 classes: "".to_string(),
                                 value_1: stats.pool.hashrate.to_string(),
@@ -117,6 +107,17 @@ pub fn BlockPage() -> Element {
                                 value_2: stats.pool.connected_miners.to_string(),
                                 unit_2: "".to_string(),
                                 heading_2: "Connected Miners".to_string(),
+
+                            }})}
+
+                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                                classes: "".to_string(),
+                                value_1: block_stats.blocks.last().expect("can't access last block").effort_avg.to_string(),
+                                unit_1: "%".to_string(),
+                                heading_1: "Average Pool Effort".to_string(),
+                                value_2: stats.pool.effort.to_string(),
+                                unit_2: "%".to_string(),
+                                heading_2: "Current Pool Effort".to_string(),
 
                             }})}
 
