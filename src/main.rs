@@ -104,7 +104,7 @@ fn NavBar() -> Element {
                         div { Link {to: Route::HomePage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Home"}
                         }
 
-                        div { Link {to: Route::BlockPage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100m-2 ", "Blocks"}
+                        div { Link {to: Route::BlockPage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Blocks"}
                         }
 
                         div { Link {to:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Support"}

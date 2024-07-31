@@ -71,16 +71,13 @@ pub async fn get_data(address: String) -> Result<Stats, ServerFnError> {
 
 /// Get data from Mining Core API
 #[server]
-pub async fn get_home_page_data(address: String) -> Result<Stats, ServerFnError> {
+pub async fn get_home_page_data() -> Result<Stats, ServerFnError> {
     let mut network_stats = NetworkStats::default().await;
     let mut pool_stats = PoolStats::default().await;
-    let mut miner_stats = MinerStats::default(address).await;
 
     network_stats.provide_data().await.unwrap();
     pool_stats.provide_data().await.unwrap();
-    // miner_stats.provide_data().await.unwrap();
 
-    //participation
     miner_stats.round_contribution =
         ((miner_stats.hashrate_current / (pool_stats.hashrate * 1_000.0)) * 10000.0).round()
             / 100.0;
@@ -187,7 +184,7 @@ impl NetworkStats {
             .json()
             .await?;
 
-        self.reward = block_data[0]["reward"].as_f64().unwrap().round();
+        self.reward = block_data[1]["reward"].as_f64().unwrap().round();
         Ok(())
     }
 }

@@ -3,8 +3,7 @@ use crate::utils::{self, *};
 use dioxus::prelude::*;
 
 pub fn HomePage_slice() -> Element {
-    let mut data =
-        use_server_future(move || async move { get_home_page_data("".to_string()).await })?;
+    let mut data = use_server_future(move || async move { get_home_page_data().await })?;
 
     rsx! {
             div {class:"grid sm:grid-cols-1 justify-items-center",
