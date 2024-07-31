@@ -820,10 +820,6 @@ video {
   --tw-gradient-to: #172554 var(--tw-gradient-to-position);
 }
 
-.fill-slate-200 {
-  fill: #e2e8f0;
-}
-
 .p-2 {
   padding: 0.5rem;
 }

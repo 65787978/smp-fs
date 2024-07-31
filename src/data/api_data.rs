@@ -430,6 +430,7 @@ impl VecBlock {
                 created: String::default(),
                 block_height: u64::default(),
                 effort: f64::default(),
+                effort_avg: f64::default(),
                 block_reward: f64::default(),
                 confirmation_progress: f64::default(),
                 miner: String::default(),
@@ -445,9 +446,16 @@ impl VecBlock {
             .json()
             .await?;
 
+        let mut effort_sum: f64 = 0.0;
+        let mut effort_sum_count: f64 = 0.0;
+
         if let serde_json::Value::Array(block_array) = data.clone() {
             for block in block_array {
                 if block["reward"].as_f64().unwrap() != 0.0 {
+                    effort_sum_count += 1.0;
+
+                    effort_sum += (block["effort"].as_f64().unwrap() * 10000.0);
+                    let effort_avg = effort_sum / effort_sum_count;
                     self.blocks.push(Blocks {
                         created: {
                             let date_time: DateTime<Utc> =
@@ -460,6 +468,7 @@ impl VecBlock {
 
                         block_height: block["blockHeight"].as_u64().unwrap(),
                         effort: (block["effort"].as_f64().unwrap() * 10000.0).round() / 100.0,
+                        effort_avg: effort_avg,
                         block_reward: (block["reward"].as_f64().unwrap() * 100.0).round() / 100.0,
                         confirmation_progress: (block["confirmationProgress"].as_f64().unwrap()
                             * 10000.0)
@@ -479,6 +488,7 @@ impl VecBlock {
                         },
                         block_height: block["blockHeight"].as_u64().unwrap(),
                         effort: 0.0,
+                        effort_avg: 0.0,
                         block_reward: 0.0,
                         confirmation_progress: 0.0,
                         miner: shorten_string(block["miner"].as_str().unwrap(), 15),

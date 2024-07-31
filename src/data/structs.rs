@@ -60,6 +60,7 @@ pub struct Blocks {
     pub created: String,
     pub block_height: u64,
     pub effort: f64,
+    pub effort_avg: f64,
     pub block_reward: f64,
     pub confirmation_progress: f64,
     pub miner: String,
