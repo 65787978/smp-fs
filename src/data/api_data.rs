@@ -126,7 +126,6 @@ impl NetworkStats {
             .await?;
 
         self.hashrate = (hashrate_data["hashRate"]
-            .clone()
             .as_f64()
             .expect(" network hashrate not awailable")
             / 10_000_000_000.0)
@@ -134,7 +133,6 @@ impl NetworkStats {
             / 100.0;
 
         self.difficulty = (info_data["pool"]["networkStats"]["networkDifficulty"]
-            .clone()
             .as_f64()
             .expect("network diff not avialable")
             / 10_000_000_000_000.0)
@@ -142,7 +140,6 @@ impl NetworkStats {
             / 100.0;
 
         self.height = info_data["pool"]["networkStats"]["blockHeight"]
-            .clone()
             .as_u64()
             .expect("block height not available");
 
@@ -211,7 +208,6 @@ impl PoolStats {
     async fn calculate_data(&mut self) -> Result<(), reqwest::Error> {
         /* Hashrate */
         self.hashrate = (self.data["pool"]["poolStats"]["poolHashrate"]
-            .clone()
             .as_f64()
             .expect("no pool hashrate available")
             / 10_000_000.0)
@@ -220,13 +216,11 @@ impl PoolStats {
 
         /* Connected Miners */
         self.connected_miners = self.data["pool"]["poolStats"]["connectedMiners"]
-            .clone()
             .as_u64()
             .expect("connected miners not available");
 
         /* Pool effort */
         self.effort = (self.data["pool"]["poolEffort"]
-            .clone()
             .as_f64()
             .expect("pool effort not available")
             * 10000.0)
@@ -235,7 +229,6 @@ impl PoolStats {
 
         /* Total Blocks */
         self.total_blocks = self.data["pool"]["totalBlocks"]
-            .clone()
             .as_u64()
             .expect("total blocks data not available");
 
@@ -307,7 +300,7 @@ impl MinerStats {
 
     async fn calculate_hashrate_collection(&mut self) -> Result<(), reqwest::Error> {
         //hashrate_collection
-        if let serde_json::Value::Array(sample_array) = self.data["performanceSamples"].clone() {
+        if let serde_json::Value::Array(sample_array) = &self.data["performanceSamples"] {
             for sample in sample_array.iter() {
                 let time = sample["created"]
                     .as_str()
@@ -365,11 +358,7 @@ impl MinerStats {
     }
 
     async fn calculate_workers(&mut self) -> Result<(), reqwest::Error> {
-        for (key, value) in self.data["performance"]["workers"]
-            .clone()
-            .as_object()
-            .unwrap()
-        {
+        for (key, value) in self.data["performance"]["workers"].as_object().unwrap() {
             self.workers.push(Worker {
                 name: key.to_string(),
                 hashrate: ((value["hashrate"]
@@ -442,7 +431,7 @@ impl VecBlock {
         let mut effort_sum: f64 = 0.0;
         let mut effort_sum_count: f64 = 1.0;
 
-        if let serde_json::Value::Array(block_array) = data.clone() {
+        if let serde_json::Value::Array(block_array) = data {
             for block in block_array {
                 if block["reward"].as_f64().unwrap() != 0.0 {
                     effort_sum += (block["effort"].as_f64().unwrap() * 10000.0).round();
