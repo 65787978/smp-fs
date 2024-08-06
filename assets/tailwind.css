@@ -666,6 +666,18 @@ video {
   max-height: 12rem;
 }
 
+.max-h-32 {
+  max-height: 8rem;
+}
+
+.max-h-\[12rem\] {
+  max-height: 12rem;
+}
+
+.max-h-\[18rem\] {
+  max-height: 18rem;
+}
+
 .min-h-\[2rem\] {
   min-height: 2rem;
 }

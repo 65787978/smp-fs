@@ -186,66 +186,70 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
         let mut chart = eval(
             r#"
 
-                    let x_axis_data = await dioxus.recv();
-                    let y_axis_data = await dioxus.recv();
+            
+                var chart = Chart.getChart('myChart');
+                if (chart) {
+                    chart.clear();
+                    chart.destroy();
+                }
 
+                let x_axis_data = await dioxus.recv();
+                let y_axis_data = await dioxus.recv();
 
-                    var ctx = document.getElementById('myChart');
+                var ctx = document.getElementById('myChart').getContext('2d');
 
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: x_axis_data,
-                            datasets: [{
-                                label: 'Miner Hashrate',
-                                data:  y_axis_data,
-                                borderColor: 'rgba(238, 238, 238, 0.93)',
-                                tension: 0.5,
-                                borderWidth: 2,
-                                pointStyle: false,
-                                fill: true
-                            }]
-                        },
-                        options: {
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    max: Math.round(y_axis_data[0] / 1000) * 1500
-                                }
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: x_axis_data,
+                        datasets: [{
+                            label: 'Miner Hashrate',
+                            data:  y_axis_data,
+                            borderColor: 'rgba(238, 238, 238, 0.93)',
+                            tension: 0.5,
+                            borderWidth: 2,
+                            pointStyle: false,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: Math.round(y_axis_data[0] / 1000) * 1500
                             }
                         }
-                    });
-                "#,
+                    }
+                });
+
+            "#,
         );
 
         // Send a message to the JS code.
+
         chart.send(x_axis().into()).unwrap();
         chart.send(y_axis().into()).unwrap();
 
-        // Our line on the JS side will log the message and then return the chart.
+        // Our line on the JS side will log the message and then return "hello world".
         let res = chart.recv().await.unwrap();
 
         res
     });
 
-    /* Auto update data in background */
-    use_future(move || async move {
-        loop {
-            TimeoutFuture::new(60000).await;
-            future.restart();
-        }
-    });
-
     rsx! {
 
-        div { class:"max-h-48 max-w-md text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
-                canvas {id: "myChart"}
+        div { class:"max-w-md text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+            span { style:"color: text-slate-200",
+                canvas { id: "myChart", style:"flex: 1; max-height: 500px;" }
+            }
 
-                match future.value().as_ref() {
-                    Some(chart) => rsx!{"{chart}"},
-                    _ => rsx!{"Loading..."}
-                }
+            match future.value().as_ref() {
+                Some(chart) => rsx!{
+                   "{chart}"
+                },
+                _ => rsx!{}
+            }
         }
     }
 }
