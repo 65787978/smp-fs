@@ -173,11 +173,11 @@ pub fn Footer() -> Element {
 }
 
 #[component]
-pub fn Chart(chart_data: Vec<(String, f32)>) -> Element {
+pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
     let mut x_axis = use_signal(|| vec![String::new()]);
-    let mut y_axis = use_signal(|| vec![f32::default()]);
+    let mut y_axis = use_signal(|| vec![String::new()]);
 
-    for data in chart_data.clone() {
+    for data in chart_data {
         x_axis.push(data.0);
         y_axis.push(data.1);
     }
@@ -185,9 +185,13 @@ pub fn Chart(chart_data: Vec<(String, f32)>) -> Element {
     let future = use_resource(move || async move {
         let mut chart = eval(
             r#"
+
                     let x_axis_data = await dioxus.recv();
                     let y_axis_data = await dioxus.recv();
+
+
                     var ctx = document.getElementById('myChart');
+
                     new Chart(ctx, {
                         type: 'line',
                         data: {
@@ -203,10 +207,11 @@ pub fn Chart(chart_data: Vec<(String, f32)>) -> Element {
                             }]
                         },
                         options: {
+                            maintainAspectRatio: false,
                             scales: {
                                 y: {
                                     beginAtZero: true,
-                                    max: Math.round(y_axis_data[0] * 1.5)
+                                    max: Math.round(y_axis_data[0] / 1000) * 1500
                                 }
                             }
                         }
@@ -230,9 +235,9 @@ pub fn Chart(chart_data: Vec<(String, f32)>) -> Element {
             div {class:"flex justify-around m-2",
                 canvas {id: "myChart"}
 
-                match future().as_ref() {
+                match future.value().as_ref() {
                     Some(chart) => rsx!{"{chart}"},
-                    None => rsx!{"Loading..."}
+                    _ => rsx!{"Loading..."}
                 }
             }
 

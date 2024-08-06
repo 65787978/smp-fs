@@ -46,7 +46,7 @@ pub struct MinerStats {
     pub paid_24h: f64,
     pub workers_number: u64,
     pub workers: Vec<Worker>,
-    pub chart_data: Vec<(String, f32)>,
+    pub chart_data: Vec<(String, String)>,
 }
 
 #[derive(Debug, Default, Clone, PartialEq, Deserialize, Serialize)]

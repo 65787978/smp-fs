@@ -412,7 +412,7 @@ impl MinerStats {
             let mut hashrate = data.1;
 
             self.chart_data
-                .push((format!("{hour}:00 "), (hashrate as f32)));
+                .push((format!("{hour}:00 "), (format!("{hashrate} Mh/s"))));
         }
         Ok(())
     }
