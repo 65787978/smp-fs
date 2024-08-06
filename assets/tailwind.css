@@ -690,6 +690,10 @@ video {
   max-width: 1280px;
 }
 
+.max-w-xl {
+  max-width: 36rem;
+}
+
 .grid-rows-5 {
   grid-template-rows: repeat(5, minmax(0, 1fr));
 }
