@@ -273,6 +273,7 @@ impl MinerStats {
             paid_24h: f64::default(),
             workers_number: u64::default(),
             workers: Vec::default(),
+            chart_data: Vec::default(),
         }
     }
     pub async fn provide_data(&mut self) -> Result<(), reqwest::Error> {
@@ -283,6 +284,7 @@ impl MinerStats {
             .unwrap();
         self.calculate_workers().await.unwrap();
         self.calculate_hashrate().await.unwrap();
+        self.calculate_chart_data().await.unwrap();
         Ok(())
     }
 
@@ -400,6 +402,17 @@ impl MinerStats {
                 _ => {}
             }
             itter += 1;
+        }
+        Ok(())
+    }
+
+    async fn calculate_chart_data(&mut self) -> Result<(), reqwest::Error> {
+        for data in self.hashrate_collection.iter() {
+            let mut hour = data.0;
+            let mut hashrate = data.1;
+
+            self.chart_data
+                .push((format!("{hour}:00 "), format!("{hashrate} Mh/s")));
         }
         Ok(())
     }

@@ -104,6 +104,10 @@ pub fn MinerPage_slice(address: String) -> Element {
                     }})}
 
                     }
+
+                    div {class:"flex flex-row justify-center",
+                        {Chart(utils::ChartProps { chart_data: stats.miner.chart_data.clone() })}
+                    }
             }
         }
         Some(Err(error)) => {
