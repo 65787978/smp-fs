@@ -129,6 +129,7 @@ impl NetworkStats {
     }
 
     pub async fn provide_data(&mut self) -> Result<(), reqwest::Error> {
+        let start_timestamp = Utc::now().timestamp_millis();
         let hashrate_data: serde_json::Value = Client::new()
             .get(NETWORK_API_URL)
             .send()
@@ -136,9 +137,23 @@ impl NetworkStats {
             .json()
             .await?;
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "hashrate_data(NETWORK_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         let info_data: serde_json::Value =
             Client::new().get(POOL_API_URL).send().await?.json().await?;
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "info_data(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         let price_data: serde_json::Value = Client::new()
             .get(PRICE_API_URL)
             .send()
@@ -146,6 +161,13 @@ impl NetworkStats {
             .json()
             .await?;
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "price_data(PRICE_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.hashrate = (hashrate_data["hashRate"]
             .as_f64()
             .expect(" network hashrate not awailable")
@@ -153,6 +175,13 @@ impl NetworkStats {
             .round()
             / 100.0;
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "self.hashrate Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.difficulty = (info_data["pool"]["networkStats"]["networkDifficulty"]
             .as_f64()
             .expect("network diff not avialable")
@@ -160,10 +189,24 @@ impl NetworkStats {
             .round()
             / 100.0;
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "self.difficulty Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.height = info_data["pool"]["networkStats"]["blockHeight"]
             .as_u64()
             .expect("block height not available");
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "self.height Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         // ERG Price
         if let serde_json::Value::Array(arr) = price_data {
             for obj in arr {
@@ -185,12 +228,26 @@ impl NetworkStats {
             }
         }
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "self.price Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.get_block_reward().await.unwrap();
+
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "self.reward Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
 
         Ok(())
     }
 
     async fn get_block_reward(&mut self) -> Result<(), reqwest::Error> {
+        let start_timestamp = Utc::now().timestamp_millis();
         let block_data: serde_json::Value = Client::new()
             .get(format!("{}/blocks", POOL_API_URL))
             .send()
@@ -198,6 +255,11 @@ impl NetworkStats {
             .json()
             .await?;
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "block_data(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
         self.reward = block_data[1]["reward"].as_f64().unwrap().round();
         Ok(())
     }
@@ -216,18 +278,39 @@ impl PoolStats {
     }
 
     pub async fn provide_data(&mut self) -> Result<(), reqwest::Error> {
+        let start_timestamp = Utc::now().timestamp_millis();
         self.fetch_data().await.unwrap();
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "fetch_data(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.calculate_data().await.unwrap();
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "calculate_data(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
         Ok(())
     }
 
     async fn fetch_data(&mut self) -> Result<(), reqwest::Error> {
+        let start_timestamp = Utc::now().timestamp_millis();
         self.data = Client::new().get(POOL_API_URL).send().await?.json().await?;
+
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "fetch_data(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
         Ok(())
     }
 
     async fn calculate_data(&mut self) -> Result<(), reqwest::Error> {
         /* Hashrate */
+        let start_timestamp = Utc::now().timestamp_millis();
         self.hashrate = (self.data["pool"]["poolStats"]["poolHashrate"]
             .as_f64()
             .expect("no pool hashrate available")
@@ -235,11 +318,25 @@ impl PoolStats {
             .round()
             / 100.0;
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "self.hashrate(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         /* Connected Miners */
         self.connected_miners = self.data["pool"]["poolStats"]["connectedMiners"]
             .as_u64()
             .expect("connected miners not available");
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "self.connected_miners(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         /* Pool effort */
         self.effort = (self.data["pool"]["poolEffort"]
             .as_f64()
@@ -248,11 +345,25 @@ impl PoolStats {
             .round()
             / 100.0;
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "self.effort(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         /* Total Blocks */
         self.total_blocks = self.data["pool"]["totalBlocks"]
             .as_u64()
             .expect("total blocks data not available");
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "self.total_blocks(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         /* New block confirmation */
         let block_data: serde_json::Value = Client::new()
             .get(format!("{}/blocks", POOL_API_URL))
@@ -261,10 +372,23 @@ impl PoolStats {
             .json()
             .await?;
 
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "block_data(POOL_API_URL/blocks) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         let pool_block_confirmation: (&str, f64, f64) = (
             block_data[0]["status"].as_str().unwrap(),
             (block_data[0]["confirmationProgress"].as_f64().unwrap()) * 100.0,
             block_data[0]["reward"].as_f64().unwrap().round(),
+        );
+
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "pool_block_confirmation(POOL_API_URL/blocks) Time taken: {} ms",
+            end_timestamp - start_timestamp
         );
 
         if pool_block_confirmation.0 == "pending" {
@@ -298,14 +422,55 @@ impl MinerStats {
         }
     }
     pub async fn provide_data(&mut self) -> Result<(), reqwest::Error> {
+        let start_timestamp = Utc::now().timestamp_millis();
         self.fetch_data().await.unwrap();
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "fetch_data(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.calculate_hashrate_collection().await.unwrap();
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "calculate_hashrate_collection(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.calculate_balance_shares_totalpaid_paid24h()
             .await
             .unwrap();
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "calculate_balance_shares_totalpaid_paid24h(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.calculate_workers().await.unwrap();
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "calculate_workers(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.calculate_hashrate().await.unwrap();
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "calculate_hashrate(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+
+        let start_timestamp = Utc::now().timestamp_millis();
         self.calculate_chart_data().await.unwrap();
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "calculate_chart_data(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
         Ok(())
     }
 
