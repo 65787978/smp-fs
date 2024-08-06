@@ -190,7 +190,7 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
                 var chart = Chart.getChart('myChart');
                 if (chart) {
                     chart.clear();
-                    chart.destroy();
+                    // chart.destroy();
                 }
 
                 let x_axis_data = await dioxus.recv();

@@ -49,6 +49,7 @@ async fn get_server_data() -> Result<String, ServerFnError> {
 /// Get data from Mining Core API
 #[server]
 pub async fn get_data(address: String) -> Result<Stats, ServerFnError> {
+    let start_timestamp = Utc::now().timestamp_millis();
     let mut network_stats = NetworkStats::default().await;
     let mut pool_stats = PoolStats::default().await;
     let mut miner_stats = MinerStats::default(address).await;
@@ -62,6 +63,11 @@ pub async fn get_data(address: String) -> Result<Stats, ServerFnError> {
         ((miner_stats.hashrate_current / (pool_stats.hashrate * 1_000.0)) * 10000.0).round()
             / 100.0;
 
+    let end_timestamp = Utc::now().timestamp_millis();
+    println!(
+        "GET_DATA Time taken: {} ms",
+        end_timestamp - start_timestamp
+    );
     Ok(Stats {
         network: network_stats,
         pool: pool_stats,
@@ -72,11 +78,19 @@ pub async fn get_data(address: String) -> Result<Stats, ServerFnError> {
 /// Get data from Mining Core API
 #[server]
 pub async fn get_home_page_data() -> Result<Stats, ServerFnError> {
+    let start_timestamp = Utc::now().timestamp_millis();
+
     let mut network_stats = NetworkStats::default().await;
     let mut pool_stats = PoolStats::default().await;
 
     network_stats.provide_data().await.unwrap();
     pool_stats.provide_data().await.unwrap();
+
+    let end_timestamp = Utc::now().timestamp_millis();
+    println!(
+        "GET_HOME_PAGE_DATA Time taken: {} ms",
+        end_timestamp - start_timestamp
+    );
 
     Ok(Stats {
         network: network_stats,
@@ -88,9 +102,16 @@ pub async fn get_home_page_data() -> Result<Stats, ServerFnError> {
 /// Get block data
 #[server]
 pub async fn get_block_data() -> Result<VecBlock, ServerFnError> {
+    let start_timestamp = Utc::now().timestamp_millis();
     let mut block_data = VecBlock::default().await;
 
     block_data.get_block_data().await.unwrap();
+
+    let end_timestamp = Utc::now().timestamp_millis();
+    println!(
+        "GET_BLOCK_DATA Time taken: {} ms",
+        end_timestamp - start_timestamp
+    );
 
     Ok(block_data)
 }
