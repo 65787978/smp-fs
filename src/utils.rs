@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use gloo::utils::document;
+use gloo::{timers::future::TimeoutFuture, utils::document};
 
 use crate::data::structs::MinerStats;
 
@@ -182,7 +182,7 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
         y_axis.push(data.1.clone());
     }
 
-    let future = use_resource(move || async move {
+    let mut future = use_resource(move || async move {
         let mut chart = eval(
             r#"
 
@@ -229,18 +229,23 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
         res
     });
 
+    /* Auto update data in background */
+    use_future(move || async move {
+        loop {
+            TimeoutFuture::new(60000).await;
+            future.restart();
+        }
+    });
+
     rsx! {
 
-        div { class:"max-h-20rem max-w-xl text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
-            div {class:"flex m-2",
+        div { class:"max-h-20rem max-w-md text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
                 canvas {id: "myChart"}
 
                 match future.value().as_ref() {
                     Some(chart) => rsx!{"{chart}"},
                     _ => rsx!{"Loading..."}
                 }
-            }
-
         }
     }
 }
