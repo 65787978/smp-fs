@@ -34,7 +34,7 @@ watch_path = ["src", "assets"]
 style = ["tailwind.css"]
 
 # Javascript code file
-script = []
+script = ["https://cdn.jsdelivr.net/npm/chart.js"]
 
 [web.resource.dev]
 
