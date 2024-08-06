@@ -662,6 +662,10 @@ video {
   height: 100%;
 }
 
+.max-h-48 {
+  max-height: 12rem;
+}
+
 .min-h-\[2rem\] {
   min-height: 2rem;
 }

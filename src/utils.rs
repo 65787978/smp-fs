@@ -239,7 +239,7 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
 
     rsx! {
 
-        div { class:"max-h-20rem max-w-md text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+        div { class:"max-h-48 max-w-md text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
                 canvas {id: "myChart"}
 
                 match future.value().as_ref() {
