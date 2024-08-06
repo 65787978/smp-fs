@@ -225,13 +225,17 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
     });
 
     rsx! {
-        canvas {id: "myChart"}
 
-        match future().as_ref() {
-            Some(chart) => rsx!{"{chart}"},
-            None => rsx!{"Loading..."}
+        div { class:"min-h-[8rem] text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+            div {class:"flex justify-around m-2",
+                canvas {id: "myChart"}
+
+                match future().as_ref() {
+                    Some(chart) => rsx!{"{chart}"},
+                    None => rsx!{"Loading..."}
+                }
+            }
+
         }
-
-
     }
 }
