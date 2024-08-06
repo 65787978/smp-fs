@@ -178,8 +178,8 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
     let mut y_axis = use_signal(|| vec![String::new()]);
 
     for data in chart_data.clone() {
-        x_axis().push(data.0);
-        y_axis().push(data.1);
+        x_axis.push(data.0);
+        y_axis.push(data.1);
     }
 
     let future = use_resource(move || async move {
@@ -225,7 +225,7 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
     rsx! {
         canvas {id: "myChart"}
 
-        match future.value().as_ref() {
+        match future().as_ref() {
             Some(chart) => rsx!{{chart}},
             None => rsx!{"Loading..."}
         }
