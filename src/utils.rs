@@ -220,13 +220,15 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
 
         // Our line on the JS side will log the message and then return the chart.
         let res = chart.recv().await.unwrap();
+
+        res
     });
 
     rsx! {
         canvas {id: "myChart"}
 
         match future().as_ref() {
-            Some(chart) => rsx!{{chart}},
+            Some(chart) => rsx!{"{chart}"},
             None => rsx!{"Loading..."}
         }
 
