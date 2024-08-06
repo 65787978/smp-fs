@@ -177,9 +177,9 @@ pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
     let mut x_axis = use_signal(|| vec![String::new()]);
     let mut y_axis = use_signal(|| vec![String::new()]);
 
-    for data in chart_data {
-        x_axis.push(data.0);
-        y_axis.push(data.1);
+    for data in chart_data.iter() {
+        x_axis.push(data.0.clone());
+        y_axis.push(data.1.clone());
     }
 
     let future = use_resource(move || async move {
