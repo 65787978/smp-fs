@@ -173,9 +173,9 @@ pub fn Footer() -> Element {
 }
 
 #[component]
-pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
+pub fn Chart(chart_data: Vec<(String, f32)>) -> Element {
     let mut x_axis = use_signal(|| vec![String::new()]);
-    let mut y_axis = use_signal(|| vec![String::new()]);
+    let mut y_axis = use_signal(|| vec![f32::default()]);
 
     for data in chart_data.clone() {
         x_axis.push(data.0);
