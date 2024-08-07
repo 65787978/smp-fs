@@ -743,7 +743,7 @@ pub fn shorten_string(s: &str, max_len: usize) -> String {
     shortened
 }
 
-#[cached]
+#[cached(time = 60, result = true)]
 #[server]
 async fn fetch_cached_api_data() -> Result<ApiData, ServerFnError> {
     let mut api_data = ApiData::default();
@@ -777,7 +777,7 @@ async fn fetch_cached_api_data() -> Result<ApiData, ServerFnError> {
     Ok(api_data)
 }
 
-#[cached]
+#[cached(time = 60, result = true)]
 #[server]
 async fn fetch_cached_miner_api_data(address: String) -> Result<MinerApiData, ServerFnError> {
     let mut miner_api_data = MinerApiData::default();
