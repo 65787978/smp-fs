@@ -5,7 +5,7 @@ use gloo::timers::future::TimeoutFuture;
 
 #[component]
 pub fn BlockPage() -> Element {
-    let mut global_data = use_server_future(move || async move { get_home_page_data().await })?;
+    let mut global_data = use_server_future(move || async move { get_data("".to_string()).await })?;
     let mut block_data = use_server_future(move || async move { get_block_data().await })?;
 
     /* Auto update data in background */

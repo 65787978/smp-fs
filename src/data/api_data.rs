@@ -1,6 +1,8 @@
 use dioxus::prelude::*;
 
+use crate::data::api_data;
 use crate::server_fn::response::BrowserMockRes;
+use cached::proc_macro::cached;
 use chrono::{DateTime, Timelike, Utc};
 use reqwest::{self, Client};
 use serde::Deserialize;
@@ -52,16 +54,19 @@ pub async fn get_data(address: String) -> Result<Stats, ServerFnError> {
     let start_timestamp = Utc::now().timestamp_millis();
     let mut network_stats = NetworkStats::default().await;
     let mut pool_stats = PoolStats::default().await;
-    let mut miner_stats = MinerStats::default(address).await;
+    let mut miner_stats = MinerStats::default(address.clone()).await;
 
     network_stats.provide_data().await.unwrap();
     pool_stats.provide_data().await.unwrap();
-    miner_stats.provide_data().await.unwrap();
 
-    //participation
-    miner_stats.round_contribution =
-        ((miner_stats.hashrate_current / (pool_stats.hashrate * 1_000.0)) * 10000.0).round()
-            / 100.0;
+    if address != "" {
+        miner_stats.provide_data().await.unwrap();
+
+        //participation
+        miner_stats.round_contribution =
+            ((miner_stats.hashrate_current / (pool_stats.hashrate * 1_000.0)) * 10000.0).round()
+                / 100.0;
+    }
 
     let end_timestamp = Utc::now().timestamp_millis();
     println!(
@@ -76,28 +81,28 @@ pub async fn get_data(address: String) -> Result<Stats, ServerFnError> {
 }
 
 /// Get data from Mining Core API
-#[server]
-pub async fn get_home_page_data() -> Result<Stats, ServerFnError> {
-    let start_timestamp = Utc::now().timestamp_millis();
+// #[server]
+// pub async fn get_home_page_data() -> Result<Stats, ServerFnError> {
+//     let start_timestamp = Utc::now().timestamp_millis();
 
-    let mut network_stats = NetworkStats::default().await;
-    let mut pool_stats = PoolStats::default().await;
+//     let mut network_stats = NetworkStats::default().await;
+//     let mut pool_stats = PoolStats::default().await;
 
-    network_stats.provide_data().await.unwrap();
-    pool_stats.provide_data().await.unwrap();
+//     network_stats.provide_data().await.unwrap();
+//     pool_stats.provide_data().await.unwrap();
 
-    let end_timestamp = Utc::now().timestamp_millis();
-    println!(
-        "GET_HOME_PAGE_DATA Time taken: {} ms",
-        end_timestamp - start_timestamp
-    );
+//     let end_timestamp = Utc::now().timestamp_millis();
+//     println!(
+//         "GET_HOME_PAGE_DATA Time taken: {} ms",
+//         end_timestamp - start_timestamp
+//     );
 
-    Ok(Stats {
-        network: network_stats,
-        pool: pool_stats,
-        miner: MinerStats::default("".to_string()).await,
-    })
-}
+//     Ok(Stats {
+//         network: network_stats,
+//         pool: pool_stats,
+//         miner: MinerStats::default("".to_string()).await,
+//     })
+// }
 
 /// Get block data
 #[server]
@@ -130,42 +135,54 @@ impl NetworkStats {
 
     pub async fn provide_data(&mut self) -> Result<(), reqwest::Error> {
         let start_timestamp = Utc::now().timestamp_millis();
-        let hashrate_data: serde_json::Value = Client::new()
-            .get(NETWORK_API_URL)
-            .send()
-            .await?
-            .json()
-            .await?;
-
+        let api_data = fetch_cached_api_data().await.unwrap();
         let end_timestamp = Utc::now().timestamp_millis();
         println!(
-            "hashrate_data(NETWORK_API_URL) Time taken: {} ms",
+            "[CACHED]fetch_cached_api_data() - NetworkStats Time taken: {} ms",
             end_timestamp - start_timestamp
         );
 
-        let start_timestamp = Utc::now().timestamp_millis();
-        let info_data: serde_json::Value =
-            Client::new().get(POOL_API_URL).send().await?.json().await?;
+        // let start_timestamp = Utc::now().timestamp_millis();
+        // let hashrate_data: serde_json::Value = Client::new()
+        //     .get(NETWORK_API_URL)
+        //     .send()
+        //     .await?
+        //     .json()
+        //     .await?;
 
-        let end_timestamp = Utc::now().timestamp_millis();
-        println!(
-            "info_data(POOL_API_URL) Time taken: {} ms",
-            end_timestamp - start_timestamp
-        );
+        // let end_timestamp = Utc::now().timestamp_millis();
+        // println!(
+        //     "hashrate_data(NETWORK_API_URL) Time taken: {} ms",
+        //     end_timestamp - start_timestamp
+        // );
 
-        let start_timestamp = Utc::now().timestamp_millis();
-        let price_data: serde_json::Value = Client::new()
-            .get(PRICE_API_URL)
-            .send()
-            .await?
-            .json()
-            .await?;
+        // let start_timestamp = Utc::now().timestamp_millis();
+        // let info_data: serde_json::Value =
+        //     Client::new().get(POOL_API_URL).send().await?.json().await?;
 
-        let end_timestamp = Utc::now().timestamp_millis();
-        println!(
-            "price_data(PRICE_API_URL) Time taken: {} ms",
-            end_timestamp - start_timestamp
-        );
+        // let end_timestamp = Utc::now().timestamp_millis();
+        // println!(
+        //     "info_data(POOL_API_URL) Time taken: {} ms",
+        //     end_timestamp - start_timestamp
+        // );
+
+        // let start_timestamp = Utc::now().timestamp_millis();
+        // let price_data: serde_json::Value = Client::new()
+        //     .get(PRICE_API_URL)
+        //     .send()
+        //     .await?
+        //     .json()
+        //     .await?;
+
+        // let end_timestamp = Utc::now().timestamp_millis();
+        // println!(
+        //     "price_data(PRICE_API_URL) Time taken: {} ms",
+        //     end_timestamp - start_timestamp
+        // );
+
+        let hashrate_data = api_data.network_data;
+        let info_data = api_data.pool_data;
+        let price_data = api_data.price_data;
 
         let start_timestamp = Utc::now().timestamp_millis();
         self.hashrate = (hashrate_data["hashRate"]
@@ -278,13 +295,24 @@ impl PoolStats {
     }
 
     pub async fn provide_data(&mut self) -> Result<(), reqwest::Error> {
+        // let start_timestamp = Utc::now().timestamp_millis();
+        // self.fetch_data().await.unwrap();
+        // let end_timestamp = Utc::now().timestamp_millis();
+        // println!(
+        //     "fetch_data(POOL_API_URL) Time taken: {} ms",
+        //     end_timestamp - start_timestamp
+        // );
+
         let start_timestamp = Utc::now().timestamp_millis();
-        self.fetch_data().await.unwrap();
+        let api_data = fetch_cached_api_data().await.unwrap();
+
         let end_timestamp = Utc::now().timestamp_millis();
         println!(
-            "fetch_data(POOL_API_URL) Time taken: {} ms",
+            "[CACHED]fetch_cached_api_data - PoolStats Time taken: {} ms",
             end_timestamp - start_timestamp
         );
+
+        self.data = api_data.pool_data;
 
         let start_timestamp = Utc::now().timestamp_millis();
         self.calculate_data().await.unwrap();
@@ -422,13 +450,25 @@ impl MinerStats {
         }
     }
     pub async fn provide_data(&mut self) -> Result<(), reqwest::Error> {
+        // let start_timestamp = Utc::now().timestamp_millis();
+        // self.fetch_data().await.unwrap();
+        // let end_timestamp = Utc::now().timestamp_millis();
+        // println!(
+        //     "fetch_data(POOL_API_URL) Time taken: {} ms",
+        //     end_timestamp - start_timestamp
+        // );
+
         let start_timestamp = Utc::now().timestamp_millis();
-        self.fetch_data().await.unwrap();
+        let api_data = fetch_cached_miner_api_data(self.address.clone())
+            .await
+            .unwrap();
         let end_timestamp = Utc::now().timestamp_millis();
         println!(
-            "fetch_data(POOL_API_URL) Time taken: {} ms",
+            "[CACHED] fetch_cached_miner_api_data - MinerStats Time taken: {} ms",
             end_timestamp - start_timestamp
         );
+
+        self.data = api_data.miner_data;
 
         let start_timestamp = Utc::now().timestamp_millis();
         self.calculate_hashrate_collection().await.unwrap();
@@ -620,12 +660,21 @@ impl VecBlock {
     }
 
     async fn get_block_data(&mut self) -> Result<(), reqwest::Error> {
-        let data: serde_json::Value = Client::new()
-            .get(format!("{}/blocks", POOL_API_URL))
-            .send()
-            .await?
-            .json()
-            .await?;
+        // let data: serde_json::Value = Client::new()
+        //     .get(format!("{}/blocks", POOL_API_URL))
+        //     .send()
+        //     .await?
+        //     .json()
+        //     .await?;
+
+        let start_timestamp = Utc::now().timestamp_millis();
+        let api_data = fetch_cached_api_data().await.unwrap();
+        let end_timestamp = Utc::now().timestamp_millis();
+        println!(
+            "[CACHED] get_block_data(POOL_API_URL) Time taken: {} ms",
+            end_timestamp - start_timestamp
+        );
+        let data = api_data.blocks_data;
 
         let mut effort_sum: f64 = 0.0;
         let mut effort_sum_count: f64 = 1.0;
@@ -692,4 +741,54 @@ pub fn shorten_string(s: &str, max_len: usize) -> String {
     let shortened = format!("{}...{}", &s[..start_len], &s[s.len() - end_len..]);
 
     shortened
+}
+
+#[cached]
+#[server]
+async fn fetch_cached_api_data() -> Result<ApiData, ServerFnError> {
+    let mut api_data = ApiData::default();
+    // get network api data
+    api_data.network_data = Client::new()
+        .get(NETWORK_API_URL)
+        .send()
+        .await?
+        .json()
+        .await?;
+
+    // get pool api data
+    api_data.pool_data = Client::new().get(POOL_API_URL).send().await?.json().await?;
+
+    // get price api data
+    api_data.price_data = Client::new()
+        .get(PRICE_API_URL)
+        .send()
+        .await?
+        .json()
+        .await?;
+
+    // get block api data
+    api_data.blocks_data = Client::new()
+        .get(format!("{}/blocks", POOL_API_URL))
+        .send()
+        .await?
+        .json()
+        .await?;
+
+    Ok(api_data)
+}
+
+#[cached]
+#[server]
+async fn fetch_cached_miner_api_data(address: String) -> Result<MinerApiData, ServerFnError> {
+    let mut miner_api_data = MinerApiData::default();
+
+    // get miner api data
+    let miner_api_url = format!("{}/{}/{}", POOL_API_URL, "miners", address);
+    miner_api_data.miner_data = Client::new()
+        .get(miner_api_url)
+        .send()
+        .await?
+        .json()
+        .await?;
+    Ok(miner_api_data)
 }

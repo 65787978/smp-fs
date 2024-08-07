@@ -1,9 +1,9 @@
-use crate::data::api_data::get_home_page_data;
+use crate::data::api_data::get_data;
 use crate::utils::{self, *};
 use dioxus::prelude::*;
 
 pub fn HomePage_slice() -> Element {
-    let mut data = use_server_future(move || async move { get_home_page_data().await })?;
+    let mut data = use_server_future(move || async move { get_data("".to_string()).await })?;
 
     rsx! {
             div {class:"grid sm:grid-cols-1 justify-items-center",

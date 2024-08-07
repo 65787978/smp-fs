@@ -70,3 +70,16 @@ pub struct Blocks {
 pub struct VecBlock {
     pub blocks: Vec<Blocks>,
 }
+
+#[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
+pub struct ApiData {
+    pub network_data: serde_json::Value,
+    pub pool_data: serde_json::Value,
+    pub price_data: serde_json::Value,
+    pub blocks_data: serde_json::Value,
+}
+
+#[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
+pub struct MinerApiData {
+    pub miner_data: serde_json::Value,
+}
