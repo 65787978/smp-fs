@@ -58,9 +58,10 @@ pub async fn get_data(address: String) -> Result<Stats, ServerFnError> {
 
     let end_timestamp = Utc::now().timestamp_millis();
     println!(
-        "GET_DATA Time taken: {} ms",
+        "[TOTAL_API_DATA] - Time taken: {} ms",
         end_timestamp - start_timestamp
     );
+
     Ok(Stats {
         network: network_stats,
         pool: pool_stats,
@@ -74,11 +75,11 @@ pub async fn get_block_data() -> Result<VecBlock, ServerFnError> {
     let start_timestamp = Utc::now().timestamp_millis();
     let mut block_data = VecBlock::default().await;
 
-    block_data.get_block_data().await.unwrap();
+    block_data.provide_data().await.unwrap();
 
     let end_timestamp = Utc::now().timestamp_millis();
     println!(
-        "GET_BLOCK_DATA Time taken: {} ms",
+        "[GET_BLOCK_DATA] - Time taken: {} ms",
         end_timestamp - start_timestamp
     );
 
@@ -110,7 +111,7 @@ impl NetworkStats {
         self.api_data = fetch_cached_api_data().await.unwrap();
         let end_timestamp = Utc::now().timestamp_millis();
         println!(
-            "[CACHED]fetch_cached_api_data() - NetworkStats Time taken: {} ms",
+            "[CACHED] - NetworkStats - Time taken: {} ms",
             end_timestamp - start_timestamp
         );
         Ok(())
@@ -193,7 +194,7 @@ impl PoolStats {
         self.api_data = fetch_cached_api_data().await.unwrap();
         let end_timestamp = Utc::now().timestamp_millis();
         println!(
-            "[CACHED]fetch_cached_api_data - PoolStats Time taken: {} ms",
+            "[CACHED] - PoolStats - Time taken: {} ms",
             end_timestamp - start_timestamp
         );
         Ok(())
@@ -294,7 +295,7 @@ impl MinerStats {
             .unwrap();
         let end_timestamp = Utc::now().timestamp_millis();
         println!(
-            "[CACHED] fetch_cached_miner_api_data - MinerStats Time taken: {} ms",
+            "[CACHED] - MinerStats - Time taken: {} ms",
             end_timestamp - start_timestamp
         );
         Ok(())
@@ -438,14 +439,9 @@ impl VecBlock {
         }
     }
 
-    async fn get_block_data(&mut self) -> Result<(), reqwest::Error> {
-        let start_timestamp = Utc::now().timestamp_millis();
+    async fn provide_data(&mut self) -> Result<(), reqwest::Error> {
         let api_data = fetch_cached_api_data().await.unwrap();
-        let end_timestamp = Utc::now().timestamp_millis();
-        println!(
-            "[CACHED] get_block_data Time taken: {} ms",
-            end_timestamp - start_timestamp
-        );
+
         let data = api_data.blocks_data;
 
         let mut effort_sum: f64 = 0.0;
