@@ -12,6 +12,7 @@ pub struct Worker {
 
 #[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
 pub struct NetworkStats {
+    pub api_data: ApiData,
     pub hashrate: f64,
     pub difficulty: f64,
     pub height: u64,
@@ -22,7 +23,7 @@ pub struct NetworkStats {
 
 #[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PoolStats {
-    pub data: serde_json::Value,
+    pub api_data: ApiData,
     pub hashrate: f64,
     pub connected_miners: u64,
     pub effort: f64,
@@ -32,7 +33,7 @@ pub struct PoolStats {
 
 #[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
 pub struct MinerStats {
-    pub data: serde_json::Value,
+    pub api_data: MinerApiData,
     pub address: String,
     pub hashrate_collection: VecDeque<(u32, f64)>,
     pub hashrate_current: f64,
