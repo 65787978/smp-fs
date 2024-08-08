@@ -167,10 +167,10 @@ pub fn BlockPage() -> Element {
 
                 {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                     classes: "".to_string(),
-                    value_1: "".to_string(),
+                    value_1: "--".to_string(),
                     unit_1: "Th/s".to_string(),
                     heading_1: "".to_string(),
-                    value_2: "".to_string(),
+                    value_2: "--".to_string(),
                     unit_2: "P".to_string(),
                     heading_2: "Network Difficulty".to_string(),
                     explanation_bubble: false,
@@ -179,10 +179,10 @@ pub fn BlockPage() -> Element {
 
                 {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                     classes: "".to_string(),
-                    value_1: "".to_string(),
+                    value_1: "--".to_string(),
                     unit_1: "".to_string(),
                     heading_1: "Network Height".to_string(),
-                    value_2: "".to_string(),
+                    value_2: "--".to_string(),
                     unit_2: "".to_string(),
                     heading_2: "Block Reward".to_string(),
                     explanation_bubble: false,
@@ -193,10 +193,10 @@ pub fn BlockPage() -> Element {
 
                 {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                     classes: "".to_string(),
-                    value_1: "".to_string(),
+                    value_1: "--".to_string(),
                     unit_1: "".to_string(),
                     heading_1: "Pool Hashrate".to_string(),
-                    value_2: "".to_string(),
+                    value_2: "--".to_string(),
                     unit_2: "".to_string(),
                     heading_2: "Connected Miners".to_string(),
                     explanation_bubble: false,
@@ -206,10 +206,10 @@ pub fn BlockPage() -> Element {
 
                 {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                     classes: "".to_string(),
-                    value_1: "".to_string(),
+                    value_1: "--".to_string(),
                     unit_1: "".to_string(),
                     heading_1: "Average Pool Effort".to_string(),
-                    value_2: "".to_string(),
+                    value_2: "--".to_string(),
                     unit_2: "".to_string(),
                     heading_2: "Current Pool Effort".to_string(),
                     explanation_bubble: true,

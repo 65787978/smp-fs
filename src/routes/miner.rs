@@ -127,10 +127,10 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                         {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                             classes: "".to_string(),
-                            value_1: "".to_string(),
+                            value_1: "--".to_string(),
                             unit_1: "".to_string(),
                             heading_1: "Network Hashrate".to_string(),
-                            value_2: "".to_string(),
+                            value_2: "--".to_string(),
                             unit_2: "".to_string(),
                             heading_2: "Pool Hashrate".to_string(),
                             explanation_bubble: false,
@@ -139,10 +139,10 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                         {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                             classes: "".to_string(),
-                            value_1: "".to_string(),
+                            value_1: "--".to_string(),
                             unit_1: "".to_string(),
                             heading_1: "Block Reward".to_string(),
-                            value_2: "".to_string(),
+                            value_2: "--".to_string(),
                             unit_2: "".to_string(),
                             heading_2: "Σ / SigUSD".to_string(),
                             explanation_bubble: false,
@@ -151,10 +151,10 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                         {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                             classes: "".to_string(),
-                            value_1: "".to_string(),
+                            value_1: "--".to_string(),
                             unit_1: "".to_string(),
                             heading_1: "Current Pool Effort".to_string(),
-                            value_2: "".to_string(),
+                            value_2: "--".to_string(),
                             unit_2: "".to_string(),
                             heading_2: "Participation".to_string(),
                             explanation_bubble: false,
@@ -165,10 +165,10 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                     {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                         classes: "".to_string(),
-                        value_1: "".to_string(),
+                        value_1: "--".to_string(),
                         unit_1: "".to_string(),
                         heading_1: "Pending Shares".to_string(),
-                        value_2: "".to_string(),
+                        value_2: "--".to_string(),
                         unit_2: "".to_string(),
                         heading_2: "Active Workers".to_string(),
                         explanation_bubble: false,
@@ -177,10 +177,10 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                     {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                         classes: "".to_string(),
-                        value_1: "".to_string(),
+                        value_1: "--".to_string(),
                         unit_1: "".to_string(),
                         heading_1: "24h Paid".to_string(),
-                        value_2: "".to_string(),
+                        value_2: "--".to_string(),
                         unit_2: "".to_string(),
                         heading_2: "Total Paid".to_string(),
                         explanation_bubble: false,
@@ -190,10 +190,10 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                     {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                         classes: "".to_string(),
-                        value_1: "".to_string(),
+                        value_1: "--".to_string(),
                         unit_1: "".to_string(),
                         heading_1: "Current Hashrate".to_string(),
-                        value_2: "".to_string(),
+                        value_2: "--".to_string(),
                         unit_2: "".to_string(),
                         heading_2: "24h Average".to_string(),
                         explanation_bubble: false,

@@ -91,22 +91,37 @@ pub fn HomePage_slice() -> Element {
             rsx! {
                     div {class:"grid sm:grid-cols-4",
 
-                        {InfoCardPlaceholder(utils::InfoCardPlaceholderProps { vars: InfoCardPlaceholder {
+                        {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                            classes: "".to_string(),
+                            value: "--".to_string(),
+                            unit: "".to_string(),
                             heading: "Network Hashrate".to_string()
+
                         } })}
 
-                        {InfoCardPlaceholder(utils::InfoCardPlaceholderProps { vars: InfoCardPlaceholder {
+                        {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                            classes: "".to_string(),
+                            value: "--".to_string(),
+                            unit: "".to_string(),
                             heading: "Network Height".to_string()
+
                         } })}
 
-                        {InfoCardPlaceholder(utils::InfoCardPlaceholderProps { vars: InfoCardPlaceholder {
+                        {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                            classes: "".to_string(),
+                            value: "--".to_string(),
+                            unit: "".to_string(),
                             heading: "Pool Hashrate".to_string()
+
                         } })}
 
-                        {InfoCardPlaceholder(utils::InfoCardPlaceholderProps { vars: InfoCardPlaceholder {
+                        {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                            classes: "".to_string(),
+                            value: "--".to_string(),
+                            unit: "".to_string(),
                             heading: "Pool Miners".to_string()
-                        } })}
 
+                        } })}
                     }
 
                     div {class:"grid sm:grid-cols-2",
