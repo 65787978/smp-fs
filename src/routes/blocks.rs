@@ -168,10 +168,10 @@ pub fn BlockPage() -> Element {
                 {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
                     classes: "".to_string(),
                     value_1: "--".to_string(),
-                    unit_1: "Th/s".to_string(),
+                    unit_1: "".to_string(),
                     heading_1: "".to_string(),
                     value_2: "--".to_string(),
-                    unit_2: "P".to_string(),
+                    unit_2: "".to_string(),
                     heading_2: "Network Difficulty".to_string(),
                     explanation_bubble: false,
                     bubble_text: "".to_string(),
