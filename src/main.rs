@@ -50,7 +50,7 @@ enum Route {
 
 fn app() -> Element {
     rsx! {
-        div { class: "relative bg-gradient-to-r from-indigo-800 to-pink-800 top-0 bottom-0 left-0 right-0",
+        div { class: "bg-cover bg-no-repeat bg-center", style:"background-image: url('/background.png')",
                 div {class:"container mx-auto min-h-screen min-w-screen",
                     Router::<Route> {},
 
@@ -143,7 +143,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);
