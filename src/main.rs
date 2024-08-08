@@ -117,7 +117,6 @@ fn NavBar() -> Element {
                         div {
                             form {
                                 onsubmit: move |input| {
-                                    address.set(input.value());
                                     navigator.push(Route::MinerPage { address: address() });
                                 },
                                 div {
@@ -128,6 +127,9 @@ fn NavBar() -> Element {
                                         minlength: "51",
                                         maxlength: "51",
                                         name: "miningaddress",
+                                        oninput: move |input| {
+                                            address.set(input.value());
+                                        },
                                     }
                                 }
                             }
