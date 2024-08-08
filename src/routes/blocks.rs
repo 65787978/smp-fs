@@ -5,8 +5,8 @@ use gloo::timers::future::TimeoutFuture;
 
 #[component]
 pub fn BlockPage() -> Element {
-    let mut global_data = use_server_future(move || async move { get_data("".to_string()).await })?;
-    let mut block_data = use_server_future(move || async move { get_block_data().await })?;
+    let mut global_data = use_resource(move || async move { get_data("".to_string()).await });
+    let mut block_data = use_resource(move || async move { get_block_data().await });
 
     /* Auto update data in background */
     use_future(move || async move {
@@ -23,7 +23,7 @@ pub fn BlockPage() -> Element {
 
                 match &*global_data.read_unchecked() {
                     Some(Ok(stats)) => {
-                        rsx!{
+                        rsx! {
                             div {class:"grid sm:grid-cols-4 mt-2",
 
                             {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
@@ -82,8 +82,67 @@ pub fn BlockPage() -> Element {
                         }
                     }
                     Some(Err(error)) => rsx!("{error}"),
-                    None => rsx!("Loading...")
+                    None => {
+                        rsx! {
+                            div {class:"grid sm:grid-cols-4 mt-2",
+
+                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                                classes: "".to_string(),
+                                value_1: "".to_string(),
+                                unit_1: "Th/s".to_string(),
+                                heading_1: "".to_string(),
+                                value_2: "".to_string(),
+                                unit_2: "P".to_string(),
+                                heading_2: "Network Difficulty".to_string(),
+                                explanation_bubble: false,
+                                bubble_text: "".to_string(),
+                            }})}
+
+                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                                classes: "".to_string(),
+                                value_1: "".to_string(),
+                                unit_1: "".to_string(),
+                                heading_1: "Network Height".to_string(),
+                                value_2: "".to_string(),
+                                unit_2: "".to_string(),
+                                heading_2: "Block Reward".to_string(),
+                                explanation_bubble: false,
+                                bubble_text: "".to_string(),
+
+                            }})}
+
+
+                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                                classes: "".to_string(),
+                                value_1: "".to_string(),
+                                unit_1: "".to_string(),
+                                heading_1: "Pool Hashrate".to_string(),
+                                value_2: "".to_string(),
+                                unit_2: "".to_string(),
+                                heading_2: "Connected Miners".to_string(),
+                                explanation_bubble: false,
+                                bubble_text: "".to_string(),
+
+                            }})}
+
+                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                                classes: "".to_string(),
+                                value_1: "".to_string(),
+                                unit_1: "".to_string(),
+                                heading_1: "Average Pool Effort".to_string(),
+                                value_2: "".to_string(),
+                                unit_2: "".to_string(),
+                                heading_2: "Current Pool Effort".to_string(),
+                                explanation_bubble: true,
+                                bubble_text: "Average Pool Effort calculated for the last 15 blocks".to_string(),
+
+                            }})}
+
+                            }
+                        }
+                    }
                 }
+
                 div {class:"text-center rounded-lg bg-opacity-10 bg-white/10 backdrop-filter backdrop-blur-md shadow-lg m-2 m-2",
                     div {class:"overflow-x-scroll shadow-md sm:rounded-lg",
                         table {class: "w-full text-sm text-center flex-nowrap",
