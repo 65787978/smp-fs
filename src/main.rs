@@ -50,7 +50,7 @@ enum Route {
 
 fn app() -> Element {
     rsx! {
-        div { class: "bg-cover bg-no-repeat bg-center", style:"background-image: url('/background.png')",
+        div { class: "bg-cover bg-no-repeat bg-center", style:"background-image: url('/background.jpg')",
                 div {class:"container mx-auto min-h-screen min-w-screen",
                     Router::<Route> {},
 
