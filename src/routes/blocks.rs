@@ -83,63 +83,7 @@ pub fn BlockPage() -> Element {
                     }
                     Some(Err(error)) => rsx!("{error}"),
                     None => {
-                        rsx! {
-                            div {class:"grid sm:grid-cols-4 mt-2",
-
-                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
-                                classes: "".to_string(),
-                                value_1: "".to_string(),
-                                unit_1: "Th/s".to_string(),
-                                heading_1: "".to_string(),
-                                value_2: "".to_string(),
-                                unit_2: "P".to_string(),
-                                heading_2: "Network Difficulty".to_string(),
-                                explanation_bubble: false,
-                                bubble_text: "".to_string(),
-                            }})}
-
-                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
-                                classes: "".to_string(),
-                                value_1: "".to_string(),
-                                unit_1: "".to_string(),
-                                heading_1: "Network Height".to_string(),
-                                value_2: "".to_string(),
-                                unit_2: "".to_string(),
-                                heading_2: "Block Reward".to_string(),
-                                explanation_bubble: false,
-                                bubble_text: "".to_string(),
-
-                            }})}
-
-
-                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
-                                classes: "".to_string(),
-                                value_1: "".to_string(),
-                                unit_1: "".to_string(),
-                                heading_1: "Pool Hashrate".to_string(),
-                                value_2: "".to_string(),
-                                unit_2: "".to_string(),
-                                heading_2: "Connected Miners".to_string(),
-                                explanation_bubble: false,
-                                bubble_text: "".to_string(),
-
-                            }})}
-
-                            {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
-                                classes: "".to_string(),
-                                value_1: "".to_string(),
-                                unit_1: "".to_string(),
-                                heading_1: "Average Pool Effort".to_string(),
-                                value_2: "".to_string(),
-                                unit_2: "".to_string(),
-                                heading_2: "Current Pool Effort".to_string(),
-                                explanation_bubble: true,
-                                bubble_text: "Average Pool Effort calculated for the last 15 blocks".to_string(),
-
-                            }})}
-
-                            }
-                        }
+                        rsx!()
                     }
                 }
 
@@ -218,7 +162,63 @@ pub fn BlockPage() -> Element {
             rsx!("{error")
         }
         None => {
-            rsx!("Loading...")
+            rsx! {
+                div {class:"grid sm:grid-cols-4 mt-2",
+
+                {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                    classes: "".to_string(),
+                    value_1: "".to_string(),
+                    unit_1: "Th/s".to_string(),
+                    heading_1: "".to_string(),
+                    value_2: "".to_string(),
+                    unit_2: "P".to_string(),
+                    heading_2: "Network Difficulty".to_string(),
+                    explanation_bubble: false,
+                    bubble_text: "".to_string(),
+                }})}
+
+                {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                    classes: "".to_string(),
+                    value_1: "".to_string(),
+                    unit_1: "".to_string(),
+                    heading_1: "Network Height".to_string(),
+                    value_2: "".to_string(),
+                    unit_2: "".to_string(),
+                    heading_2: "Block Reward".to_string(),
+                    explanation_bubble: false,
+                    bubble_text: "".to_string(),
+
+                }})}
+
+
+                {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                    classes: "".to_string(),
+                    value_1: "".to_string(),
+                    unit_1: "".to_string(),
+                    heading_1: "Pool Hashrate".to_string(),
+                    value_2: "".to_string(),
+                    unit_2: "".to_string(),
+                    heading_2: "Connected Miners".to_string(),
+                    explanation_bubble: false,
+                    bubble_text: "".to_string(),
+
+                }})}
+
+                {InfoCardDouble(utils::InfoCardDoubleProps {vars: InfoCardDouble {
+                    classes: "".to_string(),
+                    value_1: "".to_string(),
+                    unit_1: "".to_string(),
+                    heading_1: "Average Pool Effort".to_string(),
+                    value_2: "".to_string(),
+                    unit_2: "".to_string(),
+                    heading_2: "Current Pool Effort".to_string(),
+                    explanation_bubble: true,
+                    bubble_text: "Average Pool Effort calculated for the last 15 blocks".to_string(),
+
+                }})}
+
+                }
+            }
         }
     }
 }

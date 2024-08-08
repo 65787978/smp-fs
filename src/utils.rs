@@ -30,6 +30,10 @@ pub struct InfoCardDouble {
     pub bubble_text: String,
 }
 
+#[derive(PartialEq, Eq, Clone)]
+pub struct InfoCardPlaceholder {
+    pub heading: String,
+}
 #[component]
 pub fn InfoCardDouble(vars: InfoCardDouble) -> Element {
     let InfoCardDouble {
@@ -92,6 +96,22 @@ pub fn ParagraphCard(vars: ParagraphCard) -> Element {
         div {class:"min-h-[8rem] max-w-2xl rounded-lg {classes} ",
             p {"{text}"}
         },
+    }
+}
+
+#[component]
+pub fn InfoCardPlaceholder(vars: InfoCardPlaceholder) -> Element {
+    let InfoCardPlaceholder { heading } = vars;
+
+    rsx! {
+        div {class:"min-h-[8rem] text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+            div {class:"flex justify-around m-6",
+                div {class:"flex items-center justify-center",
+                    div {class:"animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-slate-300",i {class:"h-5 w-5 text-slate-300 mt-0.5"}}
+                }
+                a {class:"text-m", "{heading}"}
+            }
+        }
     }
 }
 
