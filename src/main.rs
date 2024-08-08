@@ -49,16 +49,16 @@ enum Route {
 }
 
 fn app() -> Element {
-    rsx! {
-        div {class:"bg-gradient-to-r from-indigo-900 to-pink-900 fixed top-0 left-0 right-0 bottom-0 overflow-y-auto",
-            div {class:"xl:container mx-auto h-full",
+    rsx! {//fixed top-0 left-0 right-0 bottom-0 overflow-y-auto
+        // div {class:"",
+            div {class:"xl:container mx-auto h-full bg-gradient-to-r from-indigo-900 to-pink-900 top-0 left-0 right-0 bottom-0 overflow-y-auto",
                 Router::<Route> {},
 
                 br {}
                 br {}
                 {Footer()}
             }
-        }
+        // }
     }
 }
 
@@ -142,7 +142,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);
