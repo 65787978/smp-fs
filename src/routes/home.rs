@@ -92,7 +92,7 @@ pub fn HomePage_slice() -> Element {
                     div {class:"grid sm:grid-cols-4",
 
                         {InfoCard(utils::InfoCardProps { vars: InfoCard {
-                            classes: "".to_string(),
+                            classes: "animate-spin inline-block w-6 h-6 border-2 border-gray-300 border-t-transparent rounded-full".to_string(),
                             value: "".to_string(),
                             unit: "".to_string(),
                             heading: "Network Hashrate".to_string()
@@ -100,7 +100,7 @@ pub fn HomePage_slice() -> Element {
                         } })}
 
                         {InfoCard(utils::InfoCardProps { vars: InfoCard {
-                            classes: "".to_string(),
+                            classes: "animate-spin inline-block w-6 h-6 border-2 border-gray-300 border-t-transparent rounded-full".to_string(),
                             value: "".to_string(),
                             unit: "".to_string(),
                             heading: "Network Height".to_string()
@@ -108,7 +108,7 @@ pub fn HomePage_slice() -> Element {
                         } })}
 
                         {InfoCard(utils::InfoCardProps { vars: InfoCard {
-                            classes: "".to_string(),
+                            classes: "animate-spin inline-block w-6 h-6 border-2 border-gray-300 border-t-transparent rounded-full".to_string(),
                             value: "".to_string(),
                             unit: "".to_string(),
                             heading: "Pool Hashrate".to_string()
@@ -116,7 +116,7 @@ pub fn HomePage_slice() -> Element {
                         } })}
 
                         {InfoCard(utils::InfoCardProps { vars: InfoCard {
-                            classes: "".to_string(),
+                            classes: "animate-spin inline-block w-6 h-6 border-2 border-gray-300 border-t-transparent rounded-full".to_string(),
                             value: "".to_string(),
                             unit: "".to_string(),
                             heading: "Pool Miners".to_string()
@@ -127,7 +127,7 @@ pub fn HomePage_slice() -> Element {
                     div {class:"grid sm:grid-cols-2",
 
                         {InfoCard(utils::InfoCardProps { vars: InfoCard {
-                            classes: "".to_string(),
+                            classes: "animate-spin inline-block w-6 h-6 border-2 border-gray-300 border-t-transparent rounded-full".to_string(),
                             value: "pool.ergo-sig-mining.net:3053".to_string(),
                             unit: "".to_string(),
                             heading: "URL under 10 Gh/s".to_string()
@@ -136,7 +136,7 @@ pub fn HomePage_slice() -> Element {
 
 
                         {InfoCard(utils::InfoCardProps { vars: InfoCard {
-                            classes: "".to_string(),
+                            classes: "animate-spin inline-block w-6 h-6 border-2 border-gray-300 border-t-transparent rounded-full".to_string(),
                             value: "pool.ergo-sig-mining.net:3055".to_string(),
                             unit: "".to_string(),
                             heading: "URL over 10 Gh/s".to_string()
