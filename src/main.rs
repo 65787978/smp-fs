@@ -50,16 +50,12 @@ enum Route {
 
 fn app() -> Element {
     rsx! {
-        div { class: "relative bg-gradient-to-r from-indigo-800 to-pink-800",
-            div { class: "absolute inset-0",
-                div { class: "xl:container mx-auto h-full",
+        div { class: "relative bg-gradient-to-r from-indigo-800 to-pink-800 top-0 bottom-0 left-0 right-0 xl:container mx-auto ",
                     Router::<Route> {},
 
                     br {}
                     br {}
                     {Footer()}
-                }
-            }
         }
     }
 }
