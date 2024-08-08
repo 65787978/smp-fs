@@ -169,7 +169,7 @@ pub fn BlockPage() -> Element {
                     classes: "".to_string(),
                     value_1: "--".to_string(),
                     unit_1: "".to_string(),
-                    heading_1: "".to_string(),
+                    heading_1: "Network Hashrate".to_string(),
                     value_2: "--".to_string(),
                     unit_2: "".to_string(),
                     heading_2: "Network Difficulty".to_string(),
