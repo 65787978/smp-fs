@@ -114,11 +114,28 @@ fn NavBar() -> Element {
                         div { Link {to:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 underline decoration-red-500 m-2 ", "Donate"}
                         }
 
-                        div { form {role:"search",  action:"/wallet/{address()}",
-                                div { class:"",
-                                    input { name:"miningaddress", class:"bg-white/30 border py-2 px-2 border-slate-300 placeholder-slate-100 focus:outline-none focus:border-slate-500 focus:ring-slate-300 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
+                        div {
+                            form {
+                                onsubmit: move |input| {
+                                    address.set(input.value());
+                                    navigator.push(Route::MinerPage { address: address() });
+                                },
+                                div {
+                                    input {
+                                        r#type: "text",
+                                        class: "bg-white/30 border py-2 px-2 border-slate-300 placeholder-slate-100 focus:outline-none focus:border-slate-500 focus:ring-slate-300 block w-full rounded-full sm:text-sm focus:ring-1",
+                                        placeholder: "Enter your mining address",
+                                        minlength: "51",
+                                        maxlength: "51",
+                                        name: "miningaddress",
+                                    }
                                 }
                             }
+                            // form {role:"search",  action:"/wallet/{address()}",
+                            //     div { class:"",
+                            //         input { name:"miningaddress", class:"bg-white/30 border py-2 px-2 border-slate-300 placeholder-slate-100 focus:outline-none focus:border-slate-500 focus:ring-slate-300 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
+                            //     }
+                            // }
                         }
                     }
                 }
@@ -143,7 +160,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);
