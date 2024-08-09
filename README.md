@@ -18,6 +18,13 @@ The webapp is live on the following url: http://sigmamining.xyz/
 
 ![Miner Page](gallery/miner_page.png)
 
+# Links
+
+[The Ergo Foundation](https://ergoplatform.org/en/blog/ergo-foundation/)
+[Sigmanauts Dao](https://sigmanauts.com/)
+[Sigmanauts Mining Discord Channel](https://discord.com/channels/668903786361651200/1153460448214122526)
+[Sigmanauts Mining Telegram Channel](https://t.me/sig_mining)
+
 # Development
 
 1. Install Rust: https://www.rust-lang.org/tools/install
