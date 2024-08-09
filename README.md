@@ -4,6 +4,8 @@ This dashboard is a [Dioxus](https://dioxuslabs.com/) Fullstack app leveraging [
 
 It is made for the Sigmanauts Mining Pool on the Ergo blockchain, and it is fully written in Rust!
 
+The webapp is live on the following url: http://sigmamining.xyz/
+
 # Gallery
 
 ![Landing Page](gallery/landing_page.png)
