@@ -55,7 +55,7 @@ pub fn MinerPage_slice(address: String) -> Element {
                             .data(hashrate),
                     );
 
-                let renderer = WasmRenderer::new(1500, 400);
+                let renderer = WasmRenderer::new(640, 400);
 
                 renderer.render("chart", &chart).unwrap();
             }
@@ -154,10 +154,9 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                     }
 
-                    div {class:"grid grid-col-1", style: "width: 100%;",
+                    div {class:"grid grid-col-1",
                         div {class:"items-center text-slate-200 rounded-lg bg-opacity-15 bg-gray backdrop-filter backdrop-blur-md shadow-lg m-2",
                             id: "chart",
-                            // style: "display: inline-block;",
                         }
                     }
 

@@ -133,11 +133,6 @@ fn NavBar() -> Element {
                                     }
                                 }
                             }
-                            // form {role:"search",  action:"/wallet/{address()}",
-                            //     div { class:"",
-                            //         input { name:"miningaddress", class:"bg-white/30 border py-2 px-2 border-slate-300 placeholder-slate-100 focus:outline-none focus:border-slate-500 focus:ring-slate-300 block w-full rounded-full sm:text-sm focus:ring-1", placeholder:"Enter your mining address", minlength: 51, maxlength: 51, oninput: move |input| address.set(input.value())}
-                            //     }
-                            // }
                         }
                     }
                 }
