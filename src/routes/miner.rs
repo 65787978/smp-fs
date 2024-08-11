@@ -1,6 +1,15 @@
 use crate::{data::api_data::*, utils, InfoCard};
+use charming::{
+    component::{Axis, Legend, Type},
+    element::{
+        AreaStyle, AxisType, Formatter, ItemStyle, Label, LineStyle, OriginPosition, Symbol,
+    },
+    series::{Line, Pie, PieRoseType, Sankey, SankeyLink},
+    Chart, WasmRenderer,
+};
 use dioxus::prelude::*;
 use gloo::timers::future::TimeoutFuture;
+use serde::de::IntoDeserializer;
 use utils::*;
 
 pub fn MinerPage_slice(address: String) -> Element {
@@ -15,16 +24,56 @@ pub fn MinerPage_slice(address: String) -> Element {
         }
     });
 
+    spawn(async move {
+        let mut hour: Vec<String> = vec![];
+        let mut hashrate: Vec<f64> = vec![];
+
+        let chart_data = data.clone();
+
+        match &*chart_data.read_unchecked() {
+            Some(Ok(stats)) => {
+                for (hour_data, hashrate_data) in &stats.miner.chart_data {
+                    hour.push(hour_data.clone());
+                    hashrate.push(hashrate_data.clone());
+                }
+
+                let chart = Chart::new()
+                    .x_axis(Axis::new().type_(AxisType::Category).data(hour))
+                    .y_axis(Axis::new().type_(AxisType::Value))
+                    .series(
+                        Line::new()
+                            .area_style(
+                                AreaStyle::new()
+                                    .color("#FFE6F7")
+                                    .opacity(0.5)
+                                    .origin(OriginPosition::Auto),
+                            )
+                            .line_style(LineStyle::new().color("#FFE6F7").width(3))
+                            .smooth(0.5)
+                            .show_symbol(false)
+                            .item_style(ItemStyle::new().color("#FFE6F7"))
+                            .data(hashrate),
+                    );
+
+                let renderer = WasmRenderer::new(1500, 400);
+
+                renderer.render("chart", &chart).unwrap();
+            }
+            Some(Err(error)) => {}
+            None => {}
+        }
+    });
+
     match &*data.read_unchecked() {
         Some(Ok(stats)) => {
             rsx! {
-                {InfoCard(utils::InfoCardProps { vars: InfoCard {
-                    classes: "mx-2 mb-4 mt-4".to_string(),
-                    value: shorten_string(address().as_str(), 25),
-                    unit: "".to_string(),
-                    heading: "Miner Address".to_string()
+                    {InfoCard(utils::InfoCardProps { vars: InfoCard {
+                        classes: "mx-2 mb-4 mt-4".to_string(),
+                        value: shorten_string(address().as_str(), 25),
+                        unit: "".to_string(),
+                        heading: "Miner Address".to_string()
 
-                } })}
+                    } })}
 
                     div {class:"grid sm:grid-cols-3",
 
@@ -105,8 +154,12 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                     }
 
-
-                    // {Chart(utils::ChartProps { chart_data: stats.miner.chart_data.clone() })}
+                    div {class:"grid grid-col-1", style: "width: 100%;",
+                        div {class:"items-center text-slate-200 rounded-lg bg-opacity-15 bg-gray backdrop-filter backdrop-blur-md shadow-lg m-2",
+                            id: "chart",
+                            // style: "display: inline-block;",
+                        }
+                    }
 
             }
         }
