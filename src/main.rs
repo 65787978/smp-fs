@@ -117,12 +117,12 @@ fn NavBar() -> Element {
     // if NAV_INIT_STATE_FLAG() {
     //     //nothing
     // } else {
-    if WINDOW_DIMS().0 < 640.0 {
-        small_nav.set("hidden")
-    } else {
-        small_nav.set("");
-    }
-    *NAV_INIT_STATE_FLAG.write() = true;
+    // if WINDOW_DIMS().0 < 640.0 {
+    //     small_nav.set("hidden")
+    // } else {
+    //     small_nav.set("");
+    // }
+    // *NAV_INIT_STATE_FLAG.write() = true;
     // }
 
     rsx! {
