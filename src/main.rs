@@ -31,6 +31,10 @@ use serde::{Deserialize, Serialize};
 
 const _TAILWIND_URL: &str = manganis::mg!(file("public/tailwind.css"));
 
+/* Global Signals */
+static WINDOW_DIMS: GlobalSignal<(f64, f64)> = Signal::global(|| (0.0, 0.0));
+static NAV_INIT_STATE_FLAG: GlobalSignal<bool> = Signal::global(|| false);
+
 #[derive(Clone, Routable, Debug, PartialEq, Deserialize)]
 #[rustfmt::skip]
 enum Route {
@@ -49,18 +53,45 @@ enum Route {
 }
 
 fn app() -> Element {
-    rsx! {
-        div { class: "bg-cover bg-no-repeat bg-center", style:"background-image: url('/background.jpg')",
-                div {class:"container mx-auto min-h-screen min-w-screen",
-                    Router::<Route> {},
-
-                    br {}
-                    br {}
-                    {Footer()}
-
+    // Start screen size watcher
+    use_future(move || async move {
+        let mut eval = eval(
+            r"
+                function resize() {
+                    dioxus.send([window.innerWidth, window.innerHeight]);
                 }
+                window.addEventListener('resize', resize);
+                dioxus.send([window.innerWidth, window.innerHeight]);
+            ",
+        );
+        loop {
+            let response = eval.recv().await.unwrap();
+            let dims: (f64, f64) = serde_json::from_value(response).unwrap();
+            *WINDOW_DIMS.write() = (dims.0, dims.1);
         }
-    }
+    });
+
+    rsx!(
+        div { class: "bg-cover bg-no-repeat bg-center", style:"background-image: url('/background.jpg')",
+
+            div {class:"container mx-auto min-h-screen min-w-screen",
+                Router::<Route> {},
+
+                div {class:"",
+                    width: "100%",
+                    height: "50%",
+                    background_color: "red",
+                    "This element is {WINDOW_DIMS():?}"
+                }
+
+                br {}
+                br {}
+                {Footer()}
+
+            }
+        }
+
+    )
 }
 
 #[component]
@@ -82,6 +113,17 @@ fn NavBar() -> Element {
     let mut address = use_signal(|| "".to_string());
     let navigator = use_navigator();
     let mut small_nav = use_signal(|| "");
+
+    // if NAV_INIT_STATE_FLAG() {
+    //     //nothing
+    // } else {
+    if WINDOW_DIMS().0 < 640.0 {
+        small_nav.set("hidden")
+    } else {
+        small_nav.set("");
+    }
+    *NAV_INIT_STATE_FLAG.write() = true;
+    // }
 
     rsx! {
 
@@ -157,7 +199,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);

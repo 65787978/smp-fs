@@ -1,4 +1,4 @@
-use crate::{data::api_data::*, utils, InfoCard};
+use crate::{data::api_data::*, utils, InfoCard, WINDOW_DIMS};
 use charming::{
     component::{Axis, Legend, Type},
     element::{
@@ -55,7 +55,15 @@ pub fn MinerPage_slice(address: String) -> Element {
                             .data(hashrate),
                     );
 
-                let renderer = WasmRenderer::new(640, 400);
+                let chart_width: u32;
+
+                if WINDOW_DIMS().0 < 640.0 {
+                    chart_width = (WINDOW_DIMS().0 * 0.97) as u32;
+                } else {
+                    chart_width = (WINDOW_DIMS().0 * 0.79) as u32;
+                }
+
+                let renderer = WasmRenderer::new(chart_width, 400);
 
                 renderer.render("chart", &chart).unwrap();
             }
@@ -154,8 +162,9 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                     }
 
-                    div {class:"grid grid-col-1",
-                        div {class:"items-center text-slate-200 rounded-lg bg-opacity-15 bg-gray backdrop-filter backdrop-blur-md shadow-lg m-2",
+                    div {class:"grid sm:grid-col-1 justify-center items-center
+                    text-center content-center w-max",
+                        div {class:"text-slate-200 rounded-lg bg-opacity-15 bg-gray backdrop-filter backdrop-blur-md shadow-lg m-2",
                             id: "chart",
                         }
                     }
