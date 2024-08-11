@@ -77,7 +77,7 @@ fn app() -> Element {
             div {class:"container mx-auto min-h-screen min-w-screen",
                 Router::<Route> {},
 
-                div {class:"",
+                div {class:"hidden",
                     width: "100%",
                     height: "50%",
                     background_color: "red",
