@@ -39,13 +39,13 @@ static NAV_INIT_STATE_FLAG: GlobalSignal<bool> = Signal::global(|| false);
 #[rustfmt::skip]
 enum Route {
     #[layout(NavBar)]
+        #[route("/")]
+        HomePage {},
+        #[route("/blocks")]
+        BlockPage {},
+        #[route("/wallet/:address")]
+        MinerPage { address: String },
         #[layout(Footer)]
-            #[route("/")]
-            HomePage {},
-            #[route("/blocks")]
-            BlockPage {},
-            #[route("/wallet/:address")]
-            MinerPage { address: String },
         #[end_layout]
     #[end_layout]
     #[route("/:route")]
