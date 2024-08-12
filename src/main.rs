@@ -73,16 +73,14 @@ fn app() -> Element {
 
     rsx!(
         div { class: "bg-cover bg-no-repeat bg-center", style:"background-image: url('/background.jpg')",
-
+            div {class:"hidden",
+                width: "100%",
+                height: "50%",
+                background_color: "red",
+                "This element is {WINDOW_DIMS():?}"
+            }
             div {class:"container mx-auto min-h-screen min-w-screen",
                 Router::<Route> {},
-
-                div {class:"hidden",
-                    width: "100%",
-                    height: "50%",
-                    background_color: "red",
-                    "This element is {WINDOW_DIMS():?}"
-                }
 
                 br {}
                 br {}
@@ -112,69 +110,24 @@ fn MinerPage(address: String) -> Element {
 fn NavBar() -> Element {
     let mut address = use_signal(|| "".to_string());
     let navigator = use_navigator();
-    let mut small_nav = use_signal(|| "");
-
-    // if NAV_INIT_STATE_FLAG() {
-    //     //nothing
-    // } else {
-    // if WINDOW_DIMS().0 < 640.0 {
-    //     small_nav.set("hidden")
-    // } else {
-    //     small_nav.set("");
-    // }
-    // *NAV_INIT_STATE_FLAG.write() = true;
-    // }
 
     rsx! {
 
-            nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-lg shadow-lg space-x-4 py-2", id:"navbar-default",
-                div {class:"max-w-screen-xl flex flex-wrap mx-auto ps-2",
-                        button { onclick: move |_| {
-                            if small_nav() != "hidden"{
-                                small_nav.set("hidden");
-                            }
-                            else {
-                                small_nav.set("");
-                            }
-                    },"type":"button", "class":"inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-slate-200 rounded-lg md:hidden hover:bg-slate-100/50 focus:outline-none focus:ring-2 focus:ring-slate-200",
-                            svg {class:"h-6 w-6", fill:"none", stroke:"currentColor", "viewBox":"0 0 24 24", xmlns:"http://www.w3.org/2000/svg",
-                                path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
-                            }
-                        }
-
-                    div {class:"{small_nav} grid grid-rows-5 sm:grid-cols-5 justify-center items-center
-                    text-center content-center w-full h-fit sm:h-5 sm:w-full mt-4",
-                        div { Link {to: Route::HomePage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Home"}
-                        }
-
-                        div { Link {to: Route::BlockPage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Blocks"}
-                        }
-
-                        div { Link {to:"https://discord.com/channels/668903786361651200/1153460448214122526", class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Support"}
-                        }
-
-                        div { Link {to:"https://explorer.ergoplatform.com/payment-request?address=9fFzKA2WHNYyXZWc4MHPtSv6YqS8jtDsZkSnAQwVaAZrYn9ojEA", class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 underline decoration-red-500 m-2 ", "Donate"}
-                        }
-
-                        div {
-                            form {
-                                onsubmit: move |input| {
-                                    navigator.push(Route::MinerPage { address: address() });
-                                },
-                                div {
-                                    input {
-                                        r#type: "text",
-                                        class: "bg-white/30 border py-2 px-2 border-slate-300 placeholder-slate-100 focus:outline-none focus:border-slate-500 focus:ring-slate-300 block w-full rounded-full sm:text-sm focus:ring-1",
-                                        placeholder: "Enter your mining address",
-                                        minlength: "51",
-                                        maxlength: "51",
-                                        name: "miningaddress",
-                                        oninput: move |input| {
-                                            address.set(input.value());
-                                        },
-                                    }
+            nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-full shadow-lg space-x-4 py-2 m-4", id:"navbar-default",
+                div {class:"grid grid-cols-6 items-center",
+                    div { class:"col-start-4 col-span-2",
+                        button {
+                            onclick: move |_| {},
+                            r#type:"button",
+                            class:"ms-s me-2 p-2 w-10 h-10 rounded-lg hover:bg-slate-100/50 focus:outline-none focus:ring-2 focus:ring-slate-200",
+                                svg {
+                                    class:"h-6 w-6",
+                                    fill:"none",
+                                    stroke:"currentColor",
+                                    "viewBox":"0 0 24 24",
+                                    xmlns:"http://www.w3.org/2000/svg",
+                                    path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
                                 }
-                            }
                         }
                     }
                 }
