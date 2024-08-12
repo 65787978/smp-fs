@@ -45,8 +45,6 @@ enum Route {
         BlockPage {},
         #[route("/wallet/:address")]
         MinerPage { address: String },
-        #[layout(Footer)]
-        #[end_layout]
     #[end_layout]
     #[route("/:route")]
     PageNotFound {
@@ -86,6 +84,7 @@ fn app() -> Element {
 
                 br {}
                 br {}
+                {Footer()}
             }
         }
 
