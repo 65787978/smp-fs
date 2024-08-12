@@ -117,49 +117,61 @@ pub fn InfoCardPlaceholder(vars: InfoCardPlaceholder) -> Element {
 
 fn ExplanationBubble(text: String) -> Element {
     let mut bubble_state = use_signal(|| false);
+    let mut explanation_bubble_style = use_signal(|| {
+        "visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.2s linear"
+    });
 
     rsx! {
-        div {
             div {
-                onclick: move |_| {
+                div {
+                    onclick: move |_| {
+    /*
+                            if bubble_state() {
+                                let explanation_bubble = document().get_element_by_id("explanation-bubble");
+                                if let Some(explanation_bubble) = explanation_bubble {
+                                explanation_bubble.set_attribute("style", "visibility: hidden; opacity: 0");
+                                }
+                                bubble_state.set(false);
+                            }
+                            else {
+                                let explanation_bubble = document().get_element_by_id("explanation-bubble");
+                                if let Some(explanation_bubble) = explanation_bubble {
+                                explanation_bubble.set_attribute("style", "visibility: visible; opacity: 1");
+                                }
+                                bubble_state.set(true);
+                            }
+    */
 
                         if bubble_state() {
-                            let explanation_bubble = document().get_element_by_id("explanation-bubble");
-                            if let Some(explanation_bubble) = explanation_bubble {
-                            explanation_bubble.set_attribute("style", "visibility: hidden; opacity: 0");
-                            }
+                            explanation_bubble_style.set("visibility: hidden; opacity: 0; transition: visibility 1s, opacity 0.2s linear");
                             bubble_state.set(false);
                         }
                         else {
-                            let explanation_bubble = document().get_element_by_id("explanation-bubble");
-                            if let Some(explanation_bubble) = explanation_bubble {
-                            explanation_bubble.set_attribute("style", "visibility: visible; opacity: 1");
-                            }
+                            explanation_bubble_style.set("visibility: visible; opacity: 1; transition: visibility 1s, opacity 0.2s linear");
                             bubble_state.set(true);
                         }
 
-
-                },
-                class: "fixed top-0 right-0 bottom-0 overflow-y-auto p-2",
-                svg {
-                    xmlns: "http://www.w3.org/2000/svg", width: "16", height: "16", fill: "currentColor", class: "bi bi-question-circle-fill", "viewBox": "0 0 16 16",
-                    path {d: "M8 16A8 8 0 1 0 8 0a8 8 0 1 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.68-.246l-.088.416c-.287.346-.92.598-1.465.598-.707 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287z"}
-                },
-
-                div {
-                    class: "fixed top-0 left-0 right-0 bottom-0 overflow-y-auto",
-                    div {
-                        class: "text-sm text-center text-slate-50 rounded-lg bg-opacity-30 bg-gray backdrop-filter backdrop-blur-md shadow-lg p-2",
-                        style: "visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.2s linear",
-                        id: "explanation-bubble",
-                        "{text}"
                     },
+                    class: "fixed top-0 right-0 bottom-0 overflow-y-auto p-2",
+                    svg {
+                        xmlns: "http://www.w3.org/2000/svg", width: "16", height: "16", fill: "currentColor", class: "bi bi-question-circle-fill", "viewBox": "0 0 16 16",
+                        path {d: "M8 16A8 8 0 1 0 8 0a8 8 0 1 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.68-.246l-.088.416c-.287.346-.92.598-1.465.598-.707 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287z"}
+                    },
+
+                    div {
+                        class: "fixed top-0 left-0 right-0 bottom-0 overflow-y-auto",
+                        div {
+                            class: "text-sm text-center text-slate-50 rounded-lg bg-opacity-30 bg-gray backdrop-filter backdrop-blur-md shadow-lg p-2",
+                            style: "{explanation_bubble_style}",
+                            id: "explanation-bubble",
+                            "{text}"
+                        },
+                    }
                 }
+
+
             }
-
-
         }
-    }
 }
 
 #[component]
@@ -187,88 +199,6 @@ pub fn Footer() -> Element {
                         path {d:"M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"}
                     }
                 }
-            }
-        }
-    }
-}
-
-#[component]
-pub fn Chart(chart_data: Vec<(String, String)>) -> Element {
-    let mut x_axis = use_signal(|| vec![String::new()]);
-    let mut y_axis = use_signal(|| vec![String::new()]);
-
-    for data in chart_data.iter() {
-        x_axis.push(data.0.clone());
-        y_axis.push(data.1.clone());
-    }
-
-    let mut future = use_resource(move || async move {
-        let mut chart = eval(
-            r#"
-
-            
-                var chart = Chart.getChart('myChart');
-                if (chart) {
-                    chart.clear();
-                    // chart.destroy();
-                }
-
-                let x_axis_data = await dioxus.recv();
-                let y_axis_data = await dioxus.recv();
-
-                var ctx = document.getElementById('myChart').getContext('2d');
-
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: x_axis_data,
-                        datasets: [{
-                            label: 'Miner Hashrate',
-                            data:  y_axis_data,
-                            borderColor: 'rgba(238, 238, 238, 0.93)',
-                            tension: 0.5,
-                            borderWidth: 2,
-                            pointStyle: false,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: Math.round(y_axis_data[0] / 1000) * 1500
-                            }
-                        }
-                    }
-                });
-
-            "#,
-        );
-
-        // Send a message to the JS code.
-
-        chart.send(x_axis().into()).unwrap();
-        chart.send(y_axis().into()).unwrap();
-
-        // Our line on the JS side will log the message and then return "hello world".
-        let res = chart.recv().await.unwrap();
-
-        res
-    });
-
-    rsx! {
-
-        div { class:"max-w-md text-center text-slate-200 rounded-lg bg-opacity-15 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
-            span { style:"color: text-slate-200",
-                canvas { id: "myChart", style:"flex: 1; max-height: 500px;" }
-            }
-
-            match future.value().as_ref() {
-                Some(chart) => rsx!{
-                   "{chart}"
-                },
-                _ => rsx!{}
             }
         }
     }
