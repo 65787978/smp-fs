@@ -58,7 +58,7 @@ pub fn MinerPage_slice(address: String) -> Element {
                 let chart_width: u32;
 
                 if WINDOW_DIMS().0 < 640.0 {
-                    chart_width = (WINDOW_DIMS().0 * 0.97) as u32;
+                    chart_width = (WINDOW_DIMS().0 * 0.96) as u32;
                 } else {
                     chart_width = (WINDOW_DIMS().0 * 0.79) as u32;
                 }
