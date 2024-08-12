@@ -157,6 +157,7 @@ fn NavBar() -> Element {
                                     onsubmit: move |input| {
                                         navigator.push(Route::MinerPage { address: address() });
                                         dropdown_menu_style.set("visibility: hidden; opacity: 0; transition: visibility 1s, opacity 0.2s linear");
+                                        dropdown_menu_toggle.set(false);
                                     },
                                     div {
                                         input {
