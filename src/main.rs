@@ -119,9 +119,9 @@ fn NavBar() -> Element {
     rsx! {
 
             nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-full shadow-lg space-x-4 py-2 mx-4", id:"navbar-default",
-                div {class:"max-w-screen-xl grid grid-cols-3 sm:grid-cols-3 justify-between items-center ps-2",
+                div {class:"max-w-screen-xl grid grid-cols-3 sm:grid-cols-1 justify-items-center items-center ps-2 mx-2",
 
-                    div {class:"sm:hidden col-start-1 col-span-1", h3 {class:"text-slate-200 text-bold", "Sigmanauts"}}
+                    div {class:"sm:hidden col-start-1 col-span-1", h1 {class:"text-slate-200 text-bold", "Sigmanauts"}}
 
                     button { onclick: move |_| {
                             if dropdown_menu_toggle() {
@@ -133,7 +133,7 @@ fn NavBar() -> Element {
                                 dropdown_menu_toggle.set(true);
                             }
                         },
-                        r#type:"button", class:" sm:hidden col-start-3 inline-flex items-center p-2 me-2 w-10 h-10 justify-center text-sm text-slate-200 rounded-lg hover:bg-slate-100/50 focus:outline-none focus:ring-2 focus:ring-slate-200",
+                        r#type:"button", class:" sm:hidden col-start-3 col-span-1 items-center p-2 me-2 w-10 h-10 text-sm text-slate-200 rounded-lg hover:bg-slate-100/50 focus:outline-none focus:ring-2 focus:ring-slate-200",
                             svg {class:"h-6 w-6", fill:"none", stroke:"currentColor", "viewBox":"0 0 24 24", xmlns:"http://www.w3.org/2000/svg",
                                 path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
                             }
@@ -144,7 +144,7 @@ fn NavBar() -> Element {
                             class: "sm:hidden absolute right-0 z-50 m-4 w-56 origin-top-right bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-lg shadow-lg space-x-4 py-2 justify-end items-center text-center content-center ",
                             style: "{dropdown_menu_style}",
                             id: "dropdown_menu",
-                            div {class:"grid grid-rows-5 justify-end",
+                            div {class:"grid grid-rows-5 justify-center items-center",
                                 div { Link {onclick: move |_| {dropdown_menu_style.set("visibility: hidden; opacity: 0; transition: visibility 1s, opacity 0.2s linear"); dropdown_menu_toggle.set(false);},to: Route::HomePage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Home"}}
 
                                 div { Link {onclick: move |_| {dropdown_menu_style.set("visibility: hidden; opacity: 0; transition: visibility 1s, opacity 0.2s linear"); dropdown_menu_toggle.set(false);},to: Route::BlockPage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Blocks"}}
@@ -179,7 +179,7 @@ fn NavBar() -> Element {
                         }
                     }
 
-                    div {class:"hidden sm:block sm:grid sm:grid-cols-5 col-start-1 col-end-3 justify-center items-center text-center content-center sm:h-fit sm:w-full sm:mt-2",
+                    div {class:"hidden sm:block sm:grid sm:grid-cols-5 items-center text-center content-center sm:h-fit sm:w-full",
                         div { Link {to: Route::HomePage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Home"}
                         }
 
@@ -216,6 +216,10 @@ fn NavBar() -> Element {
                 }
         }
         if dropdown_menu_toggle(){
+            br {}
+            br {}
+            br {}
+            br {}
             br {}
             br {}
             br {}

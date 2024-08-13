@@ -78,7 +78,7 @@ pub fn InfoCard(vars: InfoCard) -> Element {
     } = vars;
 
     rsx! {
-        div {class:"min-h-[8rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-15 bg-gray backdrop-filter backdrop-blur-md shadow-lg m-2",
+        div {class:"min-h-[4rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-15 bg-gray backdrop-filter backdrop-blur-md shadow-lg m-2",
             div {class:"flex justify-around m-6",
                 div {
                     div {class:"text-2xl", "{value}", a {class:"text-sm", "{unit}"}}
