@@ -118,10 +118,10 @@ fn NavBar() -> Element {
 
     rsx! {
 
-            nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-full shadow-lg space-x-4 py-2 mx-4", id:"navbar-default",
-                div {class:"max-w-screen-xl grid grid-cols-3 sm:grid-cols-1 justify-items-center items-center ps-2 mx-2",
+            nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-full shadow-lg py-2 mx-4", id:"navbar-default",
+                div {class:"grid grid-cols-3 sm:grid-cols-1 justify-items-center items-center ps-2 mx-2",
 
-                    div {class:"sm:hidden col-start-1 col-span-1", h1 {class:"text-slate-200 text-bold", "Sigmanauts"}}
+                    div {class:"sm:hidden col-start-1 col-span-1 justify-self-start", h1 {class:"text-slate-200 text-bold", "Sigmanauts"}}
 
                     button { onclick: move |_| {
                             if dropdown_menu_toggle() {
@@ -133,7 +133,7 @@ fn NavBar() -> Element {
                                 dropdown_menu_toggle.set(true);
                             }
                         },
-                        r#type:"button", class:" sm:hidden col-start-3 col-span-1 items-center p-2 me-2 w-10 h-10 text-sm text-slate-200 rounded-lg hover:bg-slate-100/50 focus:outline-none focus:ring-2 focus:ring-slate-200",
+                        r#type:"button", class:" sm:hidden col-start-3 col-span-1 justify-self-end items-center p-2 w-10 h-10 text-sm text-slate-200 rounded-lg hover:bg-slate-100/50 focus:outline-none focus:ring-2 focus:ring-slate-200",
                             svg {class:"h-6 w-6", fill:"none", stroke:"currentColor", "viewBox":"0 0 24 24", xmlns:"http://www.w3.org/2000/svg",
                                 path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
                             }
@@ -179,7 +179,7 @@ fn NavBar() -> Element {
                         }
                     }
 
-                    div {class:"hidden sm:block sm:grid sm:grid-cols-5 items-center text-center content-center sm:h-fit sm:w-full",
+                    div {class:"hidden sm:block sm:grid sm:grid-cols-5 justify-items-center items-center text-center content-center sm:h-fit sm:w-full",
                         div { Link {to: Route::HomePage {}, class:"font-bold text-slate-200 rounded-lg hover:text-slate-100 m-2 ", "Home"}
                         }
 
@@ -200,7 +200,7 @@ fn NavBar() -> Element {
                                 div {
                                     input {
                                         r#type: "text",
-                                        class: "bg-white/30 border py-2 px-2 border-slate-300 placeholder-slate-100 focus:outline-none focus:border-slate-500 focus:ring-slate-300 block w-full rounded-full sm:text-sm focus:ring-1",
+                                        class: "bg-white/30 border py-2 border-slate-300 placeholder-slate-100 focus:outline-none focus:border-slate-500 focus:ring-slate-300 block w-full rounded-full sm:text-sm focus:ring-1",
                                         placeholder: "Enter your mining address",
                                         minlength: "51",
                                         maxlength: "51",
