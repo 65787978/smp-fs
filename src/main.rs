@@ -82,11 +82,11 @@ fn app() -> Element {
             div {class:"container mx-auto min-h-screen min-w-screen",
             br {}
 
-                Router::<Route> {},
+            Router::<Route> {},
 
-                br {}
-                br {}
-                {Footer()}
+            br {}
+            br {}
+            {Footer()}
             }
         }
 
@@ -133,7 +133,7 @@ fn NavBar() -> Element {
                                 dropdown_menu_toggle.set(true);
                             }
                         },
-                        r#type:"button", class:" sm:hidden col-start-3 col-span-1 justify-self-end items-center p-2 w-10 h-10 text-sm text-slate-200 rounded-lg hover:bg-slate-100/50 focus:outline-none focus:ring-2 focus:ring-slate-200",
+                        r#type:"button", class:" sm:hidden col-start-3 col-span-1 justify-self-end items-center p-2 w-10 h-10 text-sm text-slate-200 rounded-full hover:bg-slate-100/50 focus:outline-none focus:ring-2 focus:ring-slate-200",
                             svg {class:"h-6 w-6", fill:"none", stroke:"currentColor", "viewBox":"0 0 24 24", xmlns:"http://www.w3.org/2000/svg",
                                 path {"stroke-linecap":"round", "stroke-linejoin":"round", "stroke-width":"2", d:"M4 6h16M4 12h16m-7 6h7"}
                             }
