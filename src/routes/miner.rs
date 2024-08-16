@@ -178,7 +178,7 @@ pub fn MinerPage_slice(address: String) -> Element {
             rsx! {
                 {InfoCard(utils::InfoCardProps { vars: InfoCard {
                     classes: "mx-2 mb-4 mt-4".to_string(),
-                    value: shorten_string(address().as_str(), 25),
+                    value: {if WINDOW_DIMS().0 < 640.0 {shorten_string(address().as_str(), 25)} else {address().clone()}},
                     unit: "".to_string(),
                     heading: "Miner Address".to_string()
 

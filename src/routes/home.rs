@@ -13,7 +13,7 @@ pub fn HomePage_slice() -> Element {
 
             div {class:"grid sm:grid-cols-1 justify-items-center",
 
-                div {class:"text-center text-slate-200 rounded-lg bg-opacity-15 bg-gray backdrop-filter backdrop-blur-md shadow-lg m-2",
+                div {class:"text-center text-slate-200 rounded-lg bg-opacity-10 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
 
                     div {class:"font-mono text-2xl text-slate-200 font-bold", "SIGMANAUTS"}
 
