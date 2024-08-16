@@ -22,6 +22,7 @@ gloo = { version = "0.11.0", features = ["futures"] }
 cached = { version = "0.53.1", features = ["async"] }
 charming = { version = "0.3.1", features = ["wasm"] }
 dioxus-use-window = "0.7.0"
+dioxus-logger = "0.5.1"
 
 [features]
 default = []

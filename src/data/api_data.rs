@@ -4,6 +4,7 @@ use crate::data::api_data;
 use crate::server_fn::response::BrowserMockRes;
 use cached::proc_macro::cached;
 use chrono::{DateTime, Timelike, Utc};
+use dioxus_logger::tracing;
 use reqwest::{self, Client};
 use serde::Deserialize;
 use server_fn::codec::FromRes;
@@ -57,7 +58,7 @@ pub async fn get_data(address: String) -> Result<Stats, ServerFnError> {
     }
 
     let end_timestamp = Utc::now().timestamp_millis();
-    println!(
+    tracing::info!(
         "[TOTAL_API_DATA] - Time taken: {} ms",
         end_timestamp - start_timestamp
     );
@@ -78,7 +79,7 @@ pub async fn get_block_data() -> Result<VecBlock, ServerFnError> {
     block_data.provide_data().await.unwrap();
 
     let end_timestamp = Utc::now().timestamp_millis();
-    println!(
+    tracing::info!(
         "[GET_BLOCK_DATA] - Time taken: {} ms",
         end_timestamp - start_timestamp
     );
@@ -108,12 +109,16 @@ impl NetworkStats {
 
     async fn fetch_data(&mut self) -> Result<(), reqwest::Error> {
         let start_timestamp = Utc::now().timestamp_millis();
+
         self.api_data = fetch_cached_api_data().await.unwrap();
+
         let end_timestamp = Utc::now().timestamp_millis();
-        println!(
+
+        tracing::info!(
             "[CACHED] - NetworkStats - Time taken: {} ms",
             end_timestamp - start_timestamp
         );
+
         Ok(())
     }
 
