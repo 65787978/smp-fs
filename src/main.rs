@@ -118,7 +118,7 @@ fn NavBar() -> Element {
 
     rsx! {
 
-            nav {class:"bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-full shadow-lg py-2 mx-4", id:"navbar-default",
+            nav {class:"bg-opacity-25 bg-black backdrop-filter backdrop-blur-md rounded-full shadow-lg py-2 mx-2", id:"navbar-default",
                 div {class:"grid grid-cols-3 sm:grid-cols-1 justify-items-center items-center ps-2 mx-2",
 
                     div {class:"sm:hidden col-start-1 col-span-1 justify-self-start", h1 {class:"text-slate-200 text-bold", "Sigmanauts"}}
@@ -141,7 +141,7 @@ fn NavBar() -> Element {
 
                     div {
                         div {
-                            class: "sm:hidden absolute right-0 z-50 m-4 w-56 origin-top-right bg-opacity-10 bg-white backdrop-filter backdrop-blur-md rounded-lg shadow-lg space-x-4 py-2 justify-end items-center text-center content-center ",
+                            class: "sm:hidden absolute right-0 z-50 m-4 w-56 origin-top-right bg-opacity-25 bg-black backdrop-filter backdrop-blur-md rounded-lg shadow-lg space-x-4 py-2 justify-end items-center text-center content-center ",
                             style: "{dropdown_menu_style}",
                             id: "dropdown_menu",
                             div {class:"grid grid-rows-5 justify-center items-center",
@@ -247,7 +247,7 @@ fn main() {
     #[cfg(feature = "server")]
     tracing_subscriber::fmt::init();
 
-    let debug_flag = false;
+    let debug_flag = true;
     let serve_on_addr: SocketAddr;
     if debug_flag {
         serve_on_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 8060);

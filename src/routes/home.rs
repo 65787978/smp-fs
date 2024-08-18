@@ -13,15 +13,15 @@ pub fn HomePage_slice() -> Element {
 
             div {class:"grid sm:grid-cols-1 justify-items-center",
 
-                div {class:"text-center text-slate-200 rounded-lg bg-opacity-10 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+                div {class:"text-center text-slate-200 rounded-lg bg-opacity-25 bg-black backdrop-filter backdrop-blur-md shadow-lg m-2",
 
-                    div {class:"font-mono text-2xl text-slate-200 font-bold", "SIGMANAUTS"}
+                    div {class:"font-mono text-2xl text-slate-200 font-bold mt-2", "SIGMANAUTS"}
 
                     div {class:"text-lg text-center text-slate-200 underline decoration-orange-500", "A community to empower users of the Ergo blockchain"}
 
                     {ParagraphCard(utils::ParagraphCardProps { vars: ParagraphCard {
 
-                        classes: "bg-inherit m-4 text-center text-slate-300 text-xl".to_string(),
+                        classes: "m-4 text-center text-slate-300 text-xl".to_string(),
                         text: "Welcome to the Sigmanauts pool, a DAO-driven, community-run mining pool dedicated to supporting the Ergo ecosystem. Joining us not only contributes to the Ergo community (fees go to Sigmanauts treasury) but also offers hourly bonus token payments".to_string(),
                     }})}
                 }

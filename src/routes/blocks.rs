@@ -143,7 +143,7 @@ pub fn BlockPage() -> Element {
                     }
                 }
 
-                div {class:"text-center rounded-lg bg-opacity-10 bg-gray/15 backdrop-filter backdrop-blur-md shadow-lg m-2 m-2",
+                div {class:"text-center rounded-lg bg-opacity-25 bg-black backdrop-filter backdrop-blur-md shadow-lg m-2 m-2",
                     div {class:"overflow-x-scroll shadow-md sm:rounded-lg",
                         table {class: "w-full text-sm text-center flex-nowrap",
                                 thead { class:"uppercase bg-slate-50/60",

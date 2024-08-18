@@ -49,7 +49,7 @@ pub fn InfoCardDouble(vars: InfoCardDouble) -> Element {
     } = vars;
 
     rsx! {
-        div {class:"min-h-[8rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-10 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+        div {class:"min-h-[6rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-25 bg-black backdrop-filter backdrop-blur-md shadow-lg m-2",
                 div {class:"flex justify-around m-6",
 
                     div {
@@ -78,7 +78,7 @@ pub fn InfoCard(vars: InfoCard) -> Element {
     } = vars;
 
     rsx! {
-        div {class:"min-h-[4rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-10 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+        div {class:"min-h-[4rem] text-center text-slate-200 rounded-lg {classes} bg-opacity-25 bg-black backdrop-filter backdrop-blur-md shadow-lg m-2",
             div {class:"flex justify-around m-6",
                 div {
                     div {class:"text-2xl", "{value}", a {class:"text-sm", "{unit}"}}
@@ -104,7 +104,7 @@ pub fn InfoCardPlaceholder(vars: InfoCardPlaceholder) -> Element {
     let InfoCardPlaceholder { heading } = vars;
 
     rsx! {
-        div {class:"min-h-[8rem] text-center text-slate-200 rounded-lg bg-opacity-10 bg-white backdrop-filter backdrop-blur-md shadow-lg m-2",
+        div {class:"min-h-[8rem] text-center text-slate-200 rounded-lg bg-opacity-25 bg-black backdrop-filter backdrop-blur-md shadow-lg m-2",
             div {class:"flex justify-around m-6",
                 div {class:"flex items-center justify-center",
                     div {class:"animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-slate-300",i {class:"h-5 w-5 text-slate-300 mt-0.5"}}
@@ -177,7 +177,7 @@ fn ExplanationBubble(text: String) -> Element {
 #[component]
 pub fn Footer() -> Element {
     rsx! {
-        div {class:"min-h-[2rem] inset-x-0 bottom-0 bg-opacity-10 bg-white backdrop-filter backdrop-blur-md fixed",
+        div {class:"min-h-[2rem] inset-x-0 bottom-0 bg-opacity-25 bg-black backdrop-filter backdrop-blur-md fixed",
             div {class:"flex flex-row justify-center",
                     a {class:"icon m-2", href:"https://github.com/th3-cr34t0r/smp-fs",
                     svg {

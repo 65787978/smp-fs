@@ -76,7 +76,7 @@ pub fn MinerPage_slice(address: String) -> Element {
         Some(Ok(stats)) => {
             rsx! {
                     {InfoCard(utils::InfoCardProps { vars: InfoCard {
-                        classes: "mx-2 mb-4 mt-4".to_string(),
+                        classes: "mx-2 mb-2 mt-4".to_string(),
                         value: {if WINDOW_DIMS().0 < 640.0 {shorten_string(address().as_str(), 25)} else {address().clone()}},
                         unit: "".to_string(),
                         heading: "Miner Address".to_string()
@@ -164,7 +164,7 @@ pub fn MinerPage_slice(address: String) -> Element {
 
                     div {class:"grid sm:grid-col-1 justify-center items-center
                     text-center content-center w-max",
-                        div {class:"text-slate-200 rounded-lg bg-opacity-15 bg-gray backdrop-filter backdrop-blur-md shadow-lg m-2",
+                        div {class:"text-slate-200 rounded-lg bg-opacity-25 bg-black backdrop-filter backdrop-blur-md shadow-lg m-2",
                             id: "chart",
                         }
                     }
