@@ -8,15 +8,7 @@ The webapp is live on the following url: http://sigmamining.xyz/
 
 # Gallery
 
-![Landing Page](gallery/landing_page.png)
-
-#
-
-![Blocks Page](gallery/block_page.png)
-
-#
-
-![Miner Page](gallery/miner_page.png)
+![Full App](gallery/showcase.gif)
 
 # Links
 
