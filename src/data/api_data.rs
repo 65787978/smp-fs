@@ -198,10 +198,12 @@ impl PoolStats {
         let start_timestamp = Utc::now().timestamp_millis();
         self.api_data = fetch_cached_api_data().await.unwrap();
         let end_timestamp = Utc::now().timestamp_millis();
-        println!(
+
+        tracing::info!(
             "[CACHED] - PoolStats - Time taken: {} ms",
             end_timestamp - start_timestamp
         );
+
         Ok(())
     }
 
@@ -299,10 +301,12 @@ impl MinerStats {
             .await
             .unwrap();
         let end_timestamp = Utc::now().timestamp_millis();
-        println!(
+
+        tracing::info!(
             "[CACHED] - MinerStats - Time taken: {} ms",
             end_timestamp - start_timestamp
         );
+
         Ok(())
     }
 
