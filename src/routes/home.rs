@@ -71,7 +71,7 @@ pub fn HomePage_slice() -> Element {
 
                     {InfoCard(utils::InfoCardProps { vars: InfoCard {
                         classes: "".to_string(),
-                        value: "pool.ergo-sig-mining.net:3053".to_string(),
+                        value: "65.108.57.232:3052".to_string(),
                         unit: "".to_string(),
                         heading: "URL under 10 Gh/s".to_string()
 
@@ -80,7 +80,7 @@ pub fn HomePage_slice() -> Element {
 
                     {InfoCard(utils::InfoCardProps { vars: InfoCard {
                         classes: "".to_string(),
-                        value: "pool.ergo-sig-mining.net:3055".to_string(),
+                        value: "65.108.57.232:3053".to_string(),
                         unit: "".to_string(),
                         heading: "URL over 10 Gh/s".to_string()
 
@@ -134,7 +134,7 @@ pub fn HomePage_slice() -> Element {
 
                         {InfoCard(utils::InfoCardProps { vars: InfoCard {
                             classes: "".to_string(),
-                            value: "pool.ergo-sig-mining.net:3053".to_string(),
+                            value: "65.108.57.232:3052".to_string(),
                             unit: "".to_string(),
                             heading: "URL under 10 Gh/s".to_string()
 
@@ -143,7 +143,7 @@ pub fn HomePage_slice() -> Element {
 
                         {InfoCard(utils::InfoCardProps { vars: InfoCard {
                             classes: "".to_string(),
-                            value: "pool.ergo-sig-mining.net:3055".to_string(),
+                            value: "65.108.57.232:3053".to_string(),
                             unit: "".to_string(),
                             heading: "URL over 10 Gh/s".to_string()
 
