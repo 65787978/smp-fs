@@ -14,7 +14,7 @@ use std::fmt;
 
 use super::structs::*;
 
-const POOL_API_URL: &str = "http://15.204.211.130:4000/api/pools/ErgoSigmanauts";
+const POOL_API_URL: &str = "http://65.108.57.232:4000/api/pools/ErgoSigmanauts";
 const NETWORK_API_URL: &str = "https://api.ergoplatform.com/info";
 const PRICE_API_URL: &str = "https://api.spectrum.fi/v1/price-tracking/cmc/markets";
 
