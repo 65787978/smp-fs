@@ -28,3 +28,15 @@ dioxus-logger = "0.5.1"
 default = []
 server = ["dioxus/axum"]
 web = ["dioxus/web"]
+
+[profile]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
